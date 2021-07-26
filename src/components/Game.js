@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { loadDetail } from "../actions";
+import { useDispatch, useSelector } from "react-redux";
+import {loadDetail, loadGames} from "../actions";
 import { Link, useHistory } from "react-router-dom";
 import { smallImage } from "../utils/mediaResize";
+import getPlatformLogo from "../utils/getPlatformLogo";
 
-const Game = ({ name, released, image, id }) => {
+const Game = ({ name, released, image, id, platforms }) => {
     // Fix scrolling when hitting back in browser
     const history = useHistory()
     if (history.location.pathname === '/') {
@@ -22,10 +23,18 @@ const Game = ({ name, released, image, id }) => {
         dispatch(loadDetail(id))
     }
 
+    const { game } = useSelector((store => store.detail))
+
     return (
         <StyledGame onClick={loadDetailHandler}>
             <Link to={`/game/${id}`}>
+
                 <h3>{name}</h3>
+                <Platforms>
+                    {platforms.map(data => (
+                        <Icon key={data.platform.id}>{getPlatformLogo(data.platform.name)}</Icon>
+                    ))}
+                </Platforms>
                 <p>{released}</p>
                 <img
                     src={smallImage(image, 640)}
@@ -49,6 +58,17 @@ const StyledGame = styled.div`
     height: 40vh;
     object-fit: cover;
   }
+`
+
+const Platforms = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+`
+
+const Icon = styled.div`
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
 `
 
 export default Game

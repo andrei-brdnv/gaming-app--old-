@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import GameDetail from "../components/GameDetail";
 import SimpleLoader from "../components/Loader";
 import { AppLangContext, Text } from "../utils/AppLangProvider";
+import getPlatformLogo from "../utils/getPlatformLogo";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -21,6 +22,8 @@ const Home = () => {
     const pathId = location.pathname.split('/')[2]
 
     const { dictionary } = useContext(AppLangContext)
+
+
 
     return (
         <GameList>
@@ -38,6 +41,7 @@ const Home = () => {
                                 name={game.name}
                                 released={game.released}
                                 image={game.background_image}
+                                platforms={game.platforms}
                             />
                         ))}
                     </Games>
@@ -47,6 +51,7 @@ const Home = () => {
             <h2><Text tid='upcoming games' /></h2>
             {loading ? <SimpleLoader/> : (
                 <Games>
+                    {console.log(upcoming.map(game => console.log(game)))}
                     {upcoming.map(game => (
                         <Game
                             key={game.id}
@@ -54,6 +59,7 @@ const Home = () => {
                             name={game.name}
                             released={game.released}
                             image={game.background_image}
+                            platforms={game.platforms}
                         />
                     ))}
                 </Games>
@@ -69,6 +75,7 @@ const Home = () => {
                             name={game.name}
                             released={game.released}
                             image={game.background_image}
+                            platforms={game.platforms}
                         />
                     ))}
                 </Games>
@@ -84,6 +91,7 @@ const Home = () => {
                             name={game.name}
                             released={game.released}
                             image={game.background_image}
+                            platforms={game.platforms}
                         />
                     ))}
                 </Games>
@@ -140,7 +148,7 @@ const Searched = styled.div`
 const Games = styled.div`
   min-height: 40vh;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   grid-column-gap: 2rem;
   grid-row-gap: 4rem;
   margin-bottom: 3rem;

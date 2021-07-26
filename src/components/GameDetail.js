@@ -33,6 +33,7 @@ const GameDetail = () => {
                             <Info>
                                 <h3>Platforms</h3>
                                 <Platforms>
+                                    {console.log(game.platforms.map(data => data.platform.name))}
                                     {game.platforms.map(data => (
                                         <Icon key={data.platform.id}>{getPlatformLogo(data.platform.name)}</Icon>
                                     ))}
