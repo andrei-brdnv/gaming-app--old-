@@ -42,6 +42,9 @@ const Home = () => {
                                 released={game.released}
                                 image={game.background_image}
                                 platforms={game.platforms}
+                                genres={game.genres}
+                                rating={game.rating}
+                                metacritic={game.metacritic}
                             />
                         ))}
                     </Games>
@@ -51,7 +54,7 @@ const Home = () => {
             <h2><Text tid='upcoming games' /></h2>
             {loading ? <SimpleLoader/> : (
                 <Games>
-                    {console.log(upcoming.map(game => console.log(game)))}
+
                     {upcoming.map(game => (
                         <Game
                             key={game.id}
@@ -60,6 +63,9 @@ const Home = () => {
                             released={game.released}
                             image={game.background_image}
                             platforms={game.platforms}
+                            genres={game.genres}
+                            rating={game.rating}
+                            metacritic={game.metacritic}
                         />
                     ))}
                 </Games>
@@ -68,6 +74,7 @@ const Home = () => {
             <h2>Popular games</h2>
             {loading ? <SimpleLoader/> : (
                 <Games>
+                    {console.log(popular.map(game => console.log(game)))}
                     {popular.map(game => (
                         <Game
                             key={game.id}
@@ -76,6 +83,9 @@ const Home = () => {
                             released={game.released}
                             image={game.background_image}
                             platforms={game.platforms}
+                            genres={game.genres}
+                            rating={game.rating}
+                            metacritic={game.metacritic}
                         />
                     ))}
                 </Games>
@@ -92,6 +102,9 @@ const Home = () => {
                             released={game.released}
                             image={game.background_image}
                             platforms={game.platforms}
+                            genres={game.genres}
+                            rating={game.rating}
+                            metacritic={game.metacritic}
                         />
                     ))}
                 </Games>

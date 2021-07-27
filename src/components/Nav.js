@@ -69,7 +69,7 @@ const StyledNav = styled.div(props => ({
   margin: '0 auto',
   background: '#ffa726',
   boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.25);',
-  zIndex: '10',
+  zIndex: '15',
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',

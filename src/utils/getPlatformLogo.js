@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGamepad, faDesktop } from "@fortawesome/free-solid-svg-icons";
-import { faPlaystation, faXbox, faApple, faSteam } from "@fortawesome/free-brands-svg-icons";
+import { faPlaystation, faXbox, faApple, faWindows } from "@fortawesome/free-brands-svg-icons";
 
 const getPlatformLogo = (platform) => {
     switch (platform) {
@@ -15,7 +15,7 @@ const getPlatformLogo = (platform) => {
         case "Xbox One":
             return <div><FontAwesomeIcon icon={faXbox} title={platform} /></div>;
         case "PC":
-            return <div><FontAwesomeIcon icon={faSteam} title={platform} /></div>;
+            return <div><FontAwesomeIcon icon={faWindows} title={platform} /></div>;
         case "Nintendo Switch":
             return <div><FontAwesomeIcon icon={faGamepad} title={platform} /></div>;
         case "iOS":

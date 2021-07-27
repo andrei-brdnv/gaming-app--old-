@@ -43,9 +43,9 @@ const GlobalStyles = createGlobalStyle`
   }
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: #333;
-    padding: 1.5rem 0;
+    padding: 1rem;
   }
 
   p {
