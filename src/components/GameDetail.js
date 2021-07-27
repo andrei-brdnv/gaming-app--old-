@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import getPlatformLogo from "../utils/getPlatformLogo";
 import getStarsRating from "../utils/getStarsRating";
 import { smallImage } from "../utils/mediaResize";
 import { useHistory } from "react-router-dom";
 import { loadGames } from "../actions";
+import { SRLWrapper } from "simple-react-lightbox";
 
 const GameDetail = () => {
-    const { game, screenshot, isLoading } = useSelector((store => store.detail))
-
+    const { game, screenshot, isLoading, movie } = useSelector((store => store.detail))
+    console.log(movie)
     const history = useHistory()
 
     const exitDetailHandler = (e) => {
@@ -19,23 +19,41 @@ const GameDetail = () => {
         }
     }
 
+    const options = {
+        settings: {
+            lightboxTransitionSpeed: .1,
+            slideTransitionSpeed: .1,
+        },
+
+        buttons: {
+            iconPadding: '1rem',
+            size: '4rem',
+            showThumbnailsButton: false,
+            showAutoplayButton: false,
+            showDownloadButton: false,
+        },
+
+        caption: {
+            showCaption: false,
+        },
+    }
+
     return (
         <>
             {!isLoading && (
                 <CardShadow className='shadow' onClick={exitDetailHandler}>
                     <Detail>
                         <Stats>
-                            <div className='rating'>
+                            <Rating>
                                 <h3>{game.name}</h3>
                                 <p>Rating: {game.rating}</p>
                                 {getStarsRating(game.rating)}
-                            </div>
+                            </Rating>
                             <Info>
-                                <h3>Platforms</h3>
+                                <h3>Platforms:</h3>
                                 <Platforms>
-                                    {console.log(game.platforms.map(data => data.platform.name))}
                                     {game.platforms.map(data => (
-                                        <Icon key={data.platform.id}>{getPlatformLogo(data.platform.name)}</Icon>
+                                        <span key={data.platform.id}>{data.platform.name}</span>
                                     ))}
                                 </Platforms>
                             </Info>
@@ -46,7 +64,7 @@ const GameDetail = () => {
                         <Description>
                             <p>{game.description_raw}</p>
                         </Description>
-                        {/*<SRLWrapper options={options}>
+                        <SRLWrapper options={options}>
                             <Gallery>
                                 {screenshot.results.map(screen => (
                                     <a href={screen.image}>
@@ -59,7 +77,7 @@ const GameDetail = () => {
                                     </a>
                                 ))}
                             </Gallery>
-                        </SRLWrapper>*/}
+                        </SRLWrapper>
                     </Detail>
                 </CardShadow>
             )}
@@ -106,27 +124,29 @@ const Detail = styled.div`
 
 const Stats = styled.div`
   display: flex;
-  align-items: center;
+  //align-items: center;
   justify-content: space-between;
 `
 
+const Rating = styled.div`
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+`
+
 const Info = styled.div`
-  text-align: center;
+  text-align: right;
 
   h3 {
-    margin-left: 1rem;
+    margin-bottom: 0.5rem;
   }
 `
 
 const Platforms = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-`
-
-const Icon = styled.div`
-  font-size: 2rem;
-  margin-left: 1rem;
+  span {
+    display: block;
+    margin-bottom: 0.25rem;
+  }  
 `
 
 const Media = styled.div`
@@ -152,7 +172,7 @@ const Gallery = styled.div`
 `
 
 const Description = styled.div`
-  margin: 5rem 0;
+  margin: 2.5rem 0;
 `
 
 export default GameDetail

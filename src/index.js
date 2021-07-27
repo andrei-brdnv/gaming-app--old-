@@ -7,6 +7,7 @@ import store from "./store";
 import { BrowserRouter } from "react-router-dom";
 import AppThemeProvider from "./utils/AppThemeProvider";
 import { AppLangProvider } from "./utils/AppLangProvider";
+import SimpleReactLightbox from "simple-react-lightbox";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -14,7 +15,9 @@ ReactDOM.render(
             <BrowserRouter>
                 <AppThemeProvider>
                     <AppLangProvider>
-                        <App />
+                        <SimpleReactLightbox>
+                            <App />
+                        </SimpleReactLightbox>
                     </AppLangProvider>
                 </AppThemeProvider>
             </BrowserRouter>

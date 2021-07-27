@@ -5,6 +5,7 @@ import {loadDetail, loadGames} from "../actions";
 import { Link, useHistory } from "react-router-dom";
 import { smallImage } from "../utils/mediaResize";
 import getPlatformLogo from "../utils/getPlatformLogo";
+import metacriticBorder from "../utils/metacriticBorder";
 
 const Game = ({ name, released, image, id, platforms, genres, rating, metacritic }) => {
     // Fix scrolling when hitting back in browser
@@ -25,18 +26,6 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
 
     const { game } = useSelector((store => store.detail))
 
-    const metacr = (metacritic) => {
-        if (metacritic === null) {
-            return "not-active"
-        } else if (metacritic > 75) {
-            return "green"
-        } else if (50 < metacritic <= 75) {
-            return "yellow"
-        } else {
-            return "red"
-        }
-    }
-
     return (
         <StyledGame onClick={loadDetailHandler}>
             <Link to={`/game/${id}`}>
@@ -50,7 +39,7 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
                             <Icon key={data.platform.id}>{getPlatformLogo(data.platform.name)}</Icon>
                         ))}
                     </Platforms>
-                    <div className={`metacritic ${metacr(metacritic)}`} title={"Metacritic"}>
+                    <div className={`metacritic ${metacriticBorder(metacritic)}`} title={"Metacritic"}>
                         {metacritic}
                     </div>
                 </div>
@@ -130,6 +119,10 @@ const StyledGame = styled.div`
   
   .metacritic.not-active {
     border: none;
+  }
+  
+  h3 {
+    padding: 1rem;
   }
 
   .more-info {

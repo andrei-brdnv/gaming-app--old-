@@ -45,13 +45,12 @@ const GlobalStyles = createGlobalStyle`
   h3 {
     font-size: 1.25rem;
     color: #333;
-    padding: 1rem;
   }
 
   p {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     line-height: 150%;
-    color: #696969;
+    color: #333;
   }
 
   a {
