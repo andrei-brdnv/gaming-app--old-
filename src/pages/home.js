@@ -7,7 +7,11 @@ import { useLocation } from "react-router-dom";
 import GameDetail from "../components/GameDetail";
 import SimpleLoader from "../components/Loader";
 import { AppLangContext, Text } from "../utils/AppLangProvider";
+import { clearSearched } from "../actions";
 import getPlatformLogo from "../utils/getPlatformLogo";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
+import {CLEAR_SEARCHED} from "../utils/constants";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -23,15 +27,27 @@ const Home = () => {
 
     const { dictionary } = useContext(AppLangContext)
 
-
+    const clearSearched = () => {
+        dispatch({type: CLEAR_SEARCHED})
+    }
 
     return (
         <GameList>
             {pathId && <GameDetail/>}
 
             {searched.length ? (
-                <>
-                    <h2>Searched games</h2>
+                <Section id="searched">
+                    <Searched>
+                        <h2>Searched games
+                            <span onClick={clearSearched}>
+                                <FontAwesomeIcon
+                                    icon={faTimesCircle}
+                                    title={'Delete'}
+                                />
+                            </span>
+                        </h2>
+                    </Searched>
+
                     <Games>
 
                         {searched.map(game => (
@@ -48,67 +64,75 @@ const Home = () => {
                             />
                         ))}
                     </Games>
-                </>
+                </Section>
             ) : null}
 
-            <h2><Text tid='upcoming games' /></h2>
-            {loading ? <SimpleLoader/> : (
-                <Games>
+            <Section id="upcoming">
+                <h2><Text tid='upcoming games' /></h2>
+                {loading ? <SimpleLoader/> : (
+                    <Games>
 
-                    {upcoming.map(game => (
-                        <Game
-                            key={game.id}
-                            id={game.id}
-                            name={game.name}
-                            released={game.released}
-                            image={game.background_image}
-                            platforms={game.platforms}
-                            genres={game.genres}
-                            rating={game.rating}
-                            metacritic={game.metacritic}
-                        />
-                    ))}
-                </Games>
-            )}
+                        {upcoming.map(game => (
+                            <Game
+                                key={game.id}
+                                id={game.id}
+                                name={game.name}
+                                released={game.released}
+                                image={game.background_image}
+                                platforms={game.platforms}
+                                genres={game.genres}
+                                rating={game.rating}
+                                metacritic={game.metacritic}
+                            />
+                        ))}
+                    </Games>
+                )}
+            </Section>
 
-            <h2>Popular games</h2>
-            {loading ? <SimpleLoader/> : (
-                <Games>
-                    {console.log(popular.map(game => console.log(game)))}
-                    {popular.map(game => (
-                        <Game
-                            key={game.id}
-                            id={game.id}
-                            name={game.name}
-                            released={game.released}
-                            image={game.background_image}
-                            platforms={game.platforms}
-                            genres={game.genres}
-                            rating={game.rating}
-                            metacritic={game.metacritic}
-                        />
-                    ))}
-                </Games>
-            )}
 
-            <h2>New games</h2>
-            {loading ? <SimpleLoader/> : (
-                <Games>
-                    {newGames.map(game => (
-                        <Game
-                            key={game.id}
-                            id={game.id}
-                            name={game.name}
-                            released={game.released}
-                            image={game.background_image}
-                            platforms={game.platforms}
-                            genres={game.genres}
-                            rating={game.rating}
-                            metacritic={game.metacritic}
-                        />
-                    ))}
-                </Games>
-            )}
+            <Section id="popular">
+                <h2>Popular games</h2>
+                {loading ? <SimpleLoader/> : (
+                    <Games>
+                        {console.log(popular.map(game => console.log(game)))}
+                        {popular.map(game => (
+                            <Game
+                                key={game.id}
+                                id={game.id}
+                                name={game.name}
+                                released={game.released}
+                                image={game.background_image}
+                                platforms={game.platforms}
+                                genres={game.genres}
+                                rating={game.rating}
+                                metacritic={game.metacritic}
+                            />
+                        ))}
+                    </Games>
+                )}
+            </Section>
+
+            <Section id="new-games">
+                <h2>New games</h2>
+                {loading ? <SimpleLoader/> : (
+                    <Games>
+                        {newGames.map(game => (
+                            <Game
+                                key={game.id}
+                                id={game.id}
+                                name={game.name}
+                                released={game.released}
+                                image={game.background_image}
+                                platforms={game.platforms}
+                                genres={game.genres}
+                                rating={game.rating}
+                                metacritic={game.metacritic}
+                            />
+                        ))}
+                    </Games>
+                )}
+            </Section>
+
         </GameList>
     )
 }
@@ -143,19 +167,25 @@ const Searched = styled.div`
     bottom: 0;
     color: #9e9e9e;
     opacity: .5;
-    padding: 0 0 0 2rem;
+    padding: 0 0 0 1rem;
     cursor: pointer;
     vertical-align: middle;
   }
 
   span:hover {
-    color: #000;
+    //color: #000;
+    opacity: 1;
+    transition: opacity .15s linear;
   }
 
-  div:hover {
+  /*div:hover {
     opacity: 1;
     transition: opacity .4s linear;
-  }
+  }*/
+`
+
+const Section = styled.div`
+  margin-bottom: 5rem;
 `
 
 const Games = styled.div`
@@ -164,7 +194,6 @@ const Games = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   grid-column-gap: 2rem;
   grid-row-gap: 4rem;
-  margin-bottom: 3rem;
 `
 
 export default Home

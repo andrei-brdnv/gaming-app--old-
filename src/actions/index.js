@@ -8,7 +8,7 @@ import {
     searchGameURL,
     gameMovieURL
 } from "../api";
-import { FETCH_GAMES, FETCH_SEARCHED, GET_DETAIL, LOADING_DETAIL, SHOW_LOADER } from "../utils/constants";
+import { CLEAR_SEARCHED, FETCH_GAMES, FETCH_SEARCHED, GET_DETAIL, LOADING_DETAIL, SHOW_LOADER } from "../utils/constants";
 
 export const showLoader = () => (dispatch) => {
     dispatch({
