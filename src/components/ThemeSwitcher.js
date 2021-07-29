@@ -67,9 +67,13 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   //width: 20rem;
+  background-color: peachpuff;
+  padding: 0.5rem;
   
   p {
     font-size: 1rem;
+    line-height: 100%;
+    color: black;
   }
 `
 

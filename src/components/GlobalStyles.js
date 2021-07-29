@@ -27,10 +27,12 @@ const GlobalStyles = createGlobalStyle`
     &::-webkit-scrollbar-thumb {
       background-color: darkgrey;
     }
+    
+    scroll-behavior: smooth;
   }
 
   body {
-    font-family: "Lato", sans-serif;
+    font-family: "Montserrat", sans-serif;
     overflow-y: scroll;
     background: ${props => props.theme.colors.background};
   }
@@ -63,8 +65,8 @@ const GlobalStyles = createGlobalStyle`
   }
 
   input {
-    font-family: "Lato", sans-serif;
-    font-weight: bold;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
   }
 `
 

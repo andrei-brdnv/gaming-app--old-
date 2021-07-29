@@ -1,10 +1,18 @@
-import { FETCH_GAMES, FETCH_SEARCHED, SHOW_LOADER, CLEAR_SEARCHED } from "../utils/constants";
+import {
+    FETCH_GAMES,
+    FETCH_SEARCHED,
+    SHOW_LOADER,
+    CLEAR_SEARCHED,
+    FETCH_GAMESERIES,
+    CLEAR_GAMESERIES
+} from "../utils/constants";
 
 const initState = {
     upcoming: [],
     newGames: [],
     popular: [],
     searched: [],
+    gameSeries: [],
     loading: false,
 }
 
@@ -34,6 +42,16 @@ const gamesReducer = (state = initState, action) => {
             return {
                 ...state,
                 searched: []
+            }
+        case FETCH_GAMESERIES:
+            return {
+                ...state,
+                gameSeries: payload.gameSeries,
+            }
+        case CLEAR_GAMESERIES:
+            return {
+                ...state,
+                gameSeries: [],
             }
         default:
             return {...state}

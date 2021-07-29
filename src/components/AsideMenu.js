@@ -18,11 +18,39 @@ const AsideMenu = () => {
         dispatch({type: CLEAR_SEARCHED})
     }
 
-    /*const handleClick = (e) => {
+    const sections = document.querySelectorAll("section[id]")
+    console.log(sections)
+
+    const navHighlighter = (e) => {
+        // Get current scroll position
+        let scrollY = window.pageYOffset;
+
+        // Now we loop through sections to get height, top and ID values for each
+        sections.forEach(current => {
+
+            const sectionHeight = current.offsetHeight;
+            const sectionTop = current.offsetTop - 112;
+            const sectionId = current.getAttribute("id");
+
+            /*
+            - If our current scroll position enters the space where current section on screen is, add .active class to corresponding navigation link, else remove it
+            - To know which link needs an active class, we use sectionId variable we are getting while looping through sections as a selector
+            */
+            if (
+                scrollY >= sectionTop &&
+                scrollY <= sectionTop + sectionHeight
+            ){
+                document.querySelector(".links a[href*=" + sectionId + "]").classList.add("active");
+            } else {
+                document.querySelector(".links a[href*=" + sectionId + "]").classList.remove("active");
+            }
+        });
+    }
+
+    const handleClick = (e) => {
         e.preventDefault()
-        const target = e.target.getAttribute('href')
+        const target = e.target.getAttribute("href")
         const location = document.querySelector(target).offsetTop
-        console.log(location)
         window.scrollTo({
             left: 0,
             top: location - 112,
@@ -31,31 +59,44 @@ const AsideMenu = () => {
 
     }
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: -112
+        })
+    }
+
     const handleScroll = (e) => {
         const scrollDistance = window.pageYOffset
         //console.log(scrollDistance)
     }
 
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [handleScroll])*/
-
-    const handleSetActive = () => !searched.length
-
+        window.addEventListener('scroll', navHighlighter);
+        return () => window.removeEventListener('scroll', navHighlighter);
+    }, [navHighlighter, handleClick, searched])
 
     return (
         <Wrapper>
             <Aside>
                 <AsideNav>
-                    <h2>Home</h2>
-                    <Links>
-                        {/*<a href="#upcoming" onClick={handleClick}>upcoming</a>
-                        <a href={"#popular"} onClick={handleClick}>popular</a>
-                        <a href={"#new-games"} onClick={handleClick}>new games</a>*/}
+                    <h2 onClick={scrollToTop}>Home</h2>
+                    <Links className="links">
                         {searched.length ? (
                             <div className="searched">
-                                <Link to='searched' className="searched" smooth={true} isDynamic={true} duration={400} offset={-112}>
+
+                                    <span onClick={scrollToTop}>searched</span>
+                                    <span onClick={clearSearched}>
+                                        <FontAwesomeIcon icon={faTimes} title={'Delete'} />
+                                    </span>
+
+                            </div>
+                        ) : null}
+                        <a href="#upcoming" onClick={handleClick}>upcoming</a>
+                        <a href="#popular" onClick={handleClick}>popular</a>
+                        <a href="#new-games" onClick={handleClick}>new games</a>
+                        {/*{searched.length ? (
+                            <div className="searched">
+                                <Link to='searched' className="searched" smooth={true} duration={400} isDynamic={true} offset={-112}>
                                     <span>searched</span>
                                     <span onClick={clearSearched}>
                                         <FontAwesomeIcon icon={faTimes} title={'Delete'} />
@@ -67,7 +108,7 @@ const AsideMenu = () => {
                         ) : null}
                         <Link activeClass="active" to='upcoming' spy={true} smooth={true} duration={400} offset={-112}>upcoming</Link>
                         <Link activeClass="active" to='popular' spy={true} smooth={true} duration={400} offset={-112}>popular</Link>
-                        <Link activeClass="active" to='new-games' spy={true} smooth={true} duration={400} offset={-112}>new games</Link>
+                        <Link activeClass="active" to='new-games' spy={true} smooth={true} duration={400} offset={-112}>new games</Link>*/}
                     </Links>
                     <ThemeSwitcher />
                     <LangSwitcher />
@@ -93,6 +134,7 @@ const AsideNav = styled.nav`
   h2 {
     font-weight: bold;
     padding-bottom: 3rem;
+    cursor: pointer;
   }
 `
 
@@ -101,26 +143,29 @@ const Links = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  margin-bottom: 1rem;
   
   a {
-    display: block;
-    margin-bottom: 0.25rem;
-    padding-bottom: 0.25rem;
+    width: 100%;
+    padding: 0.5rem;
     cursor: pointer;
+    
+    color: black;
     
   }
   
   .searched {
     display: flex;
     align-items: center;
-    justify-content: center;
-    
-    
-    a {
-      color: white;
-      background-color: #0d59f2;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
+    justify-content: space-between;
+    color: white;
+    background-color: #0d59f2;
+    padding: 0.5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    span:nth-child(1) {
+      cursor: pointer;
     }
     
     span:nth-child(1):hover {
@@ -128,6 +173,7 @@ const Links = styled.div`
     }
     
     span:nth-child(2) {
+      cursor: pointer;
       margin-left: 1rem;
     }
     
@@ -136,10 +182,9 @@ const Links = styled.div`
     }
   }
   
-  
-  
   & > .active {
-    border-bottom: 1px solid black;
+    transition: all .05s ease;
+    background-color: #cfd8dc;
   }
 `
 

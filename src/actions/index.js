@@ -6,9 +6,18 @@ import {
     gameDetailURL,
     gameScreenshotURL,
     searchGameURL,
-    gameMovieURL
+    gameMovieURL,
+    gameSeriesURL
 } from "../api";
-import { CLEAR_SEARCHED, FETCH_GAMES, FETCH_SEARCHED, GET_DETAIL, LOADING_DETAIL, SHOW_LOADER } from "../utils/constants";
+import {
+    CLEAR_SEARCHED,
+    FETCH_GAMES,
+    FETCH_GAMESERIES,
+    FETCH_SEARCHED,
+    GET_DETAIL,
+    LOADING_DETAIL,
+    SHOW_LOADER
+} from "../utils/constants";
 
 export const showLoader = () => (dispatch) => {
     dispatch({
@@ -57,6 +66,17 @@ export const fetchSearched = (game_name) => async (dispatch) => {
         type: FETCH_SEARCHED,
         payload: {
             searched: searchedData.data.results,
+        }
+    })
+}
+
+export const fetchGameSeries = (id) => async (dispatch) => {
+    const gameSeriesData = await axios.get(gameSeriesURL(id))
+
+    dispatch({
+        type: FETCH_GAMESERIES,
+        payload: {
+            gameSeries: gameSeriesData.data.results,
         }
     })
 }

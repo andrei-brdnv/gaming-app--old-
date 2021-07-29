@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import {loadDetail, loadGames} from "../actions";
+import {fetchGameSeries, loadDetail, loadGames} from "../actions";
 import { Link, useHistory } from "react-router-dom";
 import { smallImage } from "../utils/mediaResize";
 import getPlatformLogo from "../utils/getPlatformLogo";
 import metacriticBorder from "../utils/metacriticBorder";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faChevronRight, faTimes} from "@fortawesome/free-solid-svg-icons";
 
 const Game = ({ name, released, image, id, platforms, genres, rating, metacritic }) => {
     // Fix scrolling when hitting back in browser
@@ -24,18 +27,23 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
         dispatch(loadDetail(id))
     }
 
+    const loadGameSeries = (e) => {
+        e.preventDefault()
+        dispatch(fetchGameSeries(id))
+    }
+
     const { game } = useSelector((store => store.detail))
 
     return (
-        <StyledGame onClick={loadDetailHandler}>
-            <Link to={`/game/${id}`}>
+        <StyledGame>
+
                 <img
                     src={smallImage(image, 640)}
                     alt={name}
                 />
                 <div className="info">
                     <Platforms>
-                        {platforms.map(data => (
+                        {platforms && platforms.map(data => (
                             <Icon key={data.platform.id}>{getPlatformLogo(data.platform.name)}</Icon>
                         ))}
                     </Platforms>
@@ -43,9 +51,10 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
                         {metacritic}
                     </div>
                 </div>
+            <Link to={`/game/${id}`}>
 
-                <h3>{name}</h3>
-
+                <h3 onClick={loadDetailHandler}>{name}</h3>
+            </Link>
 
                 <div className="more-info">
                     <div className="release">
@@ -55,8 +64,11 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
                     <div className="genre">
                         <span>Genres:</span>
                         <div>
-                            {genres.map(genre => (
-                                <span className="genre-list" key={genre.id}>{genre.name}</span>
+                            {console.log(genres)}
+                            {genres.map((genre, i) => (
+                                <span className="genre-list" key={genre.id}>
+                                    {genre.name}
+                                </span>
                             ))}
                         </div>
 
@@ -65,9 +77,17 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
                         <span>Rating:</span>
                         <span>{rating}</span>
                     </div>
+                    <div className="show-more">
+                        <button onClick={loadGameSeries}>
+                            Show more like this
+                            <span>
+                                <FontAwesomeIcon icon={faChevronRight} title={'Show more'} />
+                            </span>
+                        </button>
+                    </div>
                 </div>
 
-            </Link>
+
         </StyledGame>
     )
 }
@@ -79,7 +99,6 @@ const StyledGame = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);
   text-align: left;
   border-radius: 1rem;
-  cursor: pointer;
   //overflow: hidden;
   position: relative;
 
@@ -95,7 +114,7 @@ const StyledGame = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding: 1rem 1rem 0 1rem;
   }
   
   .metacritic {
@@ -124,6 +143,11 @@ const StyledGame = styled.div`
   h3 {
     padding: 1rem;
   }
+  
+  h3:hover {
+    opacity: 0.75;
+    transition: all 0.15s linear;
+  }
 
   .more-info {
     display: none;
@@ -145,7 +169,8 @@ const StyledGame = styled.div`
     z-index: 10;
     
     span {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
+      font-weight: 500;
       color: #333;
     }
     
@@ -163,8 +188,38 @@ const StyledGame = styled.div`
       margin-bottom: 1rem;
     }
     
+    .genre-list {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    
     .genre-list + .genre-list::before {
+      display: inline-block;
+      white-space: pre-wrap;
       content: ", ";
+    }
+    
+    .rating {
+      margin-bottom: 1rem;
+    }
+    
+    .show-more {
+      
+      button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0.5rem;
+        cursor: pointer;
+
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
+        
+        span {
+          font-size: 1.5rem;
+        }
+      }
     }
   }
   
@@ -193,8 +248,9 @@ const Platforms = styled.div`
 `
 
 const Icon = styled.div`
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-left: 0.5rem;
+  color: #3d3d3d;
   
   &:first-child {
     margin: 0;
