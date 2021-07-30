@@ -13,6 +13,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 import {CLEAR_GAMESERIES, CLEAR_SEARCHED} from "../utils/constants";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 const Home = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -38,70 +40,86 @@ const Home = () => {
     return (
         <GameList>
             {pathId && <GameDetail/>}
-
-            {gameSeries.length ? (
-                <Section>
-                    <Searched>
-                        <h2>Games like
-                            <span onClick={clearGameSeries}>
+            <AnimatePresence>
+                {gameSeries.length ? (
+                    <Section
+                        id="game-series"
+                        key="modal"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        <Searched>
+                            <h2>Games like
+                                <span onClick={clearGameSeries}>
                                 <FontAwesomeIcon
                                     icon={faTimesCircle}
                                     title={'Delete'}
                                 />
                             </span>
-                        </h2>
-                    </Searched>
+                            </h2>
+                        </Searched>
 
-                    <Games>
+                        <Games>
 
-                        {gameSeries.map(game => (
-                            <Game
-                                key={game.id}
-                                id={game.id}
-                                name={game.name}
-                                released={game.released}
-                                image={game.background_image}
-                                platforms={game.platforms}
-                                genres={game.genres}
-                                rating={game.rating}
-                                metacritic={game.metacritic}
-                            />
-                        ))}
-                    </Games>
-                </Section>
-            ) : null}
+                            {gameSeries.map(game => (
+                                <Game
+                                    key={game.id}
+                                    id={game.id}
+                                    name={game.name}
+                                    released={game.released}
+                                    image={game.background_image}
+                                    platforms={game.platforms}
+                                    genres={game.genres}
+                                    rating={game.rating}
+                                    metacritic={game.metacritic}
+                                />
+                            ))}
+                        </Games>
+                    </Section>
+                ) : null}
+            </AnimatePresence>
 
-            {searched.length ? (
-                <Section>
-                    <Searched>
-                        <h2>Searched games
-                            <span onClick={clearSearched}>
+            <AnimatePresence>
+                {searched.length ? (
+                    <Section
+                        id="searched"
+                        key="modal"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        <Searched>
+                            <h2>Searched games
+                                <span onClick={clearSearched}>
                                 <FontAwesomeIcon
                                     icon={faTimesCircle}
                                     title={'Delete'}
                                 />
                             </span>
-                        </h2>
-                    </Searched>
+                            </h2>
+                        </Searched>
 
-                    <Games>
+                        <Games>
 
-                        {searched.map(game => (
-                            <Game
-                                key={game.id}
-                                id={game.id}
-                                name={game.name}
-                                released={game.released}
-                                image={game.background_image}
-                                platforms={game.platforms}
-                                genres={game.genres}
-                                rating={game.rating}
-                                metacritic={game.metacritic}
-                            />
-                        ))}
-                    </Games>
-                </Section>
-            ) : null}
+                            {searched.map(game => (
+                                <Game
+                                    key={game.id}
+                                    id={game.id}
+                                    name={game.name}
+                                    released={game.released}
+                                    image={game.background_image}
+                                    platforms={game.platforms}
+                                    genres={game.genres}
+                                    rating={game.rating}
+                                    metacritic={game.metacritic}
+                                />
+                            ))}
+                        </Games>
+                    </Section>
+                ) : null}
+            </AnimatePresence>
+
 
             <Section id="upcoming">
                 <h2><Text tid='upcoming games' /></h2>
@@ -130,7 +148,6 @@ const Home = () => {
                 <h2>Popular games</h2>
                 {loading ? <SimpleLoader/> : (
                     <Games>
-                        {console.log(popular.map(game => console.log(game)))}
                         {popular.map(game => (
                             <Game
                                 key={game.id}
@@ -220,14 +237,14 @@ const Searched = styled.div`
   }*/
 `
 
-const Section = styled.section`
+const Section = styled(motion.section)`
   margin-bottom: 5rem;
 `
 
 const Games = styled.div`
   min-height: 40vh;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   grid-column-gap: 2rem;
   grid-row-gap: 4rem;
 `

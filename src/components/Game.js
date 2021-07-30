@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useLayoutEffect} from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import {fetchGameSeries, loadDetail, loadGames} from "../actions";
@@ -9,6 +9,7 @@ import metacriticBorder from "../utils/metacriticBorder";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faChevronRight, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {CLEAR_GAMESERIES, CLEAR_SEARCHED} from "../utils/constants";
 
 const Game = ({ name, released, image, id, platforms, genres, rating, metacritic }) => {
     // Fix scrolling when hitting back in browser
@@ -30,9 +31,23 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
     const loadGameSeries = (e) => {
         e.preventDefault()
         dispatch(fetchGameSeries(id))
+
+        dispatch({type: CLEAR_SEARCHED})
     }
 
-    const { game } = useSelector((store => store.detail))
+    const { gameSeries } = useSelector((store => store.games))
+
+    useLayoutEffect(() => {
+        if (gameSeries.length) {
+            const element = document.querySelector("#game-series").offsetTop
+            console.log(element)
+
+            window.scrollTo({
+                top: element - 112
+            })
+        }
+
+    }, [gameSeries])
 
     return (
         <StyledGame>
@@ -64,7 +79,6 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
                     <div className="genre">
                         <span>Genres:</span>
                         <div>
-                            {console.log(genres)}
                             {genres.map((genre, i) => (
                                 <span className="genre-list" key={genre.id}>
                                     {genre.name}
@@ -248,6 +262,7 @@ const Platforms = styled.div`
 `
 
 const Icon = styled.div`
+  display: block;
   font-size: 1rem;
   margin-left: 0.5rem;
   color: #3d3d3d;

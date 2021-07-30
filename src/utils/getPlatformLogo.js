@@ -4,6 +4,8 @@ import { faPlaystation, faXbox, faApple, faWindows, faAndroid } from "@fortaweso
 
 const getPlatformLogo = (platform) => {
     switch (platform) {
+        case "PlayStation":
+            return <div><FontAwesomeIcon icon={faPlaystation} title={platform} /></div>;
         case "PlayStation 2":
             return <div><FontAwesomeIcon icon={faPlaystation} title={platform} /></div>;
         case "PlayStation 3":
@@ -19,6 +21,8 @@ const getPlatformLogo = (platform) => {
         case "Xbox One":
             return <div><FontAwesomeIcon icon={faXbox} title={platform} /></div>;
         case "Xbox 360":
+            return <div><FontAwesomeIcon icon={faXbox} title={platform} /></div>;
+        case "Xbox":
             return <div><FontAwesomeIcon icon={faXbox} title={platform} /></div>;
         case "PC":
             return <div><FontAwesomeIcon icon={faWindows} title={platform} /></div>;

@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useLayoutEffect} from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { Link, animateScroll } from "react-scroll";
 import { debounce } from "../utils/debounce";
 import { fetchSearched } from "../actions";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+import {CLEAR_GAMESERIES, CLEAR_SEARCHED} from "../utils/constants";
 
 const Nav = () => {
     const dispatch = useDispatch()
@@ -22,7 +23,23 @@ const Nav = () => {
         e.preventDefault()
         dispatch(fetchSearched(input))
         setInput('')
+
+        dispatch({type: CLEAR_GAMESERIES})
     }
+
+    const { searched } = useSelector((store => store.games))
+
+    useLayoutEffect(() => {
+        if (searched.length > 0) {
+            const element = document.querySelector("#searched").offsetTop
+            console.log(element)
+
+            window.scrollTo({
+                top: element - 112
+            })
+        }
+
+    }, [searched])
 
     const handleScroll = debounce(() => {
         // find current scroll position

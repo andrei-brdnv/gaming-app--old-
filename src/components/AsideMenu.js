@@ -8,22 +8,26 @@ import LangSwitcher from "./LangSwitcher";
 import {loadGames} from "../actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { CLEAR_SEARCHED } from "../utils/constants";
+import { CLEAR_SEARCHED, CLEAR_GAMESERIES } from "../utils/constants";
+
+import { motion } from "framer-motion"
 
 const AsideMenu = () => {
-    const { searched } = useSelector((store => store.games))
+    const { searched, gameSeries } = useSelector((store => store.games))
     const dispatch = useDispatch()
 
     const clearSearched = () => {
         dispatch({type: CLEAR_SEARCHED})
     }
 
-    const sections = document.querySelectorAll("section[id]")
-    console.log(sections)
+    const clearGameSeries = () => {
+        dispatch({type: CLEAR_GAMESERIES})
+    }
 
     const navHighlighter = (e) => {
         // Get current scroll position
         let scrollY = window.pageYOffset;
+        const sections = document.querySelectorAll("section[id]")
 
         // Now we loop through sections to get height, top and ID values for each
         sections.forEach(current => {
@@ -65,15 +69,10 @@ const AsideMenu = () => {
         })
     }
 
-    const handleScroll = (e) => {
-        const scrollDistance = window.pageYOffset
-        //console.log(scrollDistance)
-    }
-
     useEffect(() => {
         window.addEventListener('scroll', navHighlighter);
         return () => window.removeEventListener('scroll', navHighlighter);
-    }, [navHighlighter, handleClick, searched])
+    }, [navHighlighter])
 
     return (
         <Wrapper>
@@ -81,19 +80,37 @@ const AsideMenu = () => {
                 <AsideNav>
                     <h2 onClick={scrollToTop}>Home</h2>
                     <Links className="links">
-                        {searched.length ? (
-                            <div className="searched">
-
-                                    <span onClick={scrollToTop}>searched</span>
-                                    <span onClick={clearSearched}>
+                        {gameSeries.length ? (
+                            <motion.div className="game-series" animate={{ scale: 1 }} initial={{ scale: 0.5 }} transition={{ type: 'spring' }}>
+                                <div>
+                                    <a href="#game-series" onClick={handleClick}>game series</a>
+                                    <span onClick={clearGameSeries}>
                                         <FontAwesomeIcon icon={faTimes} title={'Delete'} />
                                     </span>
 
-                            </div>
+                                </div>
+
+
+
+                            </motion.div>
                         ) : null}
-                        <a href="#upcoming" onClick={handleClick}>upcoming</a>
-                        <a href="#popular" onClick={handleClick}>popular</a>
-                        <a href="#new-games" onClick={handleClick}>new games</a>
+                        {searched.length ? (
+                            <motion.div className="searched" animate={{ scale: 1 }} initial={{ scale: 0.5 }} transition={{ type: 'spring' }}>
+                                <div>
+                                    <a href="#searched" onClick={handleClick}>searched</a>
+                                    <span onClick={clearSearched}>
+                                        <FontAwesomeIcon icon={faTimes} title={'Delete'} />
+                                    </span>
+                                </div>
+
+                            </motion.div>
+                        ) : null}
+                        <div className="menu">
+                            <a href="#upcoming" onClick={handleClick}>upcoming</a>
+                            <a href="#popular" onClick={handleClick}>popular</a>
+                            <a href="#new-games" onClick={handleClick}>new games</a>
+                        </div>
+
                         {/*{searched.length ? (
                             <div className="searched">
                                 <Link to='searched' className="searched" smooth={true} duration={400} isDynamic={true} offset={-112}>
@@ -144,6 +161,22 @@ const Links = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   margin-bottom: 1rem;
+  position: relative;
+  
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 35px;
+    width: 100%;
+    
+    & > .active {
+      transition: all .05s ease;
+      background-color: #cfd8dc;
+    }
+    
+  }
   
   a {
     width: 100%;
@@ -154,38 +187,75 @@ const Links = styled.div`
     
   }
   
+  .game-series {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: black;
+    width: 100%;
+    position: absolute;
+    
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: black;
+      width: 100%;
+      position: relative;
+
+      & > .active {
+        transition: all .05s ease;
+        background-color: #cfd8dc;
+      }
+
+      span {
+        cursor: pointer;
+        position: absolute;
+        right: 0.5rem;
+
+      }
+
+      span:hover {
+        transform: scale(1.25);
+      }
+    }
+  }
+
   .searched {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: white;
-    background-color: #0d59f2;
-    padding: 0.5rem;
+    color: black;
     width: 100%;
-    margin-bottom: 1rem;
+    position: absolute;
 
-    span:nth-child(1) {
-      cursor: pointer;
-    }
-    
-    span:nth-child(1):hover {
-      text-decoration: underline;
-    }
-    
-    span:nth-child(2) {
-      cursor: pointer;
-      margin-left: 1rem;
-    }
-    
-    span:nth-child(2):hover {
-      transform: scale(1.2);
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: black;
+      width: 100%;
+      position: relative;
+
+      & > .active {
+        transition: all .05s ease;
+        background-color: #cfd8dc;
+      }
+
+      span {
+        cursor: pointer;
+        position: absolute;
+        right: 0.5rem;
+
+      }
+
+      span:hover {
+        transform: scale(1.25);
+      }
     }
   }
   
-  & > .active {
-    transition: all .05s ease;
-    background-color: #cfd8dc;
-  }
+  
 `
 
 export default AsideMenu
