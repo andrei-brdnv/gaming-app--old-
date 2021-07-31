@@ -12,11 +12,11 @@ import {
 import {
     CLEAR_SEARCHED,
     FETCH_GAMES,
-    FETCH_GAMESERIES,
-    FETCH_SEARCHED,
+    FETCH_GAMESERIES, FETCH_NEWGAMES, FETCH_POPULAR,
+    FETCH_SEARCHED, FETCH_UPCOMING,
     GET_DETAIL,
     LOADING_DETAIL,
-    SHOW_LOADER
+    SHOW_LOADER, START, SUCCESS
 } from "../utils/constants";
 
 export const showLoader = () => (dispatch) => {
@@ -25,8 +25,59 @@ export const showLoader = () => (dispatch) => {
     })
 }
 
-export const loadGames = () => async (dispatch) => {
-    const upcomingData = await axios.get(upcomingGamesURL())
+export const fetchUpcoming = (upcomingCurrentPage) => async (dispatch) => {
+    dispatch({
+        type: FETCH_UPCOMING + START
+    })
+
+    await axios.get(upcomingGamesURL(upcomingCurrentPage))
+        .then(response => dispatch({
+                type: FETCH_UPCOMING + SUCCESS,
+                payload: {
+                    upcoming: response.data.results,
+                    totalPagesUpcoming: response.data.count
+                }
+            })
+        )
+}
+
+export const fetchPopular = (popularCurrentPage) => async (dispatch) => {
+    dispatch({
+        type: FETCH_POPULAR + START
+    })
+
+    await axios.get(popularGamesURL(popularCurrentPage))
+        .then(response => dispatch({
+                type: FETCH_POPULAR + SUCCESS,
+                payload: {
+                    popular: response.data.results,
+                    totalPagesPopular: response.data.count
+                }
+            })
+        )
+}
+
+export const fetchNewGames = (newGamesCurrentPage) => async (dispatch) => {
+    dispatch({
+        type: FETCH_NEWGAMES + START
+    })
+
+    await axios.get(newGamesURL(newGamesCurrentPage))
+        .then(response => dispatch({
+                type: FETCH_NEWGAMES + SUCCESS,
+                payload: {
+                    newGames: response.data.results,
+                    totalPagesNewGames: response.data.count
+                }
+            })
+        )
+}
+
+
+
+
+export const loadGames = (upcomingPage) => async (dispatch) => {
+    const upcomingData = await axios.get(upcomingGamesURL(upcomingPage))
     const newGamesData = await axios.get(newGamesURL())
     const popularData = await axios.get(popularGamesURL())
 
@@ -34,6 +85,7 @@ export const loadGames = () => async (dispatch) => {
         type: FETCH_GAMES,
         payload: {
             upcoming: upcomingData.data.results,
+            totalPagesUpcoming: upcomingData.data.count,
             newGames: newGamesData.data.results,
             popular: popularData.data.results
         }

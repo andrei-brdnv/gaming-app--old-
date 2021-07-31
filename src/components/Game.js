@@ -31,8 +31,9 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
     const loadGameSeries = (e) => {
         e.preventDefault()
         dispatch(fetchGameSeries(id))
-
+        console.log(id)
         dispatch({type: CLEAR_SEARCHED})
+
     }
 
     const { gameSeries } = useSelector((store => store.games))
@@ -93,7 +94,7 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
                     </div>
                     <div className="show-more">
                         <button onClick={loadGameSeries}>
-                            Show more like this
+                            Show more of this game series
                             <span>
                                 <FontAwesomeIcon icon={faChevronRight} title={'Show more'} />
                             </span>

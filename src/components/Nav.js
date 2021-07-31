@@ -37,6 +37,7 @@ const Nav = () => {
             window.scrollTo({
                 top: element - 112
             })
+
         }
 
     }, [searched])

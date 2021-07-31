@@ -1,6 +1,6 @@
-import React, { useEffect, useContext } from "react";
+import React, {useEffect, useContext, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadGames, showLoader } from "../actions";
+import {fetchNewGames, fetchPopular, fetchUpcoming, loadGames, showLoader} from "../actions";
 import styled from "styled-components";
 import Game from "../components/Game";
 import { useLocation } from "react-router-dom";
@@ -17,12 +17,17 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Home = () => {
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(showLoader())
-        dispatch(loadGames())
-    }, [dispatch])
 
-    const { upcoming, newGames, popular, searched, loading, gameSeries } = useSelector((store => store.games))
+    const [upcomingCurrentPage, setUpcomingCurrentPage] = useState(1)
+    const [popularCurrentPage, setPopularCurrentPage] = useState(1)
+    const [newGamesCurrentPage, setNewGamesCurrentPage] = useState(1)
+
+    /*useEffect(() => {
+        dispatch(showLoader())
+        dispatch(loadGames(upcomingPage))
+    }, [dispatch, upcomingPage])*/
+
+    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, searched, loading, gameSeries } = useSelector((store => store.games))
 
     const location = useLocation()
     const pathId = location.pathname.split('/')[2]
@@ -37,10 +42,25 @@ const Home = () => {
         dispatch({type: CLEAR_GAMESERIES})
     }
 
+
+    useEffect(() => {
+        dispatch(fetchUpcoming(upcomingCurrentPage))
+    }, [upcomingCurrentPage])
+
+    useEffect(() => {
+        dispatch(fetchPopular(popularCurrentPage))
+    }, [popularCurrentPage])
+
+    useEffect(() => {
+        dispatch(fetchNewGames(newGamesCurrentPage))
+    }, [newGamesCurrentPage])
+
+
+
     return (
         <GameList>
             {pathId && <GameDetail/>}
-            <AnimatePresence>
+            {/*<AnimatePresence>
                 {gameSeries.length ? (
                     <Section
                         id="game-series"
@@ -50,7 +70,7 @@ const Home = () => {
                         exit={{ opacity: 0 }}
                     >
                         <Searched>
-                            <h2>Games like
+                            <h2>Games series
                                 <span onClick={clearGameSeries}>
                                 <FontAwesomeIcon
                                     icon={faTimesCircle}
@@ -118,72 +138,81 @@ const Home = () => {
                         </Games>
                     </Section>
                 ) : null}
-            </AnimatePresence>
+            </AnimatePresence>*/}
 
 
             <Section id="upcoming">
-                <h2><Text tid='upcoming games' /></h2>
-                {loading ? <SimpleLoader/> : (
-                    <Games>
+                <h2><Text tid='upcoming games'/></h2>
 
-                        {upcoming.map(game => (
-                            <Game
-                                key={game.id}
-                                id={game.id}
-                                name={game.name}
-                                released={game.released}
-                                image={game.background_image}
-                                platforms={game.platforms}
-                                genres={game.genres}
-                                rating={game.rating}
-                                metacritic={game.metacritic}
-                            />
-                        ))}
-                    </Games>
-                )}
+                <Games>
+
+                    {upcoming.map(game => (
+                        <Game
+                            key={game.id}
+                            id={game.id}
+                            name={game.name}
+                            released={game.released}
+                            image={game.background_image}
+                            platforms={game.platforms}
+                            genres={game.genres}
+                            rating={game.rating}
+                            metacritic={game.metacritic}
+                        />
+                    ))}
+                </Games>
+                {upcoming.length < totalPagesUpcoming && totalPagesUpcoming !== upcomingCurrentPage &&
+                    <button className="btn-load-more" onClick={() => setUpcomingCurrentPage(upcomingCurrentPage + 1)}>
+                        {'Load More'}
+                    </button>
+                }
             </Section>
-
 
             <Section id="popular">
                 <h2>Popular games</h2>
-                {loading ? <SimpleLoader/> : (
-                    <Games>
-                        {popular.map(game => (
-                            <Game
-                                key={game.id}
-                                id={game.id}
-                                name={game.name}
-                                released={game.released}
-                                image={game.background_image}
-                                platforms={game.platforms}
-                                genres={game.genres}
-                                rating={game.rating}
-                                metacritic={game.metacritic}
-                            />
-                        ))}
-                    </Games>
-                )}
+                <Games>
+                    {popular.map(game => (
+                        <Game
+                            key={game.id}
+                            id={game.id}
+                            name={game.name}
+                            released={game.released}
+                            image={game.background_image}
+                            platforms={game.platforms}
+                            genres={game.genres}
+                            rating={game.rating}
+                            metacritic={game.metacritic}
+                        />
+                    ))}
+                </Games>
+                {popular.length < totalPagesPopular && totalPagesPopular !== popularCurrentPage &&
+                    <button className="btn-load-more" onClick={() => setPopularCurrentPage(popularCurrentPage + 1)}>
+                        {'Load More'}
+                    </button>
+                }
             </Section>
 
             <Section id="new-games">
                 <h2>New games</h2>
-                {loading ? <SimpleLoader/> : (
-                    <Games>
-                        {newGames.map(game => (
-                            <Game
-                                key={game.id}
-                                id={game.id}
-                                name={game.name}
-                                released={game.released}
-                                image={game.background_image}
-                                platforms={game.platforms}
-                                genres={game.genres}
-                                rating={game.rating}
-                                metacritic={game.metacritic}
-                            />
-                        ))}
-                    </Games>
-                )}
+                <Games>
+                    {newGames.map(game => (
+                        <Game
+                            key={game.id}
+                            id={game.id}
+                            name={game.name}
+                            released={game.released}
+                            image={game.background_image}
+                            platforms={game.platforms}
+                            genres={game.genres}
+                            rating={game.rating}
+                            metacritic={game.metacritic}
+                        />
+                    ))}
+                </Games>
+                {newGames.length < totalPagesNewGames && totalPagesNewGames !== newGamesCurrentPage &&
+                    <button className="btn-load-more" onClick={() => setNewGamesCurrentPage(newGamesCurrentPage + 1)}>
+                        {'Load More'}
+                    </button>
+                }
             </Section>
 
         </GameList>
@@ -239,6 +268,10 @@ const Searched = styled.div`
 
 const Section = styled(motion.section)`
   margin-bottom: 5rem;
+  
+  .btn-load-more {
+    margin-top: 10rem;
+  }
 `
 
 const Games = styled.div`
