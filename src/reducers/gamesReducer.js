@@ -16,7 +16,8 @@ const initState = {
     totalPagesNewGames: 0,
     searched: [],
     gameSeries: [],
-    loading: false,
+    fetching: false,
+    firstLoading: false
 }
 
 const gamesReducer = (state = initState, action) => {
@@ -26,7 +27,7 @@ const gamesReducer = (state = initState, action) => {
         case SHOW_LOADER:
             return {
                 ...state,
-                loading: true
+                firstLoading: true
             }
         case FETCH_GAMES:
             return {
@@ -63,40 +64,41 @@ const gamesReducer = (state = initState, action) => {
         case FETCH_UPCOMING + START:
             return {
                 ...state,
-                loading: true,
+                fetching: true,
             }
         case FETCH_UPCOMING + SUCCESS:
             return {
                 ...state,
                 upcoming: [...state.upcoming, ...payload.upcoming],
                 totalPagesUpcoming: payload.totalPagesUpcoming,
-                loading: false,
+                fetching: false,
+                firstLoading: false,
             }
 
         case FETCH_POPULAR + START:
             return {
                 ...state,
-                loading: true,
+                fetching: true,
             }
         case FETCH_POPULAR + SUCCESS:
             return {
                 ...state,
                 popular: [...state.popular, ...payload.popular],
                 totalPagesPopular: payload.totalPagesPopular,
-                loading: false,
+                fetching: false,
             }
 
         case FETCH_NEWGAMES + START:
             return {
                 ...state,
-                loading: true,
+                fetching: true,
             }
         case FETCH_NEWGAMES + SUCCESS:
             return {
                 ...state,
                 newGames: [...state.newGames, ...payload.newGames],
                 totalPagesNewGames: payload.totalPagesNewGames,
-                loading: false,
+                fetching: false,
             }
 
         default:

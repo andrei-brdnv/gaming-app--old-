@@ -14,6 +14,7 @@ import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 import {CLEAR_GAMESERIES, CLEAR_SEARCHED} from "../utils/constants";
 
 import { motion, AnimatePresence } from "framer-motion";
+import Skeleton from "../components/Skeleton";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const Home = () => {
         dispatch(loadGames(upcomingPage))
     }, [dispatch, upcomingPage])*/
 
-    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, searched, loading, gameSeries } = useSelector((store => store.games))
+    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, searched, firstLoading, gameSeries } = useSelector((store => store.games))
 
     const location = useLocation()
     const pathId = location.pathname.split('/')[2]
@@ -44,6 +45,10 @@ const Home = () => {
 
 
     useEffect(() => {
+        if (!upcoming.length) {
+            dispatch(showLoader())
+        }
+
         dispatch(fetchUpcoming(upcomingCurrentPage))
     }, [upcomingCurrentPage])
 
@@ -145,8 +150,9 @@ const Home = () => {
                 <h2><Text tid='upcoming games'/></h2>
 
                 <Games>
+                    {!upcoming.length && Array.from({length: 20}, (_, i) => i + 1).map((n) => <Skeleton key={n} />)}
 
-                    {upcoming.map(game => (
+                    {upcoming && upcoming.map(game => (
                         <Game
                             key={game.id}
                             id={game.id}
@@ -159,6 +165,8 @@ const Home = () => {
                             metacritic={game.metacritic}
                         />
                     ))}
+
+
                 </Games>
                 {upcoming.length < totalPagesUpcoming && totalPagesUpcoming !== upcomingCurrentPage &&
                     <button className="btn-load-more" onClick={() => setUpcomingCurrentPage(upcomingCurrentPage + 1)}>
