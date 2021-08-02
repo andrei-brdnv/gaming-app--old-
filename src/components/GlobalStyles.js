@@ -68,6 +68,12 @@ const GlobalStyles = createGlobalStyle`
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
   }
+  
+  button {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    color: #333;
+  }
 `
 
 export default GlobalStyles

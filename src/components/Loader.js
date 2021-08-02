@@ -11,9 +11,9 @@ const SimpleLoader = () => {
         <div style={style}>
             <Loader
                 type="Oval"
-                color="#9e9e9e"
-                height={100}
-                width={100}
+                color="#f8f8f8"
+                height={25}
+                width={25}
             />
         </div>
     )

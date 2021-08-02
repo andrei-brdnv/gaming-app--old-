@@ -28,7 +28,7 @@ const Home = () => {
         dispatch(loadGames(upcomingPage))
     }, [dispatch, upcomingPage])*/
 
-    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, searched, firstLoading, gameSeries } = useSelector((store => store.games))
+    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetching, searched, firstLoading, gameSeries } = useSelector((store => store.games))
 
     const location = useLocation()
     const pathId = location.pathname.split('/')[2]
@@ -65,7 +65,7 @@ const Home = () => {
     return (
         <GameList>
             {pathId && <GameDetail/>}
-            {/*<AnimatePresence>
+            <AnimatePresence>
                 {gameSeries.length ? (
                     <Section
                         id="game-series"
@@ -143,7 +143,7 @@ const Home = () => {
                         </Games>
                     </Section>
                 ) : null}
-            </AnimatePresence>*/}
+            </AnimatePresence>
 
 
             <Section id="upcoming">
@@ -170,7 +170,7 @@ const Home = () => {
                 </Games>
                 {upcoming.length < totalPagesUpcoming && totalPagesUpcoming !== upcomingCurrentPage &&
                     <button className="btn-load-more" onClick={() => setUpcomingCurrentPage(upcomingCurrentPage + 1)}>
-                        {'Load More'}
+                        {fetching ? <SimpleLoader /> : "Load More"}
                     </button>
                 }
             </Section>
@@ -276,9 +276,25 @@ const Searched = styled.div`
 
 const Section = styled(motion.section)`
   margin-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
   
   .btn-load-more {
-    margin-top: 10rem;
+    margin: 5rem auto 0 auto;
+    padding: 1rem 2rem;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: #cfd8dc;
+    cursor: pointer;
+    width: 10rem;
+    height: 4rem;
+    
+  }
+
+  .btn-load-more:hover {
+    opacity: 0.75;
+    transition: all .05s linear;
   }
 `
 

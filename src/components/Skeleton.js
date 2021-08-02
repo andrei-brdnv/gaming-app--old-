@@ -39,13 +39,14 @@ const StyledSkeleton = styled.div`
   
   .skeleton-icons {
     background: #B8B8B8;
-    width: 30%;
+    width: 25%;
     height: 1rem;
     margin: 1rem 1rem 0 1rem;
   }
   
   .skeleton-title {
     margin: 1rem;
+    width: 50%;
     height: 1.5rem;
     background: #B8B8B8;
   }
