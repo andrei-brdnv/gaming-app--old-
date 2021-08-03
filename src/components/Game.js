@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect} from "react";
+import React, {useEffect, useLayoutEffect, useRef} from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import {fetchGameSeries, loadDetail, loadGames} from "../actions";
@@ -10,6 +10,8 @@ import metacriticBorder from "../utils/metacriticBorder";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faChevronRight, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {CLEAR_GAMESERIES, CLEAR_SEARCHED} from "../utils/constants";
+
+import usePrevious from "../utils/usePrevious";
 
 const Game = ({ name, released, image, id, platforms, genres, rating, metacritic }) => {
     // Fix scrolling when hitting back in browser
@@ -28,6 +30,11 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
         dispatch(loadDetail(id))
     }
 
+    /*useEffect(() => {
+        dispatch(fetchGameSeries())
+        dispatch({type: CLEAR_SEARCHED})
+    }, [dispatch])*/
+
     const loadGameSeries = (e) => {
         e.preventDefault()
         dispatch(fetchGameSeries(id))
@@ -38,10 +45,14 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
 
     const { gameSeries } = useSelector((store => store.games))
 
+    const prevState = usePrevious(gameSeries)
+    console.log(prevState)
+
     useLayoutEffect(() => {
-        if (gameSeries.length) {
+
+        if (gameSeries.length > 0) {
             const element = document.querySelector("#game-series").offsetTop
-            console.log(element)
+
 
             window.scrollTo({
                 top: element - 112
@@ -82,8 +93,8 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
                         <div>
                             {genres.map((genre, i) => (
                                 <span className="genre-list" key={genre.id}>
-                                    {genre.name}
-                                </span>
+                                {genre.name}
+                            </span>
                             ))}
                         </div>
 
@@ -189,18 +200,28 @@ const StyledGame = styled.div`
       color: #333;
     }
     
-    div {
+    /*div {
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
+    }*/
     
     .release {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
       margin-bottom: 1rem;
     }
     
     .genre {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
       margin-bottom: 1rem;
+      
+      div {
+        display: inline;
+      }
     }
     
     .genre-list {
@@ -215,6 +236,9 @@ const StyledGame = styled.div`
     }
     
     .rating {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
       margin-bottom: 1rem;
     }
     
