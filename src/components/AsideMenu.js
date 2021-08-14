@@ -76,6 +76,7 @@ const AsideMenu = () => {
 
     return (
         <Wrapper>
+            {console.log('render AsideMenu')}
             <Aside>
                 <AsideNav>
                     <h2 onClick={scrollToTop}>Home</h2>

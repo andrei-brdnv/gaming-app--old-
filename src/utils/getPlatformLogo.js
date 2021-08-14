@@ -3,6 +3,7 @@ import { faGamepad, faDesktop } from "@fortawesome/free-solid-svg-icons";
 import { faPlaystation, faXbox, faApple, faWindows, faAndroid } from "@fortawesome/free-brands-svg-icons";
 
 const getPlatformLogo = (platform) => {
+    console.log('getPlatformLogo')
     switch (platform) {
         case "PlayStation":
             return <div><FontAwesomeIcon icon={faPlaystation} title={platform} /></div>;

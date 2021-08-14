@@ -60,6 +60,7 @@ const Nav = () => {
 
     return (
         <div>
+            {console.log('render Nav')}
             <StyledNav visible={visible}>
                 <Logo>
                     <h3 onClick={() => animateScroll.scrollToTop()}>Gaming app</h3>

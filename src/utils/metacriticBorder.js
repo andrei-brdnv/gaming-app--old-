@@ -1,4 +1,5 @@
 const metacriticBorder = (metacritic) => {
+    console.log('metacritic border')
     if (metacritic === null) {
         return "not-active"
     } else if (metacritic > 75) {

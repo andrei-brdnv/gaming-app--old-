@@ -177,6 +177,7 @@ const Home = () => {
 
             <Section id="popular">
                 <h2>Popular games</h2>
+
                 <Games>
                     {popular.map(game => (
                         <Game
@@ -201,6 +202,7 @@ const Home = () => {
 
             <Section id="new-games">
                 <h2>New games</h2>
+
                 <Games>
                     {newGames.map(game => (
                         <Game

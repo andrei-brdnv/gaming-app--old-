@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef} from "react";
+import React, {useEffect, useLayoutEffect, useRef, useMemo} from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import {fetchGameSeries, loadDetail, loadGames} from "../actions";
@@ -30,6 +30,16 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
         dispatch(loadDetail(id))
     }
 
+    const showPlatformLogo = useMemo(() => {
+        return platforms.map(data => (
+            <Icon key={data.platform.id}>{getPlatformLogo(data.platform.name)}</Icon>
+        ))
+    }, [platforms])
+
+    const showMetacriticBorder = useMemo(() => {
+        return metacriticBorder(metacritic)
+    }, [metacritic])
+
     /*useEffect(() => {
         dispatch(fetchGameSeries())
         dispatch({type: CLEAR_SEARCHED})
@@ -46,7 +56,6 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
     const { gameSeries } = useSelector((store => store.games))
 
     const prevState = usePrevious(gameSeries)
-    console.log(prevState)
 
     useLayoutEffect(() => {
 
@@ -70,11 +79,12 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
                 />
                 <div className="info">
                     <Platforms>
-                        {platforms && platforms.map(data => (
+                        {/*{platforms && platforms.map(data => (
                             <Icon key={data.platform.id}>{getPlatformLogo(data.platform.name)}</Icon>
-                        ))}
+                        ))}*/}
+                        {platforms && showPlatformLogo}
                     </Platforms>
-                    <div className={`metacritic ${metacriticBorder(metacritic)}`} title={"Metacritic"}>
+                    <div className={`metacritic ${showMetacriticBorder}`} title={"Metacritic"}>
                         {metacritic}
                     </div>
                 </div>

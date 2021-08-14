@@ -42,6 +42,7 @@ const GameDetail = () => {
         <>
             {!isLoading && (
                 <CardShadow className='shadow' onClick={exitDetailHandler}>
+                    {console.log('render GameDetail')}
                     <Detail>
                         <Stats>
                             <Rating>
