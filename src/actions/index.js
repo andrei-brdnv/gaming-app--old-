@@ -18,6 +18,8 @@ import {
     LOADING_DETAIL,
     SHOW_LOADER, START, SUCCESS
 } from "../utils/constants";
+import firebase from "firebase/app";
+import {getFirebase} from "react-redux-firebase";
 
 export const showLoader = () => (dispatch) => {
     dispatch({
@@ -131,4 +133,30 @@ export const fetchGameSeries = (id) => async (dispatch) => {
             gameSeries: gameSeriesData.data.results,
         }
     })
+}
+
+export const signIn = (credentials) => {
+    return (dispatch, getFirebase) => {
+
+
+        firebase.auth().signInWithEmailAndPassword(
+            credentials.email,
+            credentials.password
+        )
+            .then(() => {
+                dispatch({type: 'LOGIN_SUCCESS'});
+            }).catch((err) => {
+            dispatch({type: 'LOGIN_ERROR', err});
+        });
+    }
+}
+
+export const signOut = () => {
+    return (dispatch, getFirebase) => {
+
+        firebase.auth().signOut()
+            .then(() => {
+                dispatch({ type: 'SIGNOUT_SUCCESS' })
+            })
+    }
 }

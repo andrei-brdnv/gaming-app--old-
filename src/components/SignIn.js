@@ -1,35 +1,45 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { signIn } from "../actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 
 const SignIn = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value)
+    const dispatch = useDispatch()
+
+    const { authError } = useSelector((store => store.auth))
+
+
+    const onSubmit = (data) => {
+        console.log(data)
+        dispatch(signIn(data))
     }
 
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value)
-    }
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(email, password)
-    }
 
     return (
         <StyledSignIn>
             <h4>Login</h4>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="input-field">
-                    <input type="text" id="email" onChange={handleEmailChange} />
+                    <input type="text" name="email" {...register("email", {required: "EMAIL IS REQUIRED"})} />
                 </div>
                 <div className="input-field">
-                    <input type="password" id="password" onChange={handlePasswordChange} />
+                    <input
+                        type="password"
+                        name="password"
+                        {...register("password", { required: "PASSWORD IS REQUIRED", minLength: { value: 5, message: "Too short" }})}
+                    />
+                    {errors.password && errors.password.message}
                 </div>
                 <div className="input-field">
                     <button>Login</button>
                 </div>
+                {authError && <p>Login failed</p>}
             </form>
         </StyledSignIn>
     )

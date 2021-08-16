@@ -8,19 +8,26 @@ import { BrowserRouter } from "react-router-dom";
 import AppThemeProvider from "./utils/AppThemeProvider";
 import { AppLangProvider } from "./utils/AppLangProvider";
 import SimpleReactLightbox from "simple-react-lightbox";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import { rrfProps } from "./config/fbConfig";
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <BrowserRouter>
-                <AppThemeProvider>
-                    <AppLangProvider>
-                        <SimpleReactLightbox>
-                            <App />
-                        </SimpleReactLightbox>
-                    </AppLangProvider>
-                </AppThemeProvider>
-            </BrowserRouter>
+            <ReactReduxFirebaseProvider {...rrfProps}>
+                <BrowserRouter>
+
+                    <AppThemeProvider>
+                        <AppLangProvider>
+                            <SimpleReactLightbox>
+                                <App />
+                            </SimpleReactLightbox>
+                        </AppLangProvider>
+                    </AppThemeProvider>
+
+                </BrowserRouter>
+            </ReactReduxFirebaseProvider>
+
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')

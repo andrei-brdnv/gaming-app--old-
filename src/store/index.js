@@ -2,6 +2,8 @@ import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "../reducers";
 import logger from "redux-logger";
+import { getFirebase } from "react-redux-firebase";
+import { getFirestore } from "redux-firestore";
 
 const composeEnhancers =
     typeof window === 'object' &&
@@ -11,7 +13,7 @@ const composeEnhancers =
         }) : compose;
 
 const enhancer = composeEnhancers(applyMiddleware(
-    thunk,
+    thunk.withExtraArgument({getFirebase, getFirestore}),
     logger
 ))
 

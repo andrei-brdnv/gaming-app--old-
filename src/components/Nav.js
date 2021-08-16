@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import { Link, animateScroll } from "react-scroll";
 import { debounce } from "../utils/debounce";
-import { fetchSearched } from "../actions";
+import {fetchSearched, signOut} from "../actions";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
@@ -28,6 +28,12 @@ const Nav = () => {
     }
 
     const { searched } = useSelector((store => store.games))
+
+    const { auth } = useSelector((store => store.firebase))
+    console.log(auth)
+    const handleLogout = () => {
+        dispatch(signOut())
+    }
 
     useLayoutEffect(() => {
         if (searched.length > 0) {
@@ -73,6 +79,8 @@ const Nav = () => {
                 </Form>
                 <div>
                     <FontAwesomeIcon icon={faEllipsisH} title={"More"} />
+                    { auth.uid && <button onClick={handleLogout}>Logout</button>}
+
                 </div>
             </StyledNav>
         </div>
