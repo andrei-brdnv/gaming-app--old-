@@ -1,5 +1,5 @@
 const base_url = 'https://api.rawg.io/api/'
-const API_KEY = '9307925324dd4460b3b0cb9406e1d559'
+const API_KEY = 'fe89c3272f27484e9c94db862c5e52fa'
 
 const getCurrentMonth = () => {
     const month = new Date().getMonth() + 1;

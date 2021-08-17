@@ -30,7 +30,6 @@ const Nav = () => {
     const { searched } = useSelector((store => store.games))
 
     const { auth } = useSelector((store => store.firebase))
-    console.log(auth)
     const handleLogout = () => {
         dispatch(signOut())
     }

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { signIn } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { Redirect } from "react-router-dom";
 
 const SignIn = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -14,12 +15,15 @@ const SignIn = () => {
 
     const { authError } = useSelector((store => store.auth))
 
+    const { auth } = useSelector((store => store.firebase))
+
 
     const onSubmit = (data) => {
         console.log(data)
         dispatch(signIn(data))
     }
 
+    if (auth.uid) return <Redirect to={"/"} />
 
     return (
         <StyledSignIn>

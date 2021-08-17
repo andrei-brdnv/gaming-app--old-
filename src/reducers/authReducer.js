@@ -1,6 +1,7 @@
 
 const initState = {
-    authError: null
+    authError: null,
+    list: []
 }
 
 const authReducer = (state = initState, action) => {
@@ -18,7 +19,30 @@ const authReducer = (state = initState, action) => {
             }
         case 'SIGNOUT_SUCCESS':
             return state
+        case 'SIGNUP_SUCCESS':
+            return {
+                ...state,
+                authError: null
+            }
+        case 'SIGNUP_ERROR':
+            return {
+                ...state,
+                authError: action.err.message
+            }
 
+        case 'ADDGAME_SUCCESS':
+            return {
+                ...state
+            }
+
+        case 'ADDGAME_ERROR':
+            return state
+
+        case 'FETCHFAV_SUCCESS':
+            return {
+                ...state,
+                list: action.payload
+            }
         default:
             return state
     }

@@ -18,8 +18,6 @@ import {
     LOADING_DETAIL,
     SHOW_LOADER, START, SUCCESS
 } from "../utils/constants";
-import firebase from "firebase/app";
-import {getFirebase} from "react-redux-firebase";
 
 export const showLoader = () => (dispatch) => {
     dispatch({
@@ -136,8 +134,9 @@ export const fetchGameSeries = (id) => async (dispatch) => {
 }
 
 export const signIn = (credentials) => {
-    return (dispatch, getFirebase) => {
+    return (dispatch, getState, {getFirebase}) => {
 
+        const firebase = getFirebase()
 
         firebase.auth().signInWithEmailAndPassword(
             credentials.email,
@@ -152,11 +151,87 @@ export const signIn = (credentials) => {
 }
 
 export const signOut = () => {
-    return (dispatch, getFirebase) => {
+    return (dispatch, getState, {getFirebase}) => {
+        const firebase = getFirebase()
 
         firebase.auth().signOut()
             .then(() => {
                 dispatch({ type: 'SIGNOUT_SUCCESS' })
             })
+    }
+}
+
+export const signUp = (newUser) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+
+        firebase.auth().createUserWithEmailAndPassword(
+            newUser.email,
+            newUser.password
+        ).then((res) => {
+            return firestore.collection('users').doc(res.user.uid).set({
+                userName: newUser.userName
+            })
+        }).then(() => {
+            dispatch({ type: 'SIGNUP_SUCCESS' })
+        }).catch(err => {
+            dispatch({ type: 'SIGNUP_ERROR', err })
+        })
+    }
+}
+
+export const addToFavourite = (gameId) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        const userId = getState().firebase.auth.uid
+
+        firestore.collection('users').doc(userId).collection('games').add({
+            game: gameId
+        })
+            .then(() => {
+                dispatch({ type: 'ADDGAME_SUCCESS' })
+            })
+            .catch(err => {
+                dispatch({ type: 'ADDGAME_ERROR', err })
+            })
+    }
+}
+
+export const fetchFavourites = () => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        const userId = getState().firebase.auth.uid
+
+            firestore.collection('users').doc(userId).collection('games').get()
+                .then(res => {
+                    const arr = []
+                    res.forEach(document => {
+
+                        arr.push(document.data().game)
+
+                    })
+
+                    return arr
+
+
+                })
+                .then(res => {
+                    let requests = res.map(id => axios.get(gameDetailURL(id)))
+
+                    Promise.all(requests)
+                        .then(responses => {
+                            return responses.map(res => res.data)
+                        })
+                        .then(res => {
+                            dispatch({
+                                type: 'FETCHFAV_SUCCESS',
+                                payload: res
+                            })
+                        })
+
+                })
     }
 }

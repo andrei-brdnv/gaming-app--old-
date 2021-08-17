@@ -6,6 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import { smallImage } from "../utils/mediaResize";
 import getPlatformLogo from "../utils/getPlatformLogo";
 import metacriticBorder from "../utils/metacriticBorder";
+import { addToFavourite } from "../actions";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faChevronRight, faTimes} from "@fortawesome/free-solid-svg-icons";
@@ -55,6 +56,8 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
 
     const { gameSeries } = useSelector((store => store.games))
 
+    const { auth } = useSelector((store => store.firebase))
+
     const prevState = usePrevious(gameSeries)
 
     useLayoutEffect(() => {
@@ -69,6 +72,10 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
         }
 
     }, [gameSeries])
+
+    const addToFavouriteHandler = () => {
+        dispatch(addToFavourite(id))
+    }
 
     return (
         <StyledGame>
@@ -121,6 +128,7 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
                             </span>
                         </button>
                     </div>
+                    { auth.uid && <button onClick={addToFavouriteHandler}>add to favourite</button> }
                 </div>
 
 
