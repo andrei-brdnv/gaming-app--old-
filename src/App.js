@@ -12,17 +12,20 @@ import Profile from "./pages/profile";
 function App() {
     return (
         <div className="App">
-            <Nav />
-            <ContentWrapper>
-                <AsideMenu />
-                <Switch>
-                    <Route path={['/game/:id', '/']} exact component={Home} />
-                    <Route path={"/sign-in"} component={SignIn} />
-                    <Route path={"/sign-up"} component={SignUp} />
-                    <Route path={"/profile"} component={Profile} />
-                </Switch>
+            <Switch>
+                <Route path={"/sign-in"} component={SignIn} />
+                <Route path={"/sign-up"} component={SignUp} />
+                <div>
+                    <Nav />
+                    <ContentWrapper>
+                        <AsideMenu />
+                        <Route path={['/game/:id', '/']} exact component={Home} />
+                        <Route path={"/profile"} component={Profile} />
+                    </ContentWrapper>
+                </div>
 
-            </ContentWrapper>
+            </Switch>
+
         </div>
     );
 }

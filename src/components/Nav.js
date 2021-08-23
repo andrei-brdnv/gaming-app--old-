@@ -1,13 +1,14 @@
 import React, {useState, useEffect, useLayoutEffect} from "react";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import { Link, animateScroll } from "react-scroll";
+import { animateScroll } from "react-scroll";
 import { debounce } from "../utils/debounce";
 import {fetchSearched, signOut} from "../actions";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import {CLEAR_GAMESERIES, CLEAR_SEARCHED} from "../utils/constants";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
     const dispatch = useDispatch()
@@ -64,7 +65,7 @@ const Nav = () => {
     }, [prevScrollPos, visible, handleScroll]);
 
     return (
-        <div>
+        <>
             {console.log('render Nav')}
             <StyledNav visible={visible}>
                 <Logo>
@@ -76,13 +77,23 @@ const Nav = () => {
 
 
                 </Form>
-                <div>
+                <DropdownMenu>
                     <FontAwesomeIcon icon={faEllipsisH} title={"More"} />
+                    <div className="dd-menu">
+                        <ul>
+                            <li>
+                                <Link to={"/sign-in"}>sign in</Link>
+                            </li>
+                            <li>
+                                <Link to={"sign-up"}>create an account</Link>
+                            </li>
+                        </ul>
+                    </div>
                     { auth.uid && <button onClick={handleLogout}>Logout</button>}
 
-                </div>
+                </DropdownMenu>
             </StyledNav>
-        </div>
+        </>
     )
 }
 
@@ -102,6 +113,42 @@ const StyledNav = styled.div(props => ({
   padding: '0 2rem',
   transition: 'all 0.5s',
 }));
+
+const DropdownMenu = styled.div`
+  &:hover {
+    .dd-menu {
+      display: block;
+    }
+  }
+  
+  svg {
+    display: inline-block;
+    position: relative;
+  }
+  
+  .dd-menu {
+    display: none;
+    position: absolute;
+    background-color: olivedrab;
+    
+    ul {
+      list-style: none;
+    }
+    
+    li {
+      font-size: 1rem;
+      padding: 0.5rem;
+    }
+    
+    a {
+      display: inline-block;
+    }
+    
+    li:hover {
+      background-color: palegreen;
+    }
+  }
+`
 
 const Logo = styled.div`
   display: flex;
