@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExclamation} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
+import { motion } from "framer-motion";
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -37,7 +38,7 @@ const SignUp = () => {
 
     return (
         <Container>
-            <StyledSignUp>
+            <StyledSignUp initial={{ x: '100vw' }} animate={{ x: 0 }} transition={{ delay: 0.15, duration: 0.35 }}>
                 <h4>Create an account</h4>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="input-field">
@@ -111,9 +112,10 @@ const Container = styled.div`
   background: linear-gradient(-45deg, rgba(238, 119, 82, 0.5), rgba(231, 60, 126, 0.5), rgba(35, 166, 213, 0.5), rgba(35, 213, 171, 0.5));
   background-size: 400% 400%;
   animation: Gradient 25s ease infinite;
+  overflow: hidden;
 `
 
-const StyledSignUp = styled.div`
+const StyledSignUp = styled(motion.div)`
   width: 25rem;
   height: 35rem;
   padding: 1rem;

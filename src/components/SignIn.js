@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { Link, Redirect } from "react-router-dom";
 import User from "../images/profile-user.png";
 import { FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faExclamation } from "@fortawesome/free-solid-svg-icons";
+import { faExclamation, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
 
 const SignIn = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -30,8 +31,14 @@ const SignIn = () => {
 
     return (
         <Container>
-            <StyledSignIn>
+            <StyledSignIn initial={{ x: '100vw' }} animate={{ x: 0 }} transition={{ delay: 0.15, duration: 0.35 }}>
                 {/*<h4>Log in</h4>*/}
+                <div>
+                    <Link to={"/"}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </Link>
+
+                </div>
                 <img src={User} alt="user" />
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="input-field">
@@ -92,9 +99,10 @@ const Container = styled.div`
   background: linear-gradient(-45deg, rgba(238, 119, 82, 0.5), rgba(231, 60, 126, 0.5), rgba(35, 166, 213, 0.5), rgba(35, 213, 171, 0.5));
   background-size: 400% 400%;
   animation: Gradient 25s ease infinite;
+  overflow: hidden;
 `
 
-const StyledSignIn = styled.div`
+const StyledSignIn = styled(motion.div)`
   width: 25rem;
   height: 35rem;
   padding: 1rem;

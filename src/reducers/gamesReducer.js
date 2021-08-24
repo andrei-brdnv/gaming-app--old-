@@ -22,6 +22,7 @@ const initState = {
     searched: [],
     gameSeries: [],
     fetching: false,
+    loaded: false,
     firstLoading: false
 }
 
@@ -41,7 +42,8 @@ const gamesReducer = (state = initState, action) => {
                 totalPagesUpcoming: payload.totalPagesUpcoming,
                 newGames: payload.newGames,
                 popular: payload.popular,
-                loading: false
+                loading: false,
+                loaded: true,
             }
         case FETCH_SEARCHED:
             return {
@@ -78,6 +80,7 @@ const gamesReducer = (state = initState, action) => {
                 totalPagesUpcoming: payload.totalPagesUpcoming,
                 fetching: false,
                 firstLoading: false,
+                loaded: true,
             }
 
         case FETCH_POPULAR + START:
@@ -91,6 +94,7 @@ const gamesReducer = (state = initState, action) => {
                 popular: [...state.popular, ...payload.popular],
                 totalPagesPopular: payload.totalPagesPopular,
                 fetching: false,
+                loaded: true,
             }
 
         case FETCH_NEWGAMES + START:
@@ -104,6 +108,7 @@ const gamesReducer = (state = initState, action) => {
                 newGames: [...state.newGames, ...payload.newGames],
                 totalPagesNewGames: payload.totalPagesNewGames,
                 fetching: false,
+                loaded: true,
             }
 
         default:

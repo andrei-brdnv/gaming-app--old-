@@ -76,8 +76,8 @@ export const fetchNewGames = (newGamesCurrentPage) => async (dispatch) => {
 
 
 
-export const loadGames = (upcomingPage) => async (dispatch) => {
-    const upcomingData = await axios.get(upcomingGamesURL(upcomingPage))
+export const loadGames = () => async (dispatch) => {
+    const upcomingData = await axios.get(upcomingGamesURL())
     const newGamesData = await axios.get(newGamesURL())
     const popularData = await axios.get(popularGamesURL())
 
@@ -87,7 +87,9 @@ export const loadGames = (upcomingPage) => async (dispatch) => {
             upcoming: upcomingData.data.results,
             totalPagesUpcoming: upcomingData.data.count,
             newGames: newGamesData.data.results,
-            popular: popularData.data.results
+            totalPagesNewGames: newGamesData.data.count,
+            popular: popularData.data.results,
+            totalPagesPopular: popularData.data.count,
         }
     })
 }

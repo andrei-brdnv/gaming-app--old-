@@ -23,12 +23,9 @@ const Home = () => {
     const [popularCurrentPage, setPopularCurrentPage] = useState(1)
     const [newGamesCurrentPage, setNewGamesCurrentPage] = useState(1)
 
-    /*useEffect(() => {
-        dispatch(showLoader())
-        dispatch(loadGames(upcomingPage))
-    }, [dispatch, upcomingPage])*/
 
-    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetching, searched, firstLoading, gameSeries } = useSelector((store => store.games))
+
+    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetching, searched, firstLoading, gameSeries, loaded } = useSelector((store => store.games))
 
     const location = useLocation()
     const pathId = location.pathname.split('/')[2]
@@ -43,13 +40,21 @@ const Home = () => {
         dispatch({type: CLEAR_GAMESERIES})
     }
 
+    /*useEffect(() => {
+        dispatch(showLoader())
+        !loaded && dispatch(loadGames())
+    }, [])*/
+
 
     useEffect(() => {
-        if (!upcoming.length) {
+        /*if (!upcoming.length) {
             dispatch(showLoader())
-        }
+        }*/
 
-        dispatch(fetchUpcoming(upcomingCurrentPage))
+            dispatch(fetchUpcoming(upcomingCurrentPage))
+
+
+
     }, [upcomingCurrentPage])
 
     useEffect(() => {
