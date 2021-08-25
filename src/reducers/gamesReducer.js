@@ -15,13 +15,18 @@ import {
 const initState = {
     upcoming: [],
     totalPagesUpcoming: 0,
+    upcomingCurrentPage: 1,
     popular: [],
     totalPagesPopular: 0,
+    popularCurrentPage: 1,
     newGames: [],
     totalPagesNewGames: 0,
+    newGamesCurrentPage: 1,
     searched: [],
     gameSeries: [],
-    fetching: false,
+    fetchingUpcoming: true,
+    fetchingPopular: true,
+    fetchingNewGames: true,
     loaded: false,
     firstLoading: false
 }
@@ -71,14 +76,15 @@ const gamesReducer = (state = initState, action) => {
         case FETCH_UPCOMING + START:
             return {
                 ...state,
-                fetching: true,
+                fetchingUpcoming: true,
             }
         case FETCH_UPCOMING + SUCCESS:
             return {
                 ...state,
                 upcoming: [...state.upcoming, ...payload.upcoming],
                 totalPagesUpcoming: payload.totalPagesUpcoming,
-                fetching: false,
+                upcomingCurrentPage: payload.upcomingCurrentPage,
+                fetchingUpcoming: false,
                 firstLoading: false,
                 loaded: true,
             }
@@ -86,28 +92,30 @@ const gamesReducer = (state = initState, action) => {
         case FETCH_POPULAR + START:
             return {
                 ...state,
-                fetching: true,
+                fetchingPopular: true,
             }
         case FETCH_POPULAR + SUCCESS:
             return {
                 ...state,
                 popular: [...state.popular, ...payload.popular],
                 totalPagesPopular: payload.totalPagesPopular,
-                fetching: false,
+                popularCurrentPage: payload.popularCurrentPage,
+                fetchingPopular: false,
                 loaded: true,
             }
 
         case FETCH_NEWGAMES + START:
             return {
                 ...state,
-                fetching: true,
+                fetchingNewGames: true,
             }
         case FETCH_NEWGAMES + SUCCESS:
             return {
                 ...state,
                 newGames: [...state.newGames, ...payload.newGames],
                 totalPagesNewGames: payload.totalPagesNewGames,
-                fetching: false,
+                newGamesCurrentPage: payload.newGamesCurrentPage,
+                fetchingNewGames: false,
                 loaded: true,
             }
 

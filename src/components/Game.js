@@ -6,7 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import { smallImage } from "../utils/mediaResize";
 import getPlatformLogo from "../utils/getPlatformLogo";
 import metacriticBorder from "../utils/metacriticBorder";
-import { addToFavourite } from "../actions";
+import { addToFavourite, fetchFavourites } from "../actions";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faChevronRight, faTimes} from "@fortawesome/free-solid-svg-icons";
@@ -75,6 +75,7 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
 
     const addToFavouriteHandler = () => {
         dispatch(addToFavourite(id))
+        dispatch(fetchFavourites())
     }
 
     return (

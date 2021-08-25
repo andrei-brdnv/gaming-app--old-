@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { fetchFavourites } from "../actions";
+import {Redirect} from "react-router-dom";
 
 const Profile = () => {
     const dispatch = useDispatch()
@@ -12,13 +13,15 @@ const Profile = () => {
         dispatch(fetchFavourites())
     }
 
-    useEffect(() => {
+    /*useEffect(() => {
         dispatch(fetchFavourites())
-    }, [list])
+    }, [list])*/
+
+    if (!auth.uid) return <Redirect to={"/"} />
 
     return (
                 <StyledProfile>
-                    {list.length ? list.map(game => (
+                    {list && list.length ? list.map(game => (
                         <div>
                             <p>{game.name}</p>
                             <p>{game.rating}</p>

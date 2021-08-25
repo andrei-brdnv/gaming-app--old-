@@ -1,6 +1,6 @@
 import React, {useEffect, useContext, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {fetchNewGames, fetchPopular, fetchUpcoming, loadGames, showLoader} from "../actions";
+import {fetchFavourites, fetchNewGames, fetchPopular, fetchUpcoming, loadGames, showLoader, addToFavourite} from "../actions";
 import styled from "styled-components";
 import Game from "../components/Game";
 import { useLocation } from "react-router-dom";
@@ -11,7 +11,7 @@ import { clearSearched } from "../actions";
 import getPlatformLogo from "../utils/getPlatformLogo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
-import {CLEAR_GAMESERIES, CLEAR_SEARCHED} from "../utils/constants";
+import {CLEAR_GAMESERIES, CLEAR_SEARCHED, FETCH_UPCOMING, START} from "../utils/constants";
 
 import { motion, AnimatePresence } from "framer-motion";
 import Skeleton from "../components/Skeleton";
@@ -19,13 +19,16 @@ import Skeleton from "../components/Skeleton";
 const Home = () => {
     const dispatch = useDispatch();
 
-    const [upcomingCurrentPage, setUpcomingCurrentPage] = useState(1)
-    const [popularCurrentPage, setPopularCurrentPage] = useState(1)
-    const [newGamesCurrentPage, setNewGamesCurrentPage] = useState(1)
+    //const [upcomingCurrentPage, setUpcomingCurrentPage] = useState(1)
+    //const [popularCurrentPage, setPopularCurrentPage] = useState(1)
+    //const [newGamesCurrentPage, setNewGamesCurrentPage] = useState(1)
 
 
 
-    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetching, searched, firstLoading, gameSeries, loaded } = useSelector((store => store.games))
+    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector((store => store.games))
+
+    const { list } = useSelector((store => store.auth))
+    const { auth } = useSelector((store => store.firebase))
 
     const location = useLocation()
     const pathId = location.pathname.split('/')[2]
@@ -50,22 +53,31 @@ const Home = () => {
         /*if (!upcoming.length) {
             dispatch(showLoader())
         }*/
-
+        if (fetchingUpcoming) {
             dispatch(fetchUpcoming(upcomingCurrentPage))
+        }
 
 
-
-    }, [upcomingCurrentPage])
-
-    useEffect(() => {
-        dispatch(fetchPopular(popularCurrentPage))
-    }, [popularCurrentPage])
+    }, [fetchingUpcoming])
 
     useEffect(() => {
-        dispatch(fetchNewGames(newGamesCurrentPage))
-    }, [newGamesCurrentPage])
+        if (fetchingPopular) {
+            dispatch(fetchPopular(popularCurrentPage))
+        }
 
+    }, [fetchingPopular])
 
+    useEffect(() => {
+        if (fetchingNewGames) {
+            dispatch(fetchNewGames(newGamesCurrentPage))
+        }
+    }, [fetchingNewGames])
+
+    useEffect(() => {
+
+        dispatch(fetchFavourites())
+
+    }, [auth])
 
     return (
         <GameList>
@@ -74,7 +86,7 @@ const Home = () => {
                 {gameSeries.length ? (
                     <Section
                         id="game-series"
-                        key="modal"
+                        key="game-series"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -114,7 +126,7 @@ const Home = () => {
                 {searched.length ? (
                     <Section
                         id="searched"
-                        key="modal"
+                        key="searched"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -150,6 +162,35 @@ const Home = () => {
                 ) : null}
             </AnimatePresence>
 
+            {auth.uid ? (
+                <Section>
+                    <h2>Favourite games</h2>
+
+                    <Games>
+                        {list && list.length ? list.map(game => (
+                            <Game
+                                key={game.id}
+                                id={game.id}
+                                name={game.name}
+                                released={game.released}
+                                image={game.background_image}
+                                platforms={game.platforms}
+                                genres={game.genres}
+                                rating={game.rating}
+                                metacritic={game.metacritic}
+                            />
+                        )) : null}
+                    </Games>
+                    {/*{newGames.length < totalPagesNewGames && totalPagesNewGames !== newGamesCurrentPage &&
+                <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_UPCOMING + START})}>
+                    {'Load More'}
+                </button>
+                }*/}
+                </Section>
+            ) : null}
+
+
+
 
             <Section id="upcoming">
                 <h2><Text tid='upcoming games'/></h2>
@@ -174,8 +215,8 @@ const Home = () => {
 
                 </Games>
                 {upcoming.length < totalPagesUpcoming && totalPagesUpcoming !== upcomingCurrentPage &&
-                    <button className="btn-load-more" onClick={() => setUpcomingCurrentPage(upcomingCurrentPage + 1)}>
-                        {fetching ? <SimpleLoader /> : "Load More"}
+                    <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_UPCOMING + START})}>
+                        {fetchingUpcoming ? <SimpleLoader /> : "Load More"}
                     </button>
                 }
             </Section>
@@ -199,7 +240,7 @@ const Home = () => {
                     ))}
                 </Games>
                 {popular.length < totalPagesPopular && totalPagesPopular !== popularCurrentPage &&
-                    <button className="btn-load-more" onClick={() => setPopularCurrentPage(popularCurrentPage + 1)}>
+                    <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_UPCOMING + START})}>
                         {'Load More'}
                     </button>
                 }
@@ -224,11 +265,13 @@ const Home = () => {
                     ))}
                 </Games>
                 {newGames.length < totalPagesNewGames && totalPagesNewGames !== newGamesCurrentPage &&
-                    <button className="btn-load-more" onClick={() => setNewGamesCurrentPage(newGamesCurrentPage + 1)}>
+                    <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_UPCOMING + START})}>
                         {'Load More'}
                     </button>
                 }
             </Section>
+
+
 
         </GameList>
     )

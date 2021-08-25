@@ -8,7 +8,8 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import {CLEAR_GAMESERIES, CLEAR_SEARCHED} from "../utils/constants";
-import { Link } from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
+import User from "../images/profile-user.png";
 
 const Nav = () => {
     const dispatch = useDispatch()
@@ -64,6 +65,8 @@ const Nav = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [prevScrollPos, visible, handleScroll]);
 
+
+
     return (
         <>
             {console.log('render Nav')}
@@ -77,21 +80,37 @@ const Nav = () => {
 
 
                 </Form>
-                <DropdownMenu>
-                    <FontAwesomeIcon icon={faEllipsisH} title={"More"} />
-                    <div className="dd-menu">
-                        <ul>
-                            <li>
-                                <Link to={"/sign-in"}>sign in</Link>
-                            </li>
-                            <li>
-                                <Link to={"sign-up"}>create an account</Link>
-                            </li>
-                        </ul>
-                    </div>
-                    { auth.uid && <button onClick={handleLogout}>Logout</button>}
+                {auth.uid ?
+                    <DdMenuUser>
+                        <img src={User} alt="User" />
+                        <div className="dd-menu-user">
+                            <ul>
+                                <li>
+                                    <Link to={"/profile"}>profile</Link>
+                                </li>
+                                <li>
+                                    { auth.uid && <span onClick={handleLogout}>Logout</span>}
+                                </li>
+                            </ul>
+                        </div>
+                    </DdMenuUser> :
+                    <DropdownMenu>
+                        <FontAwesomeIcon icon={faEllipsisH} title={"More"} size={"2x"}/>
+                        <div className="dd-menu">
+                            <ul>
+                                <li>
+                                    <Link to={"/sign-in"}>sign in</Link>
+                                </li>
+                                <li>
+                                    <Link to={"sign-up"}>create an account</Link>
+                                </li>
+                            </ul>
+                        </div>
 
-                </DropdownMenu>
+
+                    </DropdownMenu>
+                }
+
             </StyledNav>
         </>
     )
@@ -126,6 +145,8 @@ const DropdownMenu = styled.div`
     position: relative;
   }
   
+  
+  
   .dd-menu {
     display: none;
     position: absolute;
@@ -137,16 +158,63 @@ const DropdownMenu = styled.div`
     
     li {
       font-size: 1rem;
-      padding: 0.5rem;
     }
     
     a {
       display: inline-block;
+      padding: 0.5rem;
     }
     
     li:hover {
       background-color: palegreen;
     }
+  }
+`
+
+const DdMenuUser = styled.div`
+  &:hover {
+    .dd-menu-user {
+      display: block;
+    }
+  }
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  
+  img {
+    display: inline-block;
+    max-height: 75%;
+    max-width: 75%;
+    object-fit: contain;
+    position: relative;
+  }
+  
+  .dd-menu-user {
+    display: none;
+    position: absolute;
+    top: 75%;
+    background-color: olivedrab;
+  }
+  
+  
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    font-size: 1rem;
+  }
+
+  a {
+    display: inline-block;
+    padding: 0.5rem;
+  }
+
+  li:hover {
+    background-color: palegreen;
   }
 `
 

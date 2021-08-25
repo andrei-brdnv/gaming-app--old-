@@ -30,7 +30,6 @@ const SignIn = () => {
     if (auth.uid) return <Redirect to={"/"} />
 
     return (
-        <Container>
             <StyledSignIn initial={{ x: '100vw' }} animate={{ x: 0 }} transition={{ delay: 0.15, duration: 0.35 }}>
                 {/*<h4>Log in</h4>*/}
                 <div>
@@ -81,7 +80,6 @@ const SignIn = () => {
                     <Link to={"/sign-up"}>Create an account</Link>
                 </div>
             </StyledSignIn>
-        </Container>
 
     )
 }

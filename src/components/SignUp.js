@@ -37,7 +37,6 @@ const SignUp = () => {
     }
 
     return (
-        <Container>
             <StyledSignUp initial={{ x: '100vw' }} animate={{ x: 0 }} transition={{ delay: 0.15, duration: 0.35 }}>
                 <h4>Create an account</h4>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -94,7 +93,6 @@ const SignUp = () => {
                     <Link to={"/sign-in"}>Log in to your existing account</Link>
                 </div>
             </StyledSignUp>
-        </Container>
 
     )
 }

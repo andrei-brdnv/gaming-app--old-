@@ -35,7 +35,8 @@ export const fetchUpcoming = (upcomingCurrentPage) => async (dispatch) => {
                 type: FETCH_UPCOMING + SUCCESS,
                 payload: {
                     upcoming: response.data.results,
-                    totalPagesUpcoming: response.data.count
+                    totalPagesUpcoming: response.data.count,
+                    upcomingCurrentPage: upcomingCurrentPage + 1
                 }
             })
         )
@@ -51,7 +52,8 @@ export const fetchPopular = (popularCurrentPage) => async (dispatch) => {
                 type: FETCH_POPULAR + SUCCESS,
                 payload: {
                     popular: response.data.results,
-                    totalPagesPopular: response.data.count
+                    totalPagesPopular: response.data.count,
+                    popularCurrentPage: popularCurrentPage + 1
                 }
             })
         )
@@ -67,7 +69,8 @@ export const fetchNewGames = (newGamesCurrentPage) => async (dispatch) => {
                 type: FETCH_NEWGAMES + SUCCESS,
                 payload: {
                     newGames: response.data.results,
-                    totalPagesNewGames: response.data.count
+                    totalPagesNewGames: response.data.count,
+                    newGamesCurrentPage: newGamesCurrentPage + 1
                 }
             })
         )
