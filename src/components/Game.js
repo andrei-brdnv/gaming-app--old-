@@ -1,7 +1,7 @@
 import React, {useEffect, useLayoutEffect, useRef, useMemo} from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import {fetchGameSeries, loadDetail, loadGames} from "../actions";
+import {deleteFavourite, fetchGameSeries, loadDetail, loadGames} from "../actions";
 import { Link, useHistory } from "react-router-dom";
 import { smallImage } from "../utils/mediaResize";
 import getPlatformLogo from "../utils/getPlatformLogo";
@@ -57,12 +57,13 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
     const { gameSeries } = useSelector((store => store.games))
 
     const { auth } = useSelector((store => store.firebase))
+    const { list } = useSelector((store => store.auth))
 
     const prevState = usePrevious(gameSeries)
 
     useLayoutEffect(() => {
 
-        if (gameSeries.length > 0) {
+        if (gameSeries && gameSeries.length > 0) {
             const element = document.querySelector("#game-series").offsetTop
 
 
@@ -75,7 +76,12 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
 
     const addToFavouriteHandler = () => {
         dispatch(addToFavourite(id))
-        dispatch(fetchFavourites())
+        //dispatch(fetchFavourites())
+    }
+
+    const deleteFavHandler = () => {
+        dispatch(deleteFavourite(id))
+        //dispatch(fetchFavourites())
     }
 
     return (
@@ -129,7 +135,10 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
                             </span>
                         </button>
                     </div>
-                    { auth.uid && <button onClick={addToFavouriteHandler}>add to favourite</button> }
+
+                    {auth.uid && list && list.length && list.some(game => game.id === id) && <button style={{ padding: '15px'}} onClick={deleteFavHandler}>remove from favourite</button> ||
+                    auth.uid && <button onClick={addToFavouriteHandler}>add to favourite</button>
+                    }
                 </div>
 
 

@@ -1,6 +1,6 @@
 import React, {useEffect, useContext, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {fetchFavourites, fetchNewGames, fetchPopular, fetchUpcoming, loadGames, showLoader, addToFavourite} from "../actions";
+import {fetchFavourites, fetchNewGames, fetchPopular, fetchUpcoming, loadGames, showLoader, addToFavourite, deleteFavourite} from "../actions";
 import styled from "styled-components";
 import Game from "../components/Game";
 import { useLocation } from "react-router-dom";
@@ -12,6 +12,7 @@ import getPlatformLogo from "../utils/getPlatformLogo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 import {CLEAR_GAMESERIES, CLEAR_SEARCHED, FETCH_UPCOMING, START} from "../utils/constants";
+import {useFirebaseConnect, useFirestoreConnect} from "react-redux-firebase";
 
 import { motion, AnimatePresence } from "framer-motion";
 import Skeleton from "../components/Skeleton";
@@ -27,8 +28,12 @@ const Home = () => {
 
     const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector((store => store.games))
 
-    const { list } = useSelector((store => store.auth))
+    const { list, fbfetch } = useSelector((store => store.auth))
     const { auth } = useSelector((store => store.firebase))
+
+    /*useFirestoreConnect(['games'])
+    const games = useSelector((state => state.firestore.data.games))
+    console.log(games)*/
 
     const location = useLocation()
     const pathId = location.pathname.split('/')[2]
@@ -75,12 +80,14 @@ const Home = () => {
 
     useEffect(() => {
 
-        dispatch(fetchFavourites())
+            dispatch(fetchFavourites())
 
-    }, [auth])
+
+    }, [fbfetch])
 
     return (
         <GameList>
+            {console.log("RENDER GAMELIST")}
             {pathId && <GameDetail/>}
             <AnimatePresence>
                 {gameSeries.length ? (

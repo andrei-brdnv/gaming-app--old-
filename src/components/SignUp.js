@@ -5,7 +5,7 @@ import {signUp} from "../actions";
 import {useDispatch, useSelector} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExclamation} from "@fortawesome/free-solid-svg-icons";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import { motion } from "framer-motion";
 
 const SignUp = () => {
@@ -35,6 +35,8 @@ const SignUp = () => {
         console.log(data)
         dispatch(signUp(data))
     }
+
+    if (auth.uid) return <Redirect to={"/"} />
 
     return (
             <StyledSignUp initial={{ x: '100vw' }} animate={{ x: 0 }} transition={{ delay: 0.15, duration: 0.35 }}>

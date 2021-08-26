@@ -1,7 +1,8 @@
 
 const initState = {
     authError: null,
-    list: []
+    list: [],
+    fbfetch: true,
 }
 
 const authReducer = (state = initState, action) => {
@@ -29,19 +30,40 @@ const authReducer = (state = initState, action) => {
                 ...state,
                 authError: action.err.message
             }
-
+        case 'ADDGAME_START':
+            return {
+                ...state,
+                fbfetch: true,
+            }
         case 'ADDGAME_SUCCESS':
             return {
-                ...state
+                ...state,
+                fbfetch: false,
             }
 
         case 'ADDGAME_ERROR':
             return state
 
+        case 'FETCHFAV_START':
+            return {
+                ...state,
+                fbfetch: true,
+            }
         case 'FETCHFAV_SUCCESS':
             return {
                 ...state,
-                list: action.payload
+                list: action.payload,
+                fbfetch: false,
+            }
+        case 'DELETEFAV_START':
+            return {
+                ...state,
+                fbfetch: true,
+            }
+        case 'DELETEFAV_SUCCESS':
+            return {
+                ...state,
+                fbfetch: false,
             }
         default:
             return state

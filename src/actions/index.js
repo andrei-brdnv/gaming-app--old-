@@ -187,13 +187,23 @@ export const signUp = (newUser) => {
 }
 
 export const addToFavourite = (gameId) => {
+
+
     return (dispatch, getState, {getFirebase, getFirestore}) => {
+
+        dispatch({
+            type: 'ADDGAME_START'
+        })
+
         const firebase = getFirebase()
         const firestore = getFirestore()
         const userId = getState().firebase.auth.uid
 
+
+
         firestore.collection('users').doc(userId).collection('games').add({
-            game: gameId
+            game: gameId,
+            addedAt: new Date(),
         })
             .then(() => {
                 dispatch({ type: 'ADDGAME_SUCCESS' })
@@ -210,13 +220,15 @@ export const fetchFavourites = () => {
         const firestore = getFirestore()
         const userId = getState().firebase.auth.uid
 
-            firestore.collection('users').doc(userId).collection('games').get()
+        /*dispatch({
+            type: 'FETCHFAV_START'
+        })*/
+
+            firestore.collection('users').doc(userId).collection('games').orderBy('addedAt', 'desc').get()
                 .then(res => {
                     const arr = []
                     res.forEach(document => {
-
                         arr.push(document.data().game)
-
                     })
 
                     return arr
@@ -238,5 +250,30 @@ export const fetchFavourites = () => {
                         })
 
                 })
+    }
+}
+
+
+export const deleteFavourite = (gameId) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        dispatch({
+            type: 'DELETEFAV_START'
+        })
+
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        const userId = getState().firebase.auth.uid
+
+
+
+        firestore.collection('users').doc(userId).collection('games').where('game', '==', gameId).get()
+            .then(res => {
+                res.forEach(doc => {
+                    doc.ref.delete()
+                })
+            })
+            .then(() => {
+                dispatch({ type: 'DELETEFAV_SUCCESS' })
+            })
     }
 }
