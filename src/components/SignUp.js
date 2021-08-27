@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import {signUp} from "../actions";
 import {useDispatch, useSelector} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faExclamation} from "@fortawesome/free-solid-svg-icons";
+import {faExclamation, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {Link, Redirect} from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -40,6 +40,12 @@ const SignUp = () => {
 
     return (
             <StyledSignUp initial={{ x: '100vw' }} animate={{ x: 0 }} transition={{ delay: 0.15, duration: 0.35 }}>
+                <div>
+                    <Link to={"/"}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </Link>
+
+                </div>
                 <h4>Create an account</h4>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="input-field">
