@@ -1,7 +1,5 @@
 import {
-    FETCH_GAMES,
     FETCH_SEARCHED,
-    SHOW_LOADER,
     CLEAR_SEARCHED,
     FETCH_GAMESERIES,
     CLEAR_GAMESERIES,
@@ -14,40 +12,74 @@ import {
 
 const initState = {
     upcoming: [],
+    fetchingUpcoming: true,
     totalPagesUpcoming: 0,
     upcomingCurrentPage: 1,
+
     popular: [],
+    fetchingPopular: true,
     totalPagesPopular: 0,
     popularCurrentPage: 1,
+
     newGames: [],
+    fetchingNewGames: true,
     totalPagesNewGames: 0,
     newGamesCurrentPage: 1,
+
     searched: [],
+    fetchingSearched: false,
+
     gameSeries: [],
-    fetchingUpcoming: true,
-    fetchingPopular: true,
-    fetchingNewGames: true,
+    fetchingGameSeries: false,
+
     loaded: false,
-    firstLoading: false
 }
 
 const gamesReducer = (state = initState, action) => {
     const { type, payload } = action
 
     switch (type) {
-        case SHOW_LOADER:
+        case FETCH_UPCOMING + START:
             return {
                 ...state,
-                firstLoading: true
+                fetchingUpcoming: true,
             }
-        case FETCH_GAMES:
+        case FETCH_UPCOMING + SUCCESS:
             return {
                 ...state,
                 upcoming: [...state.upcoming, ...payload.upcoming],
                 totalPagesUpcoming: payload.totalPagesUpcoming,
-                newGames: payload.newGames,
-                popular: payload.popular,
-                loading: false,
+                upcomingCurrentPage: payload.upcomingCurrentPage,
+                fetchingUpcoming: false,
+                firstLoading: false,
+                loaded: true,
+            }
+        case FETCH_POPULAR + START:
+            return {
+                ...state,
+                fetchingPopular: true,
+            }
+        case FETCH_POPULAR + SUCCESS:
+            return {
+                ...state,
+                popular: [...state.popular, ...payload.popular],
+                totalPagesPopular: payload.totalPagesPopular,
+                popularCurrentPage: payload.popularCurrentPage,
+                fetchingPopular: false,
+                loaded: true,
+            }
+        case FETCH_NEWGAMES + START:
+            return {
+                ...state,
+                fetchingNewGames: true,
+            }
+        case FETCH_NEWGAMES + SUCCESS:
+            return {
+                ...state,
+                newGames: [...state.newGames, ...payload.newGames],
+                totalPagesNewGames: payload.totalPagesNewGames,
+                newGamesCurrentPage: payload.newGamesCurrentPage,
+                fetchingNewGames: false,
                 loaded: true,
             }
         case FETCH_SEARCHED:
@@ -70,53 +102,6 @@ const gamesReducer = (state = initState, action) => {
             return {
                 ...state,
                 gameSeries: [],
-            }
-
-
-        case FETCH_UPCOMING + START:
-            return {
-                ...state,
-                fetchingUpcoming: true,
-            }
-        case FETCH_UPCOMING + SUCCESS:
-            return {
-                ...state,
-                upcoming: [...state.upcoming, ...payload.upcoming],
-                totalPagesUpcoming: payload.totalPagesUpcoming,
-                upcomingCurrentPage: payload.upcomingCurrentPage,
-                fetchingUpcoming: false,
-                firstLoading: false,
-                loaded: true,
-            }
-
-        case FETCH_POPULAR + START:
-            return {
-                ...state,
-                fetchingPopular: true,
-            }
-        case FETCH_POPULAR + SUCCESS:
-            return {
-                ...state,
-                popular: [...state.popular, ...payload.popular],
-                totalPagesPopular: payload.totalPagesPopular,
-                popularCurrentPage: payload.popularCurrentPage,
-                fetchingPopular: false,
-                loaded: true,
-            }
-
-        case FETCH_NEWGAMES + START:
-            return {
-                ...state,
-                fetchingNewGames: true,
-            }
-        case FETCH_NEWGAMES + SUCCESS:
-            return {
-                ...state,
-                newGames: [...state.newGames, ...payload.newGames],
-                totalPagesNewGames: payload.totalPagesNewGames,
-                newGamesCurrentPage: payload.newGamesCurrentPage,
-                fetchingNewGames: false,
-                loaded: true,
             }
 
         default:

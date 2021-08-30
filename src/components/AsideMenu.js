@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { Link } from "react-scroll";
 import ThemeSwitcher from "./ThemeSwitcher";
 import LangSwitcher from "./LangSwitcher";
-import {loadGames} from "../actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { CLEAR_SEARCHED, CLEAR_GAMESERIES } from "../utils/constants";

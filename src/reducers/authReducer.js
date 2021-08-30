@@ -1,4 +1,3 @@
-
 const initState = {
     authError: null,
     list: [],
@@ -30,7 +29,7 @@ const authReducer = (state = initState, action) => {
                 ...state,
                 authError: action.err.message
             }
-        case 'ADDGAME_START':
+        /*case 'ADDGAME_START':
             return {
                 ...state,
                 fbfetch: true,
@@ -64,7 +63,7 @@ const authReducer = (state = initState, action) => {
             return {
                 ...state,
                 fbfetch: false,
-            }
+            }*/
         default:
             return state
     }

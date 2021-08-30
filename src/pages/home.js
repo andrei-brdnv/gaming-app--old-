@@ -7,8 +7,7 @@ import { useLocation } from "react-router-dom";
 import GameDetail from "../components/GameDetail";
 import SimpleLoader from "../components/Loader";
 import { AppLangContext, Text } from "../utils/AppLangProvider";
-import { clearSearched } from "../actions";
-import getPlatformLogo from "../utils/getPlatformLogo";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 import {CLEAR_GAMESERIES, CLEAR_SEARCHED, FETCH_UPCOMING, START} from "../utils/constants";
@@ -28,7 +27,7 @@ const Home = () => {
 
     const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector((store => store.games))
 
-    const { list, fbfetch } = useSelector((store => store.auth))
+    const { list, fetchFavourite } = useSelector((store => store.favourites))
     const { auth } = useSelector((store => store.firebase))
 
     /*useFirestoreConnect(['games'])
@@ -83,7 +82,7 @@ const Home = () => {
             dispatch(fetchFavourites())
 
 
-    }, [fbfetch])
+    }, [fetchFavourite])
 
     return (
         <GameList>

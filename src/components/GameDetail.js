@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import getStarsRating from "../utils/getStarsRating";
 import { smallImage } from "../utils/mediaResize";
 import { useHistory } from "react-router-dom";
-import { loadGames } from "../actions";
 import { SRLWrapper } from "simple-react-lightbox";
 
 const GameDetail = () => {

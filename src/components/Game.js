@@ -1,7 +1,7 @@
 import React, {useEffect, useLayoutEffect, useRef, useMemo} from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import {deleteFavourite, fetchGameSeries, loadDetail, loadGames} from "../actions";
+import {deleteFavourite, fetchGameSeries, loadDetail} from "../actions";
 import { Link, useHistory } from "react-router-dom";
 import { smallImage } from "../utils/mediaResize";
 import getPlatformLogo from "../utils/getPlatformLogo";
@@ -57,7 +57,7 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
     const { gameSeries } = useSelector((store => store.games))
 
     const { auth } = useSelector((store => store.firebase))
-    const { list } = useSelector((store => store.auth))
+    const { list } = useSelector((store => store.favourites))
 
     const prevState = usePrevious(gameSeries)
 

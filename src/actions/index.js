@@ -10,20 +10,26 @@ import {
     gameSeriesURL
 } from "../api";
 import {
-    CLEAR_SEARCHED,
-    FETCH_GAMES,
-    FETCH_GAMESERIES, FETCH_NEWGAMES, FETCH_POPULAR,
-    FETCH_SEARCHED, FETCH_UPCOMING,
+    ADD_FAVOURITE,
+    CLEAR_SEARCHED, DELETE_FAVOURITE, FAIL, FETCH_FAVOURITE,
+    FETCH_GAMESERIES,
+    FETCH_NEWGAMES,
+    FETCH_POPULAR,
+    FETCH_SEARCHED,
+    FETCH_UPCOMING,
     GET_DETAIL,
     LOADING_DETAIL,
-    SHOW_LOADER, START, SUCCESS
+    START,
+    SUCCESS
 } from "../utils/constants";
 
+/*
 export const showLoader = () => (dispatch) => {
     dispatch({
         type: SHOW_LOADER
     })
 }
+*/
 
 export const fetchUpcoming = (upcomingCurrentPage) => async (dispatch) => {
     dispatch({
@@ -79,7 +85,7 @@ export const fetchNewGames = (newGamesCurrentPage) => async (dispatch) => {
 
 
 
-export const loadGames = () => async (dispatch) => {
+/*export const loadGames = () => async (dispatch) => {
     const upcomingData = await axios.get(upcomingGamesURL())
     const newGamesData = await axios.get(newGamesURL())
     const popularData = await axios.get(popularGamesURL())
@@ -95,7 +101,7 @@ export const loadGames = () => async (dispatch) => {
             totalPagesPopular: popularData.data.count,
         }
     })
-}
+}*/
 
 export const loadDetail = (id) => async (dispatch) => {
     dispatch({
@@ -192,7 +198,7 @@ export const addToFavourite = (gameId) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
 
         dispatch({
-            type: 'ADDGAME_START'
+            type: ADD_FAVOURITE + START
         })
 
         const firebase = getFirebase()
@@ -206,10 +212,10 @@ export const addToFavourite = (gameId) => {
             addedAt: new Date(),
         })
             .then(() => {
-                dispatch({ type: 'ADDGAME_SUCCESS' })
+                dispatch({ type: ADD_FAVOURITE + SUCCESS })
             })
             .catch(err => {
-                dispatch({ type: 'ADDGAME_ERROR', err })
+                dispatch({ type: ADD_FAVOURITE + FAIL, err })
             })
     }
 }
@@ -244,7 +250,7 @@ export const fetchFavourites = () => {
                         })
                         .then(res => {
                             dispatch({
-                                type: 'FETCHFAV_SUCCESS',
+                                type: FETCH_FAVOURITE + SUCCESS,
                                 payload: res
                             })
                         })
@@ -257,14 +263,12 @@ export const fetchFavourites = () => {
 export const deleteFavourite = (gameId) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         dispatch({
-            type: 'DELETEFAV_START'
+            type: DELETE_FAVOURITE + START
         })
 
         const firebase = getFirebase()
         const firestore = getFirestore()
         const userId = getState().firebase.auth.uid
-
-
 
         firestore.collection('users').doc(userId).collection('games').where('game', '==', gameId).get()
             .then(res => {
@@ -273,7 +277,7 @@ export const deleteFavourite = (gameId) => {
                 })
             })
             .then(() => {
-                dispatch({ type: 'DELETEFAV_SUCCESS' })
+                dispatch({ type: DELETE_FAVOURITE + SUCCESS })
             })
     }
 }

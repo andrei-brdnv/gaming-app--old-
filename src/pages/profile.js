@@ -7,7 +7,7 @@ import {Redirect} from "react-router-dom";
 const Profile = () => {
     const dispatch = useDispatch()
     const { auth } = useSelector((store => store.firebase))
-    const { list } = useSelector((store => store.auth))
+    const { list } = useSelector((store => store.favourites))
 
     const handleClick = () => {
         dispatch(fetchFavourites())
