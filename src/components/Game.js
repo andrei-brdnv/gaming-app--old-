@@ -9,7 +9,7 @@ import metacriticBorder from "../utils/metacriticBorder";
 import { addToFavourite, fetchFavourites } from "../actions";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faChevronRight, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {faChevronRight, faMinusCircle} from "@fortawesome/free-solid-svg-icons";
 import {CLEAR_GAMESERIES, CLEAR_SEARCHED} from "../utils/constants";
 
 import usePrevious from "../utils/usePrevious";
@@ -127,18 +127,26 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
                         <span>Rating:</span>
                         <span>{rating}</span>
                     </div>
+                    {
+                        auth.uid && list && list.length && list.some(game => game.id === id) &&
+                            <FavouriteButton onClick={deleteFavHandler}>
+                                Remove from favourite
+                            </FavouriteButton> ||
+                        auth.uid &&
+                            <FavouriteButton onClick={addToFavouriteHandler}>
+                                Add to favourite
+                            </FavouriteButton>
+                    }
                     <div className="show-more">
-                        <button onClick={loadGameSeries}>
-                            Show more of this game series
-                            <span>
+                        <Link to={`/game/${id}`} onClick={loadDetailHandler}>
+                            Show more info
+                        </Link>
+                        <span>
                                 <FontAwesomeIcon icon={faChevronRight} title={'Show more'} />
                             </span>
-                        </button>
                     </div>
 
-                    {auth.uid && list && list.length && list.some(game => game.id === id) && <button style={{ padding: '15px'}} onClick={deleteFavHandler}>remove from favourite</button> ||
-                    auth.uid && <button onClick={addToFavouriteHandler}>add to favourite</button>
-                    }
+
                 </div>
 
 
@@ -271,22 +279,48 @@ const StyledGame = styled.div`
     }
     
     .show-more {
+      background-color: #9e9e9e;
+      border-radius: 0.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
       
-      button {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      
+      a {
+        
         width: 100%;
-        padding: 0.5rem;
+        
         cursor: pointer;
-
+        
         font-family: "Montserrat", sans-serif;
         font-weight: 400;
+        font-size: 0.85rem;
+        transition: all .25s ease;
         
-        span {
-          font-size: 1.5rem;
-        }
       }
+
+      svg {
+        font-size: 1.25rem;
+        transition: all .25s ease;
+      }
+      
+      
+    }
+    .show-more:hover {
+      
+      
+      a {
+        color: #ffe082;
+      }
+      
+      svg {
+        color: #ffe082;
+      }
+        
+      
+      
+      
     }
   }
   
@@ -307,14 +341,34 @@ const StyledGame = styled.div`
   }
 `
 
-const Platforms = styled.div`
+const FavouriteButton = styled.div`
+  border-radius: 0.25rem;
+  background-color: #bdbdbd;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  color: #333;
+  font-weight: 400;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  transition: all .25s ease;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  &:hover {
+    opacity: 0.75;
+  }
+`
+
+export const Platforms = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
   //padding: 1rem 0 0 0.5rem;
 `
 
-const Icon = styled.div`
+export const Icon = styled.div`
   display: block;
   font-size: 1rem;
   margin-left: 0.5rem;

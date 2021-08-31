@@ -13,7 +13,7 @@ export default {
 
     darkTheme: {
         colors: {
-            background: 'darkblue',
+            background: '#121212',
             black: 'white',
             white: 'black',
             blue: '#a0e9fd',

@@ -9,7 +9,7 @@ import {
 
 const initState = {
     list: [],
-    fetchFavourite: false,
+    fetchFavourite: true,
 }
 
 const favouritesReducer = (state = initState, action) => {

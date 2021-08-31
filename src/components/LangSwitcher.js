@@ -10,7 +10,7 @@ const LangSwitcher = () => {
 
     return (
         <Wrapper>
-            <p onClick={handleLangChange}>mode: [{userLang === "en" ? 'ru' : 'en'}]</p>
+            <p onClick={handleLangChange}>mode: [{userLang === 'ru' ? 'ru' : 'en'}]</p>
         </Wrapper>
     )
 }

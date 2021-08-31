@@ -11,7 +11,7 @@ import {
 } from "../api";
 import {
     ADD_FAVOURITE,
-    CLEAR_SEARCHED, DELETE_FAVOURITE, FAIL, FETCH_FAVOURITE,
+    CLEAR_SEARCHED, DELETE_FAVOURITE, FAIL, FETCH_DETAIL, FETCH_FAVOURITE,
     FETCH_GAMESERIES,
     FETCH_NEWGAMES,
     FETCH_POPULAR,
@@ -105,7 +105,7 @@ export const fetchNewGames = (newGamesCurrentPage) => async (dispatch) => {
 
 export const loadDetail = (id) => async (dispatch) => {
     dispatch({
-        type: LOADING_DETAIL
+        type: FETCH_DETAIL + START
     })
 
     const detailData = await axios.get(gameDetailURL(id))
@@ -113,7 +113,7 @@ export const loadDetail = (id) => async (dispatch) => {
     const movieData = await axios.get(gameMovieURL(id))
 
     dispatch({
-        type: GET_DETAIL,
+        type: FETCH_DETAIL + SUCCESS,
         payload: {
             game: detailData.data,
             screenshot: screenshotData.data,
@@ -214,6 +214,9 @@ export const addToFavourite = (gameId) => {
             .then(() => {
                 dispatch({ type: ADD_FAVOURITE + SUCCESS })
             })
+            .then(() => {
+                dispatch({ type: FETCH_FAVOURITE + START })
+            })
             .catch(err => {
                 dispatch({ type: ADD_FAVOURITE + FAIL, err })
             })
@@ -226,9 +229,9 @@ export const fetchFavourites = () => {
         const firestore = getFirestore()
         const userId = getState().firebase.auth.uid
 
-        /*dispatch({
-            type: 'FETCHFAV_START'
-        })*/
+        dispatch({
+            type: FETCH_FAVOURITE + START
+        })
 
             firestore.collection('users').doc(userId).collection('games').orderBy('addedAt', 'desc').get()
                 .then(res => {
@@ -254,7 +257,6 @@ export const fetchFavourites = () => {
                                 payload: res
                             })
                         })
-
                 })
     }
 }
@@ -278,6 +280,9 @@ export const deleteFavourite = (gameId) => {
             })
             .then(() => {
                 dispatch({ type: DELETE_FAVOURITE + SUCCESS })
+            })
+            .then(() => {
+                dispatch({ type: FETCH_FAVOURITE + START })
             })
     }
 }

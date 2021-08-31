@@ -7,7 +7,6 @@ import AsideMenu from "./components/AsideMenu";
 import styled from "styled-components";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
-import Profile from "./pages/profile";
 
 function App() {
     return (
@@ -18,7 +17,6 @@ function App() {
                     <Container>
                         <Route path={"/sign-in"} component={SignIn} />
                         <Route path={"/sign-up"} component={SignUp} />
-                        <Route path={"/profile"} component={Profile} />
                     </Container>
                 </Route>
 

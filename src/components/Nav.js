@@ -86,9 +86,6 @@ const Nav = () => {
                         <div className="dd-menu-user">
                             <ul>
                                 <li>
-                                    <Link to={"/profile"}>profile</Link>
-                                </li>
-                                <li>
                                     { auth.uid && <span onClick={handleLogout}>Logout</span>}
                                 </li>
                             </ul>
@@ -116,7 +113,7 @@ const Nav = () => {
     )
 }
 
-const StyledNav = styled.div(props => ({
+/*const StyledNav = styled.div(props => ({
   position: 'fixed',
   top: props.visible ? '0' : '-6rem',
   left: '0',
@@ -131,7 +128,24 @@ const StyledNav = styled.div(props => ({
   alignItems: 'center',
   padding: '0 2rem',
   transition: 'all 0.5s',
-}));
+}));*/
+
+const StyledNav = styled.div`
+    position: fixed;
+    top: ${props => props.visible ? '0' : '-6rem'};
+    left: 0;
+    width: 100%;
+    height: 5rem;
+    margin: 0 auto;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+    z-index: 15;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 2rem;
+    transition: all 0.5s;
+    background-color: #e0e0e0;
+`
 
 const DropdownMenu = styled.div`
   &:hover {
@@ -225,7 +239,6 @@ const Logo = styled.div`
     margin: 1.5rem 0;
     padding: 0;
     width: 12rem;
-    background-color: yellow;
   }
 `
 

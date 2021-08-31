@@ -5,9 +5,12 @@ import getStarsRating from "../utils/getStarsRating";
 import { smallImage } from "../utils/mediaResize";
 import { useHistory } from "react-router-dom";
 import { SRLWrapper } from "simple-react-lightbox";
+import getPlatformLogo from "../utils/getPlatformLogo";
+
+import {Platforms, Icon} from "./Game";
 
 const GameDetail = () => {
-    const { game, screenshot, isLoading, movie } = useSelector((store => store.detail))
+    const { game, screenshot, fetchingDetail, movie } = useSelector((store => store.detail))
     console.log(movie)
     const history = useHistory()
 
@@ -39,10 +42,18 @@ const GameDetail = () => {
 
     return (
         <>
-            {!isLoading && (
+            {!fetchingDetail && (
                 <CardShadow className='shadow' onClick={exitDetailHandler}>
                     {console.log('render GameDetail')}
                     <Detail>
+                        <div>
+                            {game.released}
+                            <Platforms>
+                                {game.platforms.map(data => (
+                                    <Icon key={data.platform.id}>{getPlatformLogo(data.platform.name)}</Icon>
+                                ))}
+                            </Platforms>
+                        </div>
                         <Stats>
                             <Rating>
                                 <h3>{game.name}</h3>
@@ -51,11 +62,11 @@ const GameDetail = () => {
                             </Rating>
                             <Info>
                                 <h3>Platforms:</h3>
-                                <Platforms>
+                                {/*<Platforms>
                                     {game.platforms.map(data => (
                                         <span key={data.platform.id}>{data.platform.name}</span>
                                     ))}
-                                </Platforms>
+                                </Platforms>*/}
                             </Info>
                         </Stats>
                         <Media>
@@ -142,12 +153,12 @@ const Info = styled.div`
   }
 `
 
-const Platforms = styled.div`
+/*const Platforms = styled.div`
   span {
     display: block;
     margin-bottom: 0.25rem;
   }  
-`
+`*/
 
 const Media = styled.div`
   margin-top: 1rem;

@@ -10,7 +10,14 @@ import { AppLangContext, Text } from "../utils/AppLangProvider";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
-import {CLEAR_GAMESERIES, CLEAR_SEARCHED, FETCH_UPCOMING, START} from "../utils/constants";
+import {
+    CLEAR_GAMESERIES,
+    CLEAR_SEARCHED,
+    FETCH_NEWGAMES,
+    FETCH_POPULAR,
+    FETCH_UPCOMING,
+    START
+} from "../utils/constants";
 import {useFirebaseConnect, useFirestoreConnect} from "react-redux-firebase";
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -78,8 +85,11 @@ const Home = () => {
     }, [fetchingNewGames])
 
     useEffect(() => {
-
+        if (fetchFavourite) {
             dispatch(fetchFavourites())
+        }
+
+
 
 
     }, [fetchFavourite])
@@ -246,7 +256,7 @@ const Home = () => {
                     ))}
                 </Games>
                 {popular.length < totalPagesPopular && totalPagesPopular !== popularCurrentPage &&
-                    <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_UPCOMING + START})}>
+                    <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_POPULAR + START})}>
                         {'Load More'}
                     </button>
                 }
@@ -271,7 +281,7 @@ const Home = () => {
                     ))}
                 </Games>
                 {newGames.length < totalPagesNewGames && totalPagesNewGames !== newGamesCurrentPage &&
-                    <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_UPCOMING + START})}>
+                    <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_NEWGAMES + START})}>
                         {'Load More'}
                     </button>
                 }

@@ -1,7 +1,6 @@
 const initState = {
     authError: null,
     list: [],
-    fbfetch: true,
 }
 
 const authReducer = (state = initState, action) => {
@@ -15,14 +14,14 @@ const authReducer = (state = initState, action) => {
         case 'LOGIN_SUCCESS':
             console.log('login success');
             return {
-                authError: null
+                authError: null,
             }
         case 'SIGNOUT_SUCCESS':
             return state
         case 'SIGNUP_SUCCESS':
             return {
                 ...state,
-                authError: null
+                authError: null,
             }
         case 'SIGNUP_ERROR':
             return {
