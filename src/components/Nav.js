@@ -92,7 +92,8 @@ const Nav = () => {
                         </div>
                     </DdMenuUser> :
                     <DropdownMenu>
-                        <FontAwesomeIcon icon={faEllipsisH} title={"More"} size={"2x"}/>
+                        <FontAwesomeIcon icon={faEllipsisH} title={"More"} size={"2x"}></FontAwesomeIcon>
+
                         <div className="dd-menu">
                             <ul>
                                 <li>
@@ -103,7 +104,6 @@ const Nav = () => {
                                 </li>
                             </ul>
                         </div>
-
 
                     </DropdownMenu>
                 }
@@ -148,41 +148,47 @@ const StyledNav = styled.div`
 `
 
 const DropdownMenu = styled.div`
+  
+  position: relative;
   &:hover {
     .dd-menu {
-      display: block;
+        display: block;
+      }
     }
-  }
+  
   
   svg {
     display: inline-block;
-    position: relative;
   }
-  
-  
   
   .dd-menu {
     display: none;
     position: absolute;
     background-color: olivedrab;
-    
+    right: 0;
+
     ul {
       list-style: none;
     }
-    
+
     li {
       font-size: 1rem;
     }
-    
+
     a {
-      display: inline-block;
+      display: block;
       padding: 0.5rem;
+      white-space: nowrap;
     }
-    
+
     li:hover {
       background-color: palegreen;
     }
   }
+  
+  
+  
+  
 `
 
 const DdMenuUser = styled.div`

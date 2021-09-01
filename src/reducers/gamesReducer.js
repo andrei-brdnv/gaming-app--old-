@@ -51,7 +51,6 @@ const gamesReducer = (state = initState, action) => {
                 totalPagesUpcoming: payload.totalPagesUpcoming,
                 upcomingCurrentPage: payload.upcomingCurrentPage,
                 fetchingUpcoming: false,
-                firstLoading: false,
                 loaded: true,
             }
         case FETCH_POPULAR + START:

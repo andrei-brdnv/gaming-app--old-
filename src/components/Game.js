@@ -76,12 +76,10 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
 
     const addToFavouriteHandler = () => {
         dispatch(addToFavourite(id))
-        //dispatch(fetchFavourites())
     }
 
     const deleteFavHandler = () => {
         dispatch(deleteFavourite(id))
-        //dispatch(fetchFavourites())
     }
 
     return (

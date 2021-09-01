@@ -36,6 +36,7 @@ const Home = () => {
 
     const { list, fetchFavourite } = useSelector((store => store.favourites))
     const { auth } = useSelector((store => store.firebase))
+    const { signIn } = useSelector((store => store.auth))
 
     /*useFirestoreConnect(['games'])
     const games = useSelector((state => state.firestore.data.games))
@@ -88,10 +89,6 @@ const Home = () => {
         if (fetchFavourite) {
             dispatch(fetchFavourites())
         }
-
-
-
-
     }, [fetchFavourite])
 
     return (
@@ -195,7 +192,7 @@ const Home = () => {
                                 rating={game.rating}
                                 metacritic={game.metacritic}
                             />
-                        )) : null}
+                        )) : <p>Add game to your favourite from game card when hovering</p>}
                     </Games>
                     {/*{newGames.length < totalPagesNewGames && totalPagesNewGames !== newGamesCurrentPage &&
                 <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_UPCOMING + START})}>
@@ -257,7 +254,7 @@ const Home = () => {
                 </Games>
                 {popular.length < totalPagesPopular && totalPagesPopular !== popularCurrentPage &&
                     <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_POPULAR + START})}>
-                        {'Load More'}
+                        {fetchingPopular ? <SimpleLoader /> : "Load More"}
                     </button>
                 }
             </Section>
@@ -282,7 +279,7 @@ const Home = () => {
                 </Games>
                 {newGames.length < totalPagesNewGames && totalPagesNewGames !== newGamesCurrentPage &&
                     <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_NEWGAMES + START})}>
-                        {'Load More'}
+                        {fetchingNewGames ? <SimpleLoader /> : "Load More"}
                     </button>
                 }
             </Section>

@@ -155,7 +155,11 @@ export const signIn = (credentials) => {
         )
             .then(() => {
                 dispatch({type: 'LOGIN_SUCCESS'});
-            }).catch((err) => {
+            })
+            .then(() => {
+                dispatch({ type: FETCH_FAVOURITE + START })
+            })
+            .catch((err) => {
             dispatch({type: 'LOGIN_ERROR', err});
         });
     }
@@ -186,6 +190,8 @@ export const signUp = (newUser) => {
             })
         }).then(() => {
             dispatch({ type: 'SIGNUP_SUCCESS' })
+        }).then(() => {
+            dispatch({ type: FETCH_FAVOURITE + START })
         }).catch(err => {
             dispatch({ type: 'SIGNUP_ERROR', err })
         })
@@ -213,9 +219,6 @@ export const addToFavourite = (gameId) => {
         })
             .then(() => {
                 dispatch({ type: ADD_FAVOURITE + SUCCESS })
-            })
-            .then(() => {
-                dispatch({ type: FETCH_FAVOURITE + START })
             })
             .catch(err => {
                 dispatch({ type: ADD_FAVOURITE + FAIL, err })
@@ -280,9 +283,6 @@ export const deleteFavourite = (gameId) => {
             })
             .then(() => {
                 dispatch({ type: DELETE_FAVOURITE + SUCCESS })
-            })
-            .then(() => {
-                dispatch({ type: FETCH_FAVOURITE + START })
             })
     }
 }

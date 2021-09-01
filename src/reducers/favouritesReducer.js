@@ -17,14 +17,11 @@ const favouritesReducer = (state = initState, action) => {
 
     switch (type) {
         case ADD_FAVOURITE + START:
-            return {
-                ...state,
-                fetchFavourite: true,
-            }
+            return state
         case ADD_FAVOURITE + SUCCESS:
             return {
                 ...state,
-                fetchFavourite: false,
+                fetchFavourite: true,
             }
 
         case ADD_FAVOURITE + FAIL:
@@ -42,14 +39,11 @@ const favouritesReducer = (state = initState, action) => {
                 fetchFavourite: false,
             }
         case DELETE_FAVOURITE + START:
-            return {
-                ...state,
-                fetchFavourite: true,
-            }
+            return state
         case DELETE_FAVOURITE + SUCCESS:
             return {
                 ...state,
-                fetchFavourite: false,
+                fetchFavourite: true,
             }
 
         default:
