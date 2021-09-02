@@ -6,39 +6,39 @@ const getPlatformLogo = (platform) => {
     console.log('getPlatformLogo')
     switch (platform) {
         case "PlayStation":
-            return <div><FontAwesomeIcon icon={faPlaystation} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faPlaystation} title={platform} />;
         case "PlayStation 2":
-            return <div><FontAwesomeIcon icon={faPlaystation} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faPlaystation} title={platform} />;
         case "PlayStation 3":
-            return <div><FontAwesomeIcon icon={faPlaystation} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faPlaystation} title={platform} />;
         case "PlayStation 4":
-            return <div><FontAwesomeIcon icon={faPlaystation} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faPlaystation} title={platform} />;
         case "PlayStation 5":
-            return <div><FontAwesomeIcon icon={faPlaystation} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faPlaystation} title={platform} />;
         case "Xbox Series S/X":
-            return <div><FontAwesomeIcon icon={faXbox} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faXbox} title={platform} />;
         case "Xbox S":
-            return <div><FontAwesomeIcon icon={faXbox} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faXbox} title={platform} />;
         case "Xbox One":
-            return <div><FontAwesomeIcon icon={faXbox} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faXbox} title={platform} />;
         case "Xbox 360":
-            return <div><FontAwesomeIcon icon={faXbox} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faXbox} title={platform} />;
         case "Xbox":
-            return <div><FontAwesomeIcon icon={faXbox} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faXbox} title={platform} />;
         case "PC":
-            return <div><FontAwesomeIcon icon={faWindows} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faWindows} title={platform} />;
         case "Nintendo Switch":
-            return <div><FontAwesomeIcon icon={faGamepad} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faGamepad} title={platform} />;
         case "iOS":
-            return <div><FontAwesomeIcon icon={faApple} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faApple} title={platform} />;
         case "Android":
-            return <div><FontAwesomeIcon icon={faAndroid} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faAndroid} title={platform} />;
         case "macOS":
-            return <div><FontAwesomeIcon icon={faApple} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faApple} title={platform} />;
         case "Web":
-            return <div><FontAwesomeIcon icon={faDesktop} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faDesktop} title={platform} />;
         default:
-            return <div><FontAwesomeIcon icon={faGamepad} title={platform} /></div>;
+            return <FontAwesomeIcon icon={faGamepad} title={platform} />;
     }
 }
 
