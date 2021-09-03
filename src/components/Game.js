@@ -84,11 +84,13 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
 
     return (
         <StyledGame>
+                <Link to={`/game/${id}`} onClick={loadDetailHandler}>
+                    <img
+                        src={smallImage(image, 640)}
+                        alt={name}
+                    />
+                </Link>
 
-                <img
-                    src={smallImage(image, 640)}
-                    alt={name}
-                />
                 <div className="info">
                     <Platforms>
                         {/*{platforms && platforms.map(data => (
@@ -135,14 +137,14 @@ const Game = ({ name, released, image, id, platforms, genres, rating, metacritic
                                 Add to favourite
                             </FavouriteButton>
                     }
-                    <div className="show-more">
-                        <Link to={`/game/${id}`} onClick={loadDetailHandler}>
+                    <Link className="show-more" to={`/game/${id}`} onClick={loadDetailHandler}>
+                        <span>
                             Show more info
-                        </Link>
+                        </span>
                         <span>
                                 <FontAwesomeIcon icon={faChevronRight} title={'Show more'} />
                             </span>
-                    </div>
+                    </Link>
 
 
                 </div>
@@ -223,7 +225,7 @@ const StyledGame = styled.div`
     transition: all .25s linear;
     margin-left: -1px;
     margin-right: -1px;
-    background-color: #fff;
+    background-color: ${props => props.theme.colors.background};
     
     padding: 1rem;
     z-index: 10;
@@ -285,12 +287,11 @@ const StyledGame = styled.div`
       padding: 0.75rem 1rem;
       
       
-      a {
+      span:nth-child(1) {
         
         width: 100%;
-        
         cursor: pointer;
-        
+        display: block;
         font-family: "Montserrat", sans-serif;
         font-weight: 400;
         font-size: 0.85rem;
@@ -308,7 +309,7 @@ const StyledGame = styled.div`
     .show-more:hover {
       
       
-      a {
+      span {
         color: #ffe082;
       }
       

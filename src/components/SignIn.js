@@ -109,6 +109,11 @@ const StyledSignIn = styled(motion.div)`
   background: rgba(33, 33, 33, 0.5);
   border-radius: 3%;
   position: relative;
+
+  div:nth-child(1) {
+    display: flex;
+    justify-content: flex-end;
+  }
   
   h4 {
     opacity: 1;

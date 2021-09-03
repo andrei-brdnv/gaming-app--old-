@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import {Platforms, Icon} from "./Game";
 import {logger} from "redux-logger/src";
 import metacriticBorder from "../utils/metacriticBorder";
+import ReactHtmlParser from "react-html-parser";
 
 const GameDetail = () => {
     const { game, screenshot, fetchingDetail, movie } = useSelector((store => store.detail))
@@ -54,7 +55,7 @@ const GameDetail = () => {
                 <CardShadow className='shadow' onClick={exitDetailHandler}>
                     {console.log('render GameDetail')}
                     <Detail>
-                        <div>
+                        <ContentLeft>
                             <Info>
                                 <div>
                                     {moment(game.released).format('ll')}
@@ -71,20 +72,40 @@ const GameDetail = () => {
                                     </div>
                                 ) : null}
                             </Info>
-                            <Stats>
-                                <Rating>
-                                    <h3>{game.name}</h3>
-                                    <p>Rating: {game.rating}</p>
-                                    {getStarsRating(game.rating)}
-                                </Rating>
-                            </Stats>
-                            <Media>
+                            <Name>
+                                {game.name}
+                            </Name>
+                            {/*<Media>
                                 <img src={smallImage(game.background_image, 1280)} alt='image'/>
-                            </Media>
+                            </Media>*/}
                             <Description>
-                                <p>{game.description_raw}</p>
+                                <p>{ReactHtmlParser(game.description)}</p>
                             </Description>
                             <GameMetaContainer>
+                                {game.rating ? (
+                                    <GameMeta>
+                                        <GameMetaTitle>
+                                            Rating
+                                        </GameMetaTitle>
+                                        <GameMetaText title={`Rating: ${game.rating}`}>
+                                            {getStarsRating(game.rating)}
+                                        </GameMetaText>
+                                    </GameMeta>
+                                ) : null}
+
+                                {game.metacritic ? (
+                                    <GameMeta>
+                                        <GameMetaTitle>
+                                            Metascore
+                                        </GameMetaTitle>
+                                        <GameMetaText>
+                                            <div className={`metacritic ${showMetacriticBorder}`} title={"Metascore"}>
+                                                {game.metacritic}
+                                            </div>
+                                        </GameMetaText>
+                                    </GameMeta>
+                                ) : null}
+
                                 {game.platforms ? (
                                     <GameMeta>
                                         <GameMetaTitle>
@@ -92,11 +113,13 @@ const GameDetail = () => {
                                         </GameMetaTitle>
                                         <GameMetaText>
                                             {game.platforms.map((data, i) => (
-
-                                                <Link key={data.platform.id}>
-                                                    {data.platform.name}
+                                                <>
+                                                    <Link key={data.platform.id}>
+                                                        {data.platform.name}
+                                                    </Link>
                                                     {i !== game.platforms.length - 1 ? ', ' : ''}
-                                                </Link>
+                                                </>
+
                                             ))}
                                         </GameMetaText>
                                     </GameMeta>
@@ -110,24 +133,14 @@ const GameDetail = () => {
                                         <GameMetaText>
                                             <div className="genres">
                                                 {game.genres.map((genre, i) => (
-                                                    <Link key={genre.id}>
-                                                        {genre.name}
+                                                    <>
+                                                        <Link key={genre.id}>
+                                                            {genre.name}
+                                                        </Link>
                                                         {i !== game.genres.length - 1 ? ', ' : ''}
-                                                    </Link>
-                                                ))}
-                                            </div>
-                                        </GameMetaText>
-                                    </GameMeta>
-                                ) : null}
+                                                    </>
 
-                                {game.metacritic ? (
-                                    <GameMeta>
-                                        <GameMetaTitle>
-                                            Metascore
-                                        </GameMetaTitle>
-                                        <GameMetaText>
-                                            <div className={`metacritic ${showMetacriticBorder}`} title={"Metascore"}>
-                                                {game.metacritic}
+                                                ))}
                                             </div>
                                         </GameMetaText>
                                     </GameMeta>
@@ -154,10 +167,13 @@ const GameDetail = () => {
                                         <GameMetaText>
                                             <div className="developers">
                                                 {game.developers.map((developer, i) => (
-                                                    <Link key={developer.id}>
-                                                        {developer.name}
+                                                    <>
+                                                        <Link key={developer.id}>
+                                                            {developer.name}
+                                                        </Link>
                                                         {i !== game.developers.length - 1 ? ', ' : ''}
-                                                    </Link>
+                                                    </>
+
                                                 ))}
                                             </div>
                                         </GameMetaText>
@@ -172,10 +188,13 @@ const GameDetail = () => {
                                         <GameMetaText>
                                             <div className="publishers">
                                                 {game.publishers.map((publisher, i) => (
-                                                    <Link key={publisher.id}>
-                                                        {publisher.name}
+                                                    <>
+                                                        <Link key={publisher.id}>
+                                                            {publisher.name}
+                                                        </Link>
                                                         {i !== game.publishers.length - 1 ? ', ' : ''}
-                                                    </Link>
+                                                    </>
+
                                                 ))}
                                             </div>
                                         </GameMetaText>
@@ -196,17 +215,20 @@ const GameDetail = () => {
                                 ) : null}
 
                                 {game.tags ? (
-                                    <GameMeta>
+                                    <GameMeta width="100%">
                                         <GameMetaTitle>
                                             Tags
                                         </GameMetaTitle>
                                         <GameMetaText>
                                             <div className="tags">
                                                 {game.tags.map((tag, i) => (
-                                                    <Link key={tag.id}>
-                                                        {tag.name}
+                                                    <>
+                                                        <Link key={tag.id}>
+                                                            {tag.name}
+                                                        </Link>
                                                         {i !== game.tags.length - 1 ? ', ' : ''}
-                                                    </Link>
+                                                    </>
+
                                                 ))}
                                             </div>
                                         </GameMetaText>
@@ -214,7 +236,7 @@ const GameDetail = () => {
                                 ) : null}
 
                                 {game.website ? (
-                                    <GameMeta>
+                                    <GameMeta width="100%">
                                         <GameMetaTitle>
                                             Website
                                         </GameMetaTitle>
@@ -231,18 +253,20 @@ const GameDetail = () => {
                             </GameMetaContainer>
 
 
-                        </div>
+                        </ContentLeft>
                         <ContentRight>
                             <SRLWrapper options={options}>
                                 <Gallery>
                                     {screenshot.results.map(screen => (
                                         <a href={screen.image}>
-                                            <img
-                                                src={smallImage(screen.image, 1280)}
-                                                key={screen.id}
-                                                alt={game.name}
-                                                id={screen.id}
-                                            />
+                                            <div>
+                                                <img
+                                                    src={smallImage(screen.image, 1280)}
+                                                    key={screen.id}
+                                                    alt={game.name}
+                                                    id={screen.id}
+                                                />
+                                            </div>
                                         </a>
                                     ))}
                                 </Gallery>
@@ -292,6 +316,10 @@ const Detail = styled.div`
   img {
     width: 100%;
   }
+  
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
 `
 
 const Stats = styled.div`
@@ -299,15 +327,18 @@ const Stats = styled.div`
   justify-content: space-between;
 `
 
+const ContentLeft = styled.div`
+    
+`
+
 const ContentRight = styled.div`
+  width: 30rem;
+  flex: 0 0 auto;
   margin-left: 3rem;
 `
 
-const Rating = styled.div`
-  h3 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-  }
+const Name = styled.h3`
+  font-size: 3rem;
 `
 
 const Info = styled.div`
@@ -317,12 +348,14 @@ const Info = styled.div`
   align-items: center;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
+  margin-bottom: 1rem;
   
   div {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 1rem 1rem 0;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
   }
   
   span {
@@ -339,17 +372,31 @@ const Info = styled.div`
 const GameMetaContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 2rem;
 `
 
 const GameMeta = styled.div`
-  width: 50%;
+  width: ${props => props.width || '50%'};
+  
+  &:not(:last-child) {
+    margin-bottom: 2.5rem;
+  }
+  
+  &:nth-child(odd) {
+    padding-right: 1rem;
+  }
 `
 
 const GameMetaTitle = styled.div`
-  margin-bottom: 1rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+  color: #333;
 `
 
 const GameMetaText = styled.div`
+  line-height: 1.5;
+  color: #333;
+  
   a {
     text-decoration: underline;
     cursor: pointer;
@@ -359,6 +406,7 @@ const GameMetaText = styled.div`
   .metacritic {
     display: inline;
     font-weight: bold;
+    opacity: 0.75;
   }
 
   .metacritic.green {
@@ -380,6 +428,10 @@ const GameMetaText = styled.div`
     border: none;
   }
   
+  svg {
+    opacity: 0.75;
+  }
+  
 `
 
 /*const Platforms = styled.div`
@@ -398,21 +450,42 @@ const Media = styled.div`
 `
 
 const Gallery = styled.div`
-  display: grid;
+  /*display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   justify-content: center;
   align-content: center;
-  grid-gap: 10px;
-
+  grid-gap: 10px;*/
+  
+  display: flex;
+  flex-wrap: wrap;
+  
+  a {
+    display: block;
+    width: 50%;
+    padding-bottom: 0.5rem;
+  }
+  
+  div {
+    width: 14.5rem;
+    height: 10rem;
+  }
+  
   img {
+    display: block;
     width: 100%;
-    height: 15rem;
+    height: 100%;
     object-fit: cover;
+    border-radius: 1rem;
   }
 `
 
 const Description = styled.div`
-  margin: 2.5rem 0;
+  margin: 2rem 0;
+  
+  p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
 `
 
 export default GameDetail
