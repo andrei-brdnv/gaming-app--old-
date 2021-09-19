@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-import theme from "./theme";
+import theme from "../utils/theme";
 import { ThemeProvider } from "styled-components";
 import GlobalStyles from "../components/GlobalStyles";
 

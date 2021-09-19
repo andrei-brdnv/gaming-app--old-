@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { AppLangContext } from "../utils/AppLangProvider";
+import { AppLangContext } from "../context/AppLangProvider";
 
 const LangSwitcher = () => {
     const { userLang, toggleLang } = useContext(AppLangContext)

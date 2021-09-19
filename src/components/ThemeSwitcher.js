@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { AppThemeContext } from "../utils/AppThemeProvider";
+import { AppThemeContext } from "../context/AppThemeProvider";
 /*import Switch from "react-switch";*/
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

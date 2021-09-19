@@ -6,7 +6,7 @@ import Game from "../components/Game";
 import { useLocation } from "react-router-dom";
 import GameDetail from "../components/GameDetail";
 import SimpleLoader from "../components/Loader";
-import { AppLangContext, Text } from "../utils/AppLangProvider";
+import { AppLangContext, Text } from "../context/AppLangProvider";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
@@ -18,7 +18,6 @@ import {
     FETCH_UPCOMING,
     START
 } from "../utils/constants";
-import {useFirebaseConnect, useFirestoreConnect} from "react-redux-firebase";
 
 import { motion, AnimatePresence } from "framer-motion";
 import Skeleton from "../components/Skeleton";
@@ -93,7 +92,6 @@ const Home = () => {
 
     return (
         <GameList>
-            {console.log("RENDER GAMELIST")}
             {pathId && <GameDetail/>}
             <AnimatePresence>
                 {gameSeries.length ? (
