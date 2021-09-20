@@ -1,4 +1,4 @@
-const metacriticBorder = (metacritic) => {
+const metacriticBorderStyle = (metacritic) => {
     console.log('metacritic border')
     if (metacritic === null) {
         return "not-active"
@@ -11,4 +11,4 @@ const metacriticBorder = (metacritic) => {
     }
 }
 
-export default metacriticBorder
+export default metacriticBorderStyle

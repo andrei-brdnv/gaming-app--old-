@@ -2,7 +2,7 @@ import React, {useEffect, useContext, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {fetchFavourites, fetchNewGames, fetchPopular, fetchUpcoming, loadGames, showLoader, addToFavourite, deleteFavourite} from "../actions";
 import styled from "styled-components";
-import Game from "../components/Game";
+import Game from "../components/GameCard";
 import { useLocation } from "react-router-dom";
 import GameDetail from "../components/GameDetail";
 import SimpleLoader from "../components/Loader";
@@ -22,6 +22,8 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import Skeleton from "../components/Skeleton";
 
+import data from '../utils/mockedstate'
+
 const Home = () => {
     const dispatch = useDispatch();
 
@@ -31,8 +33,9 @@ const Home = () => {
 
 
 
-    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector((store => store.games))
-
+    //const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector((store => store.games))
+    const { upcoming, popular, newGames } = data.games
+    const { totalPagesUpcoming, totalPagesPopular, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector(store => store.games)
     const { list, fetchFavourite } = useSelector((store => store.favourites))
     const { auth } = useSelector((store => store.firebase))
     const { signIn } = useSelector((store => store.auth))
@@ -60,10 +63,10 @@ const Home = () => {
     }, [])*/
 
 
-    useEffect(() => {
-        /*if (!upcoming.length) {
+    /*useEffect(() => {
+        /!*if (!upcoming.length) {
             dispatch(showLoader())
-        }*/
+        }*!/
         if (fetchingUpcoming) {
             dispatch(fetchUpcoming(upcomingCurrentPage))
         }
@@ -88,7 +91,7 @@ const Home = () => {
         if (fetchFavourite) {
             dispatch(fetchFavourites())
         }
-    }, [fetchFavourite])
+    }, [fetchFavourite])*/
 
     return (
         <GameList>

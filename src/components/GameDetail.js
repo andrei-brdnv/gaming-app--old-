@@ -9,9 +9,9 @@ import getPlatformLogo from "../utils/getPlatformLogo";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
-import {Platforms, Icon} from "./Game";
+import {Platforms, Icon} from "./GameCard";
 import {logger} from "redux-logger/src";
-import metacriticBorder from "../utils/metacriticBorder";
+import metacriticBorder from "../utils/metacriticBorderStyle";
 import ReactHtmlParser from "react-html-parser";
 
 const GameDetail = () => {

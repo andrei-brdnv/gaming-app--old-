@@ -1,3 +1,4 @@
+/*
 const base_url = 'https://api.rawg.io/api/'
 const API_KEY = '53539d8347eb4d3ab10e30a71e39a8eb'
 
@@ -36,4 +37,4 @@ export const gameDetailURL = (game_id) => `${base_url}games/${game_id}?key=${API
 export const gameScreenshotURL = (game_id) => `${base_url}games/${game_id}/screenshots?key=${API_KEY}`;
 export const searchGameURL = (game_name) => `${base_url}games?key=${API_KEY}&search=${game_name}&page_size=10`;
 export const gameMovieURL = (game_id) => `${base_url}games/${game_id}/movies?key=${API_KEY}`;
-export const gameSeriesURL = (game_id) => `${base_url}games/${game_id}/game-series?key=${API_KEY}`;
+export const gameSeriesURL = (game_id) => `${base_url}games/${game_id}/game-series?key=${API_KEY}`;*/

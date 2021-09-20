@@ -2,14 +2,14 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CLEAR_SEARCHED } from "../utils/constants";
 
+import styled from "styled-components";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import styled from "styled-components";
 
 const AsideLinks = () => {
-    const { searched } = useSelector(store => store.games)
     const dispatch = useDispatch()
+    const { searched } = useSelector(store => store.games)
 
     const handleClick = (e) => {
         e.preventDefault()
@@ -30,9 +30,7 @@ const AsideLinks = () => {
             {searched.length ? (
                 <Searched animate={{scale: 1}} initial={{scale: 0.5}} transition={{type: 'spring'}}>
                     <AsideLink href="#searched" onClick={handleClick}>searched</AsideLink>
-                    <span onClick={clearSearched}>
-                        <FontAwesomeIcon icon={faTimes} title={'Delete'}/>
-                    </span>
+                    <FontAwesomeIcon  onClick={clearSearched} icon={faTimes} title={'Delete'}/>
                 </Searched>
             ) : null}
 
@@ -59,14 +57,14 @@ const Searched = styled(motion.div)`
   color: black;
   width: 100%;
 
-  span {
+  svg {
     cursor: pointer;
     position: absolute;
     right: 0.5rem;
-    
-    &:hover {
-      transform: scale(1.25);
-    }
+  }
+
+  svg:hover {
+    transform: scale(1.25);
   }
 `
 
