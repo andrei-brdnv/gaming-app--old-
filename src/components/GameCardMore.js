@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-const GameCardHover = ({ released, genres, rating, id }) => {
+const GameCardMore = ({ released, genres, rating, id }) => {
     const dispatch = useDispatch()
     const { auth } = useSelector(store => store.firebase)
     const { list } = useSelector(store => store.favourites)
@@ -25,7 +25,7 @@ const GameCardHover = ({ released, genres, rating, id }) => {
     }
 
     return (
-        <HoverInfo>
+        <Container>
             <InfoItem>
                 <span>Release date:</span>
                 <span>{released}</span>
@@ -63,24 +63,20 @@ const GameCardHover = ({ released, genres, rating, id }) => {
                     <FontAwesomeIcon icon={faChevronRight} title={'Show more'} />
                 </ShowMoreButton>
             </Link>
-        </HoverInfo>
+        </Container>
     )
 }
 
-export const HoverInfo = styled.div`
+export const Container = styled.div`
   display: none;
   flex-direction: column;
   position: absolute;
-  top: 100%;
+  top: 99%;
   left: 0;
-  width: calc(100% + 2px);
+  width: 100%;
   border-radius: 0 0 1rem 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-top: none;
   transition: all .25s linear;
-  margin-left: -1px;
-  margin-right: -1px;
-  background-color: ${props => props.theme.colors.background};
+  background-color: #ededed;
   padding: 1rem;
   z-index: 10;
   
@@ -167,4 +163,4 @@ const FavouriteButton = styled.div`
   }
 `
 
-export default GameCardHover
+export default GameCardMore

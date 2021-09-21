@@ -1,6 +1,6 @@
 import React, {useEffect, useContext, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {fetchFavourites, fetchNewGames, fetchPopular, fetchUpcoming, loadGames, showLoader, addToFavourite, deleteFavourite} from "../actions";
+import {fetchFavourites, fetchNewGames, fetchPopular, fetchUpcoming, loadGames, showLoader, addToFavourite, deleteFavourite, fetchUpcomingStart} from "../actions";
 import styled from "styled-components";
 import Game from "../components/GameCard";
 import { useLocation } from "react-router-dom";
@@ -22,6 +22,8 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import Skeleton from "../components/Skeleton";
 
+import Section from "../components/Section";
+
 import data from '../utils/mockedstate'
 
 const Home = () => {
@@ -33,9 +35,9 @@ const Home = () => {
 
 
 
-    //const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector((store => store.games))
-    const { upcoming, popular, newGames } = data.games
-    const { totalPagesUpcoming, totalPagesPopular, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector(store => store.games)
+    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector(store => store.games)
+    //const { upcoming, popular, newGames } = data.games
+    //const { totalPagesUpcoming, totalPagesPopular, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector(store => store.games)
     const { list, fetchFavourite } = useSelector((store => store.favourites))
     const { auth } = useSelector((store => store.firebase))
     const { signIn } = useSelector((store => store.auth))
@@ -64,17 +66,14 @@ const Home = () => {
 
 
     /*useEffect(() => {
-        /!*if (!upcoming.length) {
-            dispatch(showLoader())
-        }*!/
         if (fetchingUpcoming) {
             dispatch(fetchUpcoming(upcomingCurrentPage))
         }
 
 
-    }, [fetchingUpcoming])
+    }, [fetchingUpcoming])*/
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (fetchingPopular) {
             dispatch(fetchPopular(popularCurrentPage))
         }
@@ -98,7 +97,7 @@ const Home = () => {
             {pathId && <GameDetail/>}
             <AnimatePresence>
                 {gameSeries.length ? (
-                    <Section
+                    <SSection
                         id="game-series"
                         key="game-series"
                         initial={{ opacity: 0 }}
@@ -132,13 +131,13 @@ const Home = () => {
                                 />
                             ))}
                         </Games>
-                    </Section>
+                    </SSection>
                 ) : null}
             </AnimatePresence>
 
             <AnimatePresence>
                 {searched.length ? (
-                    <Section
+                    <SSection
                         id="searched"
                         key="searched"
                         initial={{ opacity: 0 }}
@@ -172,12 +171,12 @@ const Home = () => {
                                 />
                             ))}
                         </Games>
-                    </Section>
+                    </SSection>
                 ) : null}
             </AnimatePresence>
 
             {auth.uid ? (
-                <Section>
+                <SSection>
                     <h2>Favourite games</h2>
 
                     <Games>
@@ -200,13 +199,21 @@ const Home = () => {
                     {'Load More'}
                 </button>
                 }*/}
-                </Section>
+                </SSection>
             ) : null}
 
 
 
-
-            <Section id="upcoming">
+            <Section
+                gameArray={upcoming}
+                totalPages={totalPagesUpcoming}
+                currentPage={upcomingCurrentPage}
+                fetching={fetchingUpcoming}
+                fetch={fetchUpcoming}
+                fetchStart={fetchUpcomingStart}
+                name={"upcoming"}
+            />
+            {/*<Section id="upcoming">
                 <h2><Text tid='upcoming games'/></h2>
 
                 <Games>
@@ -233,9 +240,9 @@ const Home = () => {
                         {fetchingUpcoming ? <SimpleLoader /> : "Load More"}
                     </button>
                 }
-            </Section>
+            </Section>*/}
 
-            <Section id="popular">
+            <SSection id="popular">
                 <h2>Popular games</h2>
 
                 <Games>
@@ -258,9 +265,9 @@ const Home = () => {
                         {fetchingPopular ? <SimpleLoader /> : "Load More"}
                     </button>
                 }
-            </Section>
+            </SSection>
 
-            <Section id="new-games">
+            <SSection id="new-games">
                 <h2>New games</h2>
 
                 <Games>
@@ -283,7 +290,7 @@ const Home = () => {
                         {fetchingNewGames ? <SimpleLoader /> : "Load More"}
                     </button>
                 }
-            </Section>
+            </SSection>
 
 
 
@@ -338,7 +345,7 @@ const Searched = styled.div`
   }*/
 `
 
-const Section = styled(motion.section)`
+const SSection = styled(motion.section)`
   margin-bottom: 5rem;
   display: flex;
   flex-direction: column;

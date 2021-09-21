@@ -1,20 +1,17 @@
 import React, { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { loadDetail } from "../actions";
 import { smallImage } from "../utils/mediaResize";
 import getPlatformLogo from "../utils/getPlatformLogo";
 import metacriticBorderStyle from "../utils/metacriticBorderStyle";
-
 import styled from "styled-components";
-
-import GameCardHover, {HoverInfo} from "./GameCardHover";
+import GameCardMore, {Container} from "./GameCardMore";
 
 const GameCard = ({ name, released, image, id, platforms, genres, rating, metacritic }) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    // Fix scrolling when hitting back in browser
     if (history.location.pathname === '/') {
         document.body.style.overflow = 'auto'
         document.body.style.marginRight = '0'
@@ -50,7 +47,7 @@ const GameCard = ({ name, released, image, id, platforms, genres, rating, metacr
                 <h3 onClick={loadDetailHandler}>{name}</h3>
             </Link>
 
-            <GameCardHover
+            <GameCardMore
                 released={released}
                 genres={genres}
                 rating={rating}
@@ -60,14 +57,13 @@ const GameCard = ({ name, released, image, id, platforms, genres, rating, metacr
     )
 }
 
-const Card = styled.div`
+export const Card = styled.div`
   max-height: 50vh;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(0, 0, 0, 0.1);
   text-align: left;
   border-radius: 1rem;
   position: relative;
-
+  
   img {
     width: 100%;
     height: 30vh;
@@ -87,14 +83,13 @@ const Card = styled.div`
   &:hover {
     border-radius: 1rem 1rem 0 0;
     box-shadow: none;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: none;
-    transform: scale(1.015);
+    transform: scale(1.025);
     transition: all .05s ease-in-out;
+    background-color: #ededed;
     z-index: 10;
   }
   
-  &:hover ${HoverInfo} {
+  &:hover ${Container} {
     display: flex;
   }
 `

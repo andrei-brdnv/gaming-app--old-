@@ -31,6 +31,10 @@ export const showLoader = () => (dispatch) => {
 }
 */
 
+export const fetchUpcomingStart = () => ({
+    type: FETCH_UPCOMING + START
+})
+
 export const fetchUpcoming = (upcomingCurrentPage) => async (dispatch) => {
     dispatch({
         type: FETCH_UPCOMING + START
