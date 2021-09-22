@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const LoaderCard = ({ onClick }) => {
+const LoaderCard = ({ onClick, name }) => {
     return (
         <Loader onClick={() => onClick()}>
-            Load more games
+            {`Load more ${name} games`}
         </Loader>
     )
 }

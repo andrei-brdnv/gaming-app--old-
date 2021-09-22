@@ -7,7 +7,7 @@ import {
     START,
     SUCCESS,
     FETCH_POPULAR,
-    FETCH_NEWGAMES
+    FETCH_NEWGAMES, CHANGE_INPUT
 } from "../utils/constants";
 
 const initState = {
@@ -27,7 +27,10 @@ const initState = {
     newGamesCurrentPage: 1,
 
     searched: [],
+    searchedName: '',
     fetchingSearched: false,
+    totalPagesSearched: 0,
+    searchedCurrentPage: 1,
 
     gameSeries: [],
     fetchingGameSeries: false,
@@ -81,16 +84,43 @@ const gamesReducer = (state = initState, action) => {
                 fetchingNewGames: false,
                 loaded: true,
             }
-        case FETCH_SEARCHED:
+        case CHANGE_INPUT:
             return {
+                ...state,
+                searched: [],
+                searchedName: payload.input,
+                fetchingSearched: false,
+                totalPagesSearched: 0,
+                searchedCurrentPage: 1,
+            }
+        case FETCH_SEARCHED + START:
+            return {
+                ...state,
+                fetchingSearched: true,
+            }
+        case FETCH_SEARCHED + SUCCESS:
+            /*return {
                 ...state,
                 searched: payload.searched,
                 totalPages: payload.totalPages,
+            }*/
+            return {
+                ...state,
+                searched: [...state.searched, ...payload.searched],
+                totalPagesSearched: payload.totalPagesSearched,
+                searchedCurrentPage: payload.searchedCurrentPage,
+                fetchingSearched: false,
+                loaded: true,
             }
         case CLEAR_SEARCHED:
             return {
                 ...state,
-                searched: []
+                searched: [],
+                searchedName: '',
+                fetchingSearched: false,
+                totalPagesSearched: 0,
+                searchedCurrentPage: 1,
+
             }
         case FETCH_GAMESERIES:
             return {

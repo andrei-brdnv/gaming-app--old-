@@ -9,7 +9,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const AsideLinks = () => {
     const dispatch = useDispatch()
-    const { searched } = useSelector(store => store.games)
+    const { searched, searchedName } = useSelector(store => store.games)
 
     const handleClick = (e) => {
         e.preventDefault()
@@ -27,7 +27,7 @@ const AsideLinks = () => {
 
     return (
         <Links className="links">
-            {searched.length ? (
+            {searched.length || searchedName ? (
                 <Searched animate={{scale: 1}} initial={{scale: 0.5}} transition={{type: 'spring'}}>
                     <AsideLink href="#searched" onClick={handleClick}>searched</AsideLink>
                     <FontAwesomeIcon  onClick={clearSearched} icon={faTimes} title={'Delete'}/>
@@ -36,7 +36,7 @@ const AsideLinks = () => {
 
             <AsideLink href="#upcoming" onClick={handleClick}>upcoming</AsideLink>
             <AsideLink href="#popular" onClick={handleClick}>popular</AsideLink>
-            <AsideLink href="#new-games" onClick={handleClick}>new games</AsideLink>
+            <AsideLink href="#new" onClick={handleClick}>new games</AsideLink>
         </Links>
     )
 }

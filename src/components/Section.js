@@ -20,11 +20,12 @@ const Section = ({ gameArray, totalPages, currentPage, fetching, fetch, fetchSta
     }, [fetching])
 
     return (
-        <StyledSection id={name}>
+        <SectionContainer id={name}>
             <h2><Text tid={`${name} games`}/></h2>
 
             <Games>
-                {!gameArray.length && Array.from({length: pageSize}, (_, i) => i + 1).map((n) => <Skeleton key={n} />)}
+                {!gameArray.length && Array.from({length: pageSize}, (_, i) => i + 1).map((n) => <Skeleton
+                    key={n}/>)}
 
                 {gameArray && gameArray.map(game => (
                     <GameCard
@@ -40,20 +41,21 @@ const Section = ({ gameArray, totalPages, currentPage, fetching, fetch, fetchSta
                     />
                 ))}
                 {gameArray.length < totalPages && totalPages !== currentPage &&
-                fetching ? Array.from({length: pageSize}, (_, i) => i + 1).map((n) => <Skeleton key={n} />) : <LoaderCard onClick={() => dispatch(fetchStart())} />
+                fetching ? Array.from({length: pageSize}, (_, i) => i + 1).map((n) => <Skeleton key={n}/>) :
+                    <LoaderCard onClick={() => dispatch(fetchStart())} name={name}/>
                 }
             </Games>
-        </StyledSection>
+        </SectionContainer>
     )
 }
 
-const StyledSection = styled(motion.section)`
+export const SectionContainer = styled(motion.section)`
   display: flex;
   flex-direction: column;
   margin-bottom: 5rem;
 `
 
-const Games = styled.div`
+export const Games = styled.div`
   min-height: 40vh;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));

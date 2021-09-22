@@ -1,6 +1,18 @@
 import React, {useEffect, useContext, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {fetchFavourites, fetchNewGames, fetchPopular, fetchUpcoming, loadGames, showLoader, addToFavourite, deleteFavourite, fetchUpcomingStart} from "../actions";
+import {
+    fetchFavourites,
+    fetchNewGames,
+    fetchPopular,
+    fetchUpcoming,
+    loadGames,
+    showLoader,
+    addToFavourite,
+    deleteFavourite,
+    fetchUpcomingStart,
+    fetchPopularStart,
+    fetchNewGamesStart, fetchSearched, fetchSearchedStart
+} from "../actions";
 import styled from "styled-components";
 import Game from "../components/GameCard";
 import { useLocation } from "react-router-dom";
@@ -25,6 +37,7 @@ import Skeleton from "../components/Skeleton";
 import Section from "../components/Section";
 
 import data from '../utils/mockedstate'
+import SearchedGames from "../components/SearchedGames";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -35,7 +48,7 @@ const Home = () => {
 
 
 
-    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector(store => store.games)
+    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, totalPagesSearched, fetchingSearched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage, searchedCurrentPage } = useSelector(store => store.games)
     //const { upcoming, popular, newGames } = data.games
     //const { totalPagesUpcoming, totalPagesPopular, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector(store => store.games)
     const { list, fetchFavourite } = useSelector((store => store.favourites))
@@ -136,7 +149,16 @@ const Home = () => {
             </AnimatePresence>
 
             <AnimatePresence>
-                {searched.length ? (
+                <SearchedGames
+                    gameArray={searched}
+                    totalPages={totalPagesSearched}
+                    currentPage={searchedCurrentPage}
+                    fetching={fetchingSearched}
+                    fetch={fetchSearched}
+                    fetchStart={fetchSearchedStart}
+                    name={"searched"}
+                />
+                {/*{searched.length ? (
                     <SSection
                         id="searched"
                         key="searched"
@@ -172,7 +194,7 @@ const Home = () => {
                             ))}
                         </Games>
                     </SSection>
-                ) : null}
+                ) : null}*/}
             </AnimatePresence>
 
             {auth.uid ? (
@@ -202,8 +224,6 @@ const Home = () => {
                 </SSection>
             ) : null}
 
-
-
             <Section
                 gameArray={upcoming}
                 totalPages={totalPagesUpcoming}
@@ -213,87 +233,24 @@ const Home = () => {
                 fetchStart={fetchUpcomingStart}
                 name={"upcoming"}
             />
-            {/*<Section id="upcoming">
-                <h2><Text tid='upcoming games'/></h2>
-
-                <Games>
-                    {!upcoming.length && Array.from({length: 20}, (_, i) => i + 1).map((n) => <Skeleton key={n} />)}
-
-                    {upcoming && upcoming.map(game => (
-                        <Game
-                            key={game.id}
-                            id={game.id}
-                            name={game.name}
-                            released={game.released}
-                            image={game.background_image}
-                            platforms={game.platforms}
-                            genres={game.genres}
-                            rating={game.rating}
-                            metacritic={game.metacritic}
-                        />
-                    ))}
-
-
-                </Games>
-                {upcoming.length < totalPagesUpcoming && totalPagesUpcoming !== upcomingCurrentPage &&
-                    <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_UPCOMING + START})}>
-                        {fetchingUpcoming ? <SimpleLoader /> : "Load More"}
-                    </button>
-                }
-            </Section>*/}
-
-            <SSection id="popular">
-                <h2>Popular games</h2>
-
-                <Games>
-                    {popular.map(game => (
-                        <Game
-                            key={game.id}
-                            id={game.id}
-                            name={game.name}
-                            released={game.released}
-                            image={game.background_image}
-                            platforms={game.platforms}
-                            genres={game.genres}
-                            rating={game.rating}
-                            metacritic={game.metacritic}
-                        />
-                    ))}
-                </Games>
-                {popular.length < totalPagesPopular && totalPagesPopular !== popularCurrentPage &&
-                    <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_POPULAR + START})}>
-                        {fetchingPopular ? <SimpleLoader /> : "Load More"}
-                    </button>
-                }
-            </SSection>
-
-            <SSection id="new-games">
-                <h2>New games</h2>
-
-                <Games>
-                    {newGames.map(game => (
-                        <Game
-                            key={game.id}
-                            id={game.id}
-                            name={game.name}
-                            released={game.released}
-                            image={game.background_image}
-                            platforms={game.platforms}
-                            genres={game.genres}
-                            rating={game.rating}
-                            metacritic={game.metacritic}
-                        />
-                    ))}
-                </Games>
-                {newGames.length < totalPagesNewGames && totalPagesNewGames !== newGamesCurrentPage &&
-                    <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_NEWGAMES + START})}>
-                        {fetchingNewGames ? <SimpleLoader /> : "Load More"}
-                    </button>
-                }
-            </SSection>
-
-
-
+            <Section
+                gameArray={popular}
+                totalPages={totalPagesPopular}
+                currentPage={popularCurrentPage}
+                fetching={fetchingPopular}
+                fetch={fetchPopular}
+                fetchStart={fetchPopularStart}
+                name={"popular"}
+            />
+            <Section
+                gameArray={newGames}
+                totalPages={totalPagesNewGames}
+                currentPage={newGamesCurrentPage}
+                fetching={fetchingNewGames}
+                fetch={fetchNewGames}
+                fetchStart={fetchNewGamesStart}
+                name={"new"}
+            />
         </GameList>
     )
 }

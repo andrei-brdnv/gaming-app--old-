@@ -10,7 +10,7 @@ import {
     gameSeriesURL
 } from "../api";
 import {
-    ADD_FAVOURITE,
+    ADD_FAVOURITE, CHANGE_INPUT,
     CLEAR_SEARCHED, DELETE_FAVOURITE, FAIL, FETCH_DETAIL, FETCH_FAVOURITE,
     FETCH_GAMESERIES,
     FETCH_NEWGAMES,
@@ -31,8 +31,25 @@ export const showLoader = () => (dispatch) => {
 }
 */
 
+export const changeInput = (input) => ({
+    type: CHANGE_INPUT,
+    payload: {input},
+})
+
 export const fetchUpcomingStart = () => ({
     type: FETCH_UPCOMING + START
+})
+
+export const fetchPopularStart = () => ({
+    type: FETCH_POPULAR + START
+})
+
+export const fetchNewGamesStart = () => ({
+    type: FETCH_NEWGAMES + START
+})
+
+export const fetchSearchedStart = () => ({
+    type: FETCH_SEARCHED + START
 })
 
 export const fetchUpcoming = (upcomingCurrentPage) => async (dispatch) => {
@@ -42,14 +59,13 @@ export const fetchUpcoming = (upcomingCurrentPage) => async (dispatch) => {
 
     await axios.get(upcomingGamesURL(upcomingCurrentPage))
         .then(response => dispatch({
-                type: FETCH_UPCOMING + SUCCESS,
-                payload: {
-                    upcoming: response.data.results,
-                    totalPagesUpcoming: response.data.count,
-                    upcomingCurrentPage: upcomingCurrentPage + 1
-                }
-            })
-        )
+            type: FETCH_UPCOMING + SUCCESS,
+            payload: {
+                upcoming: response.data.results,
+                totalPagesUpcoming: response.data.count,
+                upcomingCurrentPage: upcomingCurrentPage + 1
+            }
+        }))
 }
 
 export const fetchPopular = (popularCurrentPage) => async (dispatch) => {
@@ -59,14 +75,13 @@ export const fetchPopular = (popularCurrentPage) => async (dispatch) => {
 
     await axios.get(popularGamesURL(popularCurrentPage))
         .then(response => dispatch({
-                type: FETCH_POPULAR + SUCCESS,
-                payload: {
-                    popular: response.data.results,
-                    totalPagesPopular: response.data.count,
-                    popularCurrentPage: popularCurrentPage + 1
-                }
-            })
-        )
+            type: FETCH_POPULAR + SUCCESS,
+            payload: {
+                popular: response.data.results,
+                totalPagesPopular: response.data.count,
+                popularCurrentPage: popularCurrentPage + 1
+            }
+        }))
 }
 
 export const fetchNewGames = (newGamesCurrentPage) => async (dispatch) => {
@@ -76,14 +91,29 @@ export const fetchNewGames = (newGamesCurrentPage) => async (dispatch) => {
 
     await axios.get(newGamesURL(newGamesCurrentPage))
         .then(response => dispatch({
-                type: FETCH_NEWGAMES + SUCCESS,
-                payload: {
-                    newGames: response.data.results,
-                    totalPagesNewGames: response.data.count,
-                    newGamesCurrentPage: newGamesCurrentPage + 1
-                }
-            })
-        )
+            type: FETCH_NEWGAMES + SUCCESS,
+            payload: {
+                newGames: response.data.results,
+                totalPagesNewGames: response.data.count,
+                newGamesCurrentPage: newGamesCurrentPage + 1
+            }
+        }))
+}
+
+export const fetchSearched = (game_name, searchedCurrentPage) => async (dispatch) => {
+    dispatch({
+        type: FETCH_SEARCHED + START
+    })
+
+    await axios.get(searchGameURL(game_name, searchedCurrentPage))
+        .then(response => dispatch({
+            type: FETCH_SEARCHED + SUCCESS,
+            payload: {
+                searched: response.data.results,
+                totalPagesSearched: response.data.count,
+                searchedCurrentPage: searchedCurrentPage + 1
+            }
+        }))
 }
 
 
@@ -126,16 +156,7 @@ export const loadDetail = (id) => async (dispatch) => {
     })
 }
 
-export const fetchSearched = (game_name) => async (dispatch) => {
-    const searchedData = await axios.get(searchGameURL(game_name))
 
-    dispatch({
-        type: FETCH_SEARCHED,
-        payload: {
-            searched: searchedData.data.results,
-        }
-    })
-}
 
 export const fetchGameSeries = (id) => async (dispatch) => {
     const gameSeriesData = await axios.get(gameSeriesURL(id))

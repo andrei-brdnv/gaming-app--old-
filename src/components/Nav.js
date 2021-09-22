@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import { animateScroll } from "react-scroll";
 import { debounce } from "../utils/debounce";
-import {fetchSearched, signOut} from "../actions";
+import {changeInput, fetchSearched, signOut} from "../actions";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
@@ -21,23 +21,25 @@ const Nav = () => {
         setInput(e.target.value)
     }
 
+    const { searched, searchedCurrentPage } = useSelector(store => store.games)
+
     const submitSearch = (e) => {
         e.preventDefault()
-        dispatch(fetchSearched(input))
-        setInput('')
+        dispatch(changeInput(input))
+        dispatch(fetchSearched(input, searchedCurrentPage))
 
-        dispatch({type: CLEAR_GAMESERIES})
+        setInput('')
     }
 
-    const { searched } = useSelector((store => store.games))
+
 
     const { auth } = useSelector((store => store.firebase))
     const handleLogout = () => {
         dispatch(signOut())
     }
 
-    useLayoutEffect(() => {
-        if (searched.length > 0) {
+    useEffect(() => {
+        if (searched.length && searchedCurrentPage < 2) {
             const element = document.querySelector("#searched").offsetTop
             console.log(element)
 
