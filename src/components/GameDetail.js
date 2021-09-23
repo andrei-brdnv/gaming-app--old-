@@ -8,9 +8,7 @@ import { SRLWrapper } from "simple-react-lightbox";
 import getPlatformLogo from "../utils/getPlatformLogo";
 import moment from "moment";
 import { Link } from "react-router-dom";
-
-import {Platforms, Icon} from "./GameCard";
-import {logger} from "redux-logger/src";
+// Styles
 import metacriticBorder from "../utils/metacriticBorderStyle";
 import ReactHtmlParser from "react-html-parser";
 

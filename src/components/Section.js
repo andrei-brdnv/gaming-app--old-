@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Text } from "../context/AppLangProvider";
 import { pageSize } from "../api";
-
+// Styles
 import styled from "styled-components";
 import { motion } from "framer-motion";
-
+// Components
 import GameCard from "./GameCard";
 import Skeleton from "./Skeleton";
 import LoaderCard from "./LoaderCard";
@@ -58,7 +58,7 @@ export const SectionContainer = styled(motion.section)`
 export const Games = styled.div`
   min-height: 40vh;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-column-gap: 2rem;
   grid-row-gap: 4rem;
 `

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import navHighlighter from "../utils/navHighlighter";
-
+// Styles
 import styled from "styled-components";
-
+// Components
 import ThemeSwitcher from "./ThemeSwitcher";
 import LangSwitcher from "./LangSwitcher";
 import AsideLinks from "./AsideLinks";

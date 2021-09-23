@@ -8,6 +8,7 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import {CLEAR_GAMESERIES, CLEAR_SEARCHED} from "../utils/constants";
+// Styles
 import {Link, Redirect} from "react-router-dom";
 import User from "../images/profile-user.png";
 

@@ -38,6 +38,7 @@ import Section from "../components/Section";
 
 import data from '../utils/mockedstate'
 import SearchedGames from "../components/SearchedGames";
+import FavouriteGames from "../components/FavouriteGames";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const Home = () => {
     const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, totalPagesSearched, fetchingSearched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage, searchedCurrentPage } = useSelector(store => store.games)
     //const { upcoming, popular, newGames } = data.games
     //const { totalPagesUpcoming, totalPagesPopular, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector(store => store.games)
-    const { list, fetchFavourite } = useSelector((store => store.favourites))
+    const { list, fetchFavourite } = useSelector(store => store.favourites)
     const { auth } = useSelector((store => store.firebase))
     const { signIn } = useSelector((store => store.auth))
 
@@ -68,9 +69,6 @@ const Home = () => {
         dispatch({type: CLEAR_SEARCHED})
     }
 
-    const clearGameSeries = () => {
-        dispatch({type: CLEAR_GAMESERIES})
-    }
 
     /*useEffect(() => {
         dispatch(showLoader())
@@ -108,120 +106,23 @@ const Home = () => {
     return (
         <GameList>
             {pathId && <GameDetail/>}
-            <AnimatePresence>
-                {gameSeries.length ? (
-                    <SSection
-                        id="game-series"
-                        key="game-series"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                    >
-                        <Searched>
-                            <h2>Games series
-                                <span onClick={clearGameSeries}>
-                                <FontAwesomeIcon
-                                    icon={faTimesCircle}
-                                    title={'Delete'}
-                                />
-                            </span>
-                            </h2>
-                        </Searched>
-
-                        <Games>
-
-                            {gameSeries.map(game => (
-                                <Game
-                                    key={game.id}
-                                    id={game.id}
-                                    name={game.name}
-                                    released={game.released}
-                                    image={game.background_image}
-                                    platforms={game.platforms}
-                                    genres={game.genres}
-                                    rating={game.rating}
-                                    metacritic={game.metacritic}
-                                />
-                            ))}
-                        </Games>
-                    </SSection>
-                ) : null}
-            </AnimatePresence>
-
-            <AnimatePresence>
-                <SearchedGames
-                    gameArray={searched}
-                    totalPages={totalPagesSearched}
-                    currentPage={searchedCurrentPage}
-                    fetching={fetchingSearched}
-                    fetch={fetchSearched}
-                    fetchStart={fetchSearchedStart}
-                    name={"searched"}
-                />
-                {/*{searched.length ? (
-                    <SSection
-                        id="searched"
-                        key="searched"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                    >
-                        <Searched>
-                            <h2>Searched games
-                                <span onClick={clearSearched}>
-                                <FontAwesomeIcon
-                                    icon={faTimesCircle}
-                                    title={'Delete'}
-                                />
-                            </span>
-                            </h2>
-                        </Searched>
-
-                        <Games>
-
-                            {searched.map(game => (
-                                <Game
-                                    key={game.id}
-                                    id={game.id}
-                                    name={game.name}
-                                    released={game.released}
-                                    image={game.background_image}
-                                    platforms={game.platforms}
-                                    genres={game.genres}
-                                    rating={game.rating}
-                                    metacritic={game.metacritic}
-                                />
-                            ))}
-                        </Games>
-                    </SSection>
-                ) : null}*/}
-            </AnimatePresence>
+            <SearchedGames
+                gameArray={searched}
+                totalPages={totalPagesSearched}
+                currentPage={searchedCurrentPage}
+                fetching={fetchingSearched}
+                fetch={fetchSearched}
+                fetchStart={fetchSearchedStart}
+                name={"searched"}
+            />
 
             {auth.uid ? (
-                <SSection>
-                    <h2>Favourite games</h2>
-
-                    <Games>
-                        {list && list.length ? list.map(game => (
-                            <Game
-                                key={game.id}
-                                id={game.id}
-                                name={game.name}
-                                released={game.released}
-                                image={game.background_image}
-                                platforms={game.platforms}
-                                genres={game.genres}
-                                rating={game.rating}
-                                metacritic={game.metacritic}
-                            />
-                        )) : <p>Add game to your favourite from game card when hovering</p>}
-                    </Games>
-                    {/*{newGames.length < totalPagesNewGames && totalPagesNewGames !== newGamesCurrentPage &&
-                <button className="btn-load-more" onClick={() => dispatch({ type: FETCH_UPCOMING + START})}>
-                    {'Load More'}
-                </button>
-                }*/}
-                </SSection>
+                <FavouriteGames
+                    gameArray={list}
+                    fetching={fetchFavourite}
+                    fetch={fetchFavourites}
+                    name={"favourite"}
+                />
             ) : null}
 
             <Section
@@ -329,7 +230,7 @@ const SSection = styled(motion.section)`
 const Games = styled.div`
   min-height: 40vh;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, max-content));
   grid-column-gap: 2rem;
   grid-row-gap: 4rem;
 `

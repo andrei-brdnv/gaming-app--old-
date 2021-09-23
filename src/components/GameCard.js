@@ -5,6 +5,7 @@ import { loadDetail } from "../actions";
 import { smallImage } from "../utils/mediaResize";
 import getPlatformLogo from "../utils/getPlatformLogo";
 import metacriticBorderStyle from "../utils/metacriticBorderStyle";
+// Styles
 import styled from "styled-components";
 import GameCardMore, {Container} from "./GameCardMore";
 
@@ -128,17 +129,14 @@ export const Platforms = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  overflow: hidden;
 `
 
 export const Icon = styled.div`
   display: block;
   font-size: 1rem;
-  margin-left: 0.5rem;
+  margin-right: 0.5rem;
   color: #3d3d3d;
-  
-  &:first-child {
-    margin: 0;
-  }
 `
 
 export default GameCard

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+// Styles
 import styled from "styled-components";
 import { AppThemeContext } from "../context/AppThemeProvider";
 /*import Switch from "react-switch";*/

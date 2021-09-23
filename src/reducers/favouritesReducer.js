@@ -35,7 +35,7 @@ const favouritesReducer = (state = initState, action) => {
         case FETCH_FAVOURITE + SUCCESS:
             return {
                 ...state,
-                list: action.payload,
+                list: [...payload],
                 fetchFavourite: false,
             }
         case DELETE_FAVOURITE + START:

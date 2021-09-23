@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Link, Redirect } from "react-router-dom";
 import User from "../images/profile-user.png";
+// Styles
 import { FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faExclamation, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";

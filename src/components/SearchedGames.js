@@ -2,11 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Text } from "../context/AppLangProvider";
 import { pageSize } from "../api";
-
-import styled from "styled-components";
-import { motion } from "framer-motion";
+// Styles
 import { SectionContainer, Games } from "./Section";
-
+// Components
 import GameCard from "./GameCard";
 import Skeleton from "./Skeleton";
 import LoaderCard from "./LoaderCard";
@@ -26,10 +24,10 @@ const SearchedGames = ({ gameArray, totalPages, currentPage, fetching, fetch, fe
             {gameArray.length || searchedName ? (
                 <SectionContainer id={name}>
                     <h2><Text tid={`${name} games`}/></h2>
-
                     <Games>
-                        {!gameArray.length && Array.from({length: pageSize}, (_, i) => i + 1).map((n) => <Skeleton
-                            key={n}/>)}
+                        {!gameArray.length && Array.from({length: pageSize}, (_, i) => i + 1).map((n) =>
+                            <Skeleton key={n}/>
+                        )}
 
                         {gameArray && gameArray.map(game => (
                             <GameCard
@@ -44,15 +42,16 @@ const SearchedGames = ({ gameArray, totalPages, currentPage, fetching, fetch, fe
                                 metacritic={game.metacritic}
                             />
                         ))}
-                        {gameArray.length < totalPages && totalPages !== currentPage &&
-                        fetching ? Array.from({length: pageSize}, (_, i) => i + 1).map((n) => <Skeleton key={n}/>) :
-                            <LoaderCard onClick={() => dispatch(fetchStart())} name={name}/>
+
+                        {gameArray.length < totalPages && totalPages !== currentPage && fetching ?
+                            Array.from({length: pageSize}, (_, i) => i + 1).map((n) =>
+                                <Skeleton key={n} />) :
+                                <LoaderCard onClick={() => dispatch(fetchStart())} name={name} />
                         }
                     </Games>
                 </SectionContainer>
             ) : null}
         </>
-
     )
 }
 

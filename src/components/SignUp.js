@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExclamation, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {Link, Redirect} from "react-router-dom";
+// Styles
 import { motion } from "framer-motion";
 
 const SignUp = () => {
