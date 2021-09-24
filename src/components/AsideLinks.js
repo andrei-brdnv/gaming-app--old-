@@ -30,7 +30,7 @@ const AsideLinks = () => {
             {searched.length || searchedName ? (
                 <Searched animate={{scale: 1}} initial={{scale: 0.5}} transition={{type: 'spring'}}>
                     <AsideLink href="#searched" onClick={handleClick}>searched</AsideLink>
-                    <FontAwesomeIcon  onClick={clearSearched} icon={faTimes} title={'Delete'}/>
+                    <FontAwesomeIcon onClick={clearSearched} icon={faTimes} title={'Delete'}/>
                 </Searched>
             ) : null}
 

@@ -84,8 +84,8 @@ export const Card = styled.div`
   &:hover {
     border-radius: 1rem 1rem 0 0;
     box-shadow: none;
-    transform: scale(1.025);
-    transition: all .05s ease-in-out;
+    transform: scale(1.05);
+    transition: all .1s ease-in-out;
     background-color: #ededed;
     z-index: 10;
   }

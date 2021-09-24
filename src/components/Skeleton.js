@@ -51,7 +51,7 @@ const SkeletonContainer = styled(Card)`
   .shimmer {
     width: 50%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.35);
     box-shadow: 0 0 5rem 5rem rgba(255, 255, 255, 0.1);
   }
 
