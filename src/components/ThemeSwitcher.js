@@ -58,7 +58,7 @@ const ThemeSwitcher = () => {
 
     return (
         <Wrapper>
-            <p onClick={handleThemeChange}>mode: [{themeMode === "lightTheme" ? 'light' : 'dark'}]</p>
+            <p onClick={handleThemeChange}>mode: [{themeMode === "lightTheme" ? 'Light' : 'Dark'}]</p>
         </Wrapper>
     )
 }
@@ -68,13 +68,13 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   //width: 20rem;
-  background-color: peachpuff;
+  background-color: transparent;
   padding: 0.5rem;
   
   p {
     font-size: 1rem;
     line-height: 100%;
-    color: black;
+    color: inherit;
   }
 `
 

@@ -25,6 +25,7 @@ const StyledNavItem = styled.li`
     width: 2.5rem;
     height: 2.5rem;
     background-color: #484a4d;
+    //background-color: palevioletred;
     border-radius: 50%;
     padding: 5px;
     margin: 2px;
@@ -37,14 +38,14 @@ const StyledNavItem = styled.li`
     text-decoration: none;
   }
 
-  icon-button:hover {
+  .icon-button:hover {
     filter: brightness(1.2);
   }
 
-  icon-button svg {
+  .icon-button svg {
     fill: #dadce1;
-    width: 20px;
-    height: 20px;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 `
 
