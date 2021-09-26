@@ -76,7 +76,7 @@ export const Container = styled.div`
   width: 100%;
   border-radius: 0 0 1rem 1rem;
   transition: all .25s linear;
-  background-color: #ededed;
+  background-color: #F8F8F8;
   padding: 1rem;
   z-index: 10;
   

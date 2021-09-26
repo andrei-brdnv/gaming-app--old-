@@ -64,6 +64,7 @@ export const Card = styled.div`
   text-align: left;
   border-radius: 1rem;
   position: relative;
+  background-color: #F8F8F8;
   
   img {
     width: 100%;
@@ -86,7 +87,6 @@ export const Card = styled.div`
     box-shadow: none;
     transform: scale(1.05);
     transition: all .1s ease-in-out;
-    background-color: #ededed;
     z-index: 10;
   }
   

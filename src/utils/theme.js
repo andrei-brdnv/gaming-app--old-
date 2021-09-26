@@ -1,7 +1,7 @@
 export default {
     lightTheme: {
         colors: {
-            background: 'white',
+            background: '#E8E8E8',
             black: 'black',
             white: 'white',
             blue: '#a0e9fd',

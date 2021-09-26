@@ -38,7 +38,7 @@ const NavSearch = () => {
         }
     }, [searched])
     return (
-        <Form>
+        <Form onSubmit={submitSearch}>
             <Input
                 type="text"
                 placeholder={"Search more than 500,000 games"}
@@ -56,13 +56,13 @@ const Form = styled.form`
   display:flex;
   flex-direction:row;
   align-items: center;
-  border:1px solid black;
+  //border:1px solid black;
   margin-right: 5rem;
   padding: 0.75rem 1.25rem;
   width: 100%;
-  background-color: white;
   border-radius: 1.5rem;
-
+  background-color: #F8F8F8;
+  
   svg {
     cursor: pointer;
   }
@@ -74,16 +74,15 @@ const Form = styled.form`
 
 const Input = styled.input`
   width: 100%;
-  padding: 0;
   border: 0;
   line-height: 1rem;
   font-size: 1rem;
   background-size: 1rem;
   margin-right: 1rem;
-
+  background-color: #F8F8F8;
+  
   &:focus {
     outline: none;
-    background-color: white;
   }
   
 `

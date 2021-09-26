@@ -24,7 +24,7 @@ const StyledNavItem = styled.li`
   .icon-button {
     width: 2.5rem;
     height: 2.5rem;
-    background-color: #484a4d;
+    background-color: #707070;
     //background-color: palevioletred;
     border-radius: 50%;
     padding: 5px;

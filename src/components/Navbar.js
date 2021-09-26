@@ -10,8 +10,6 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 const Navbar = (props) => {
     return (
             <StyledNavList>
-                <NavItem icon="&#x1F60a;" />
-
                 <NavItem icon={<FontAwesomeIcon icon={faCaretDown} />}>
                     <DropdownMenu>
 

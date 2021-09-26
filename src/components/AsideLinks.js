@@ -76,7 +76,7 @@ const AsideLink = styled.a`
   
   &.active {
     transition: all .05s ease;
-    background-color: #cfd8dc;
+    background-color: #BEBEBE;
   }
 `
 

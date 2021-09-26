@@ -125,7 +125,7 @@ const StyledNav = styled.div`
     align-items: center;
     padding: 0 2rem;
     transition: all 0.5s;
-    background-color: #d7ccc8;
+    background-color: #BEBEBE;
 `
 
 const DropdownMenu = styled.div`
