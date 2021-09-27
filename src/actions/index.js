@@ -11,7 +11,7 @@ import {
 } from "../api";
 import {
     ADD_FAVOURITE, CHANGE_INPUT,
-    CLEAR_SEARCHED, DELETE_FAVOURITE, FAIL, FETCH_DETAIL, FETCH_FAVOURITE,
+    CLEAR_SEARCHED, CLOSE, DELETE_FAVOURITE, FAIL, FETCH_DETAIL, FETCH_FAVOURITE,
     FETCH_GAMESERIES,
     FETCH_NEWGAMES,
     FETCH_POPULAR,
@@ -20,7 +20,7 @@ import {
     GET_DETAIL,
     LOADING_DETAIL,
     START,
-    SUCCESS
+    SUCCESS, TOGGLE_OPEN
 } from "../utils/constants";
 
 /*
@@ -30,6 +30,14 @@ export const showLoader = () => (dispatch) => {
     })
 }
 */
+
+export const toggleOpen = () => ({
+    type: TOGGLE_OPEN
+})
+
+export const closeItem = () => ({
+    type: CLOSE
+})
 
 export const changeInput = (input) => ({
     type: CHANGE_INPUT,

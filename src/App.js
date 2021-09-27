@@ -2,11 +2,11 @@ import React from "react";
 import Home from "./pages/home";
 import GlobalStyles from "./components/GlobalStyles";
 import { Switch, Route } from "react-router-dom";
-import Nav from "./components/Nav";
+import Header from "./components/header/Header";
 import AsideMenu from "./components/AsideMenu";
 import styled from "styled-components";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
+import SignIn from "./pages/signIn";
+import SignUp from "./pages/signUp";
 
 function App() {
     return (
@@ -23,7 +23,7 @@ function App() {
 
 
                 <div>
-                    <Nav />
+                    <Header />
                     <ContentWrapper>
                         <AsideMenu />
                         <Route path={['/game/:id', '/']} exact component={Home} />

@@ -1,21 +1,28 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { toggleOpen } from "../../actions";
 
-const NavItem = (props) => {
-    const [open, setOpen] = useState(false);
+const HeaderNavItem = (props) => {
+    const dispatch = useDispatch()
+    const { open } = useSelector(store => store.ui)
+
+    const toggleDropdown = () => {
+        dispatch(toggleOpen())
+    }
 
     return (
-        <StyledNavItem>
-            <a href="#" className="icon-button" onClick={() => setOpen(!open)}>
+        <NavItem>
+            <span className="icon-button" onClick={toggleDropdown}>
                 {props.icon}
-            </a>
+            </span>
 
             {open && props.children}
-        </StyledNavItem>
+        </NavItem>
     );
 }
 
-const StyledNavItem = styled.li`
+const NavItem = styled.li`
   width: 4rem;
   display: flex;
   align-items: center;
@@ -36,6 +43,7 @@ const StyledNavItem = styled.li`
 
     color: #dadce1;
     text-decoration: none;
+    cursor: pointer;
   }
 
   .icon-button:hover {
@@ -49,4 +57,4 @@ const StyledNavItem = styled.li`
   }
 `
 
-export default NavItem
+export default HeaderNavItem

@@ -4,6 +4,7 @@ import detailReducer from "./detailReducer";
 import { firebaseReducer } from "react-redux-firebase";
 import authReducer from "./authReducer";
 import favouritesReducer from "./favouritesReducer"
+import uiReducer from "./uiReducer";
 
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     firebase: firebaseReducer,
     auth: authReducer,
     favourites: favouritesReducer,
+    ui: uiReducer,
 })
 
 export default rootReducer

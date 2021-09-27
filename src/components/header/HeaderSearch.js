@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
 import styled from "styled-components";
-import {changeInput, fetchSearched} from "../actions";
+import {changeInput, fetchSearched} from "../../actions";
 import {useDispatch, useSelector} from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-const NavSearch = () => {
+const HeaderSearch = () => {
     const dispatch = useDispatch()
     const [input, setInput] = useState('')
     const inputRef = useRef(null)
@@ -57,13 +57,15 @@ const Form = styled.form`
   flex-direction:row;
   align-items: center;
   //border:1px solid black;
-  margin-right: 5rem;
-  padding: 0.75rem 1.25rem;
+  margin-right: 2rem;
+  //padding: 0.75rem 1.25rem;
   width: 100%;
   border-radius: 1.5rem;
-  background-color: #F8F8F8;
+  position: relative;
   
   svg {
+    position: absolute;
+    right: 1rem;
     cursor: pointer;
   }
 
@@ -78,13 +80,19 @@ const Input = styled.input`
   line-height: 1rem;
   font-size: 1rem;
   background-size: 1rem;
-  margin-right: 1rem;
-  background-color: #F8F8F8;
+  padding: 0.75rem 2.25rem 0.75rem 1.25rem;
+  background-color: #E8E8E8;
+  border-radius: 1.5rem;
+  height: 100%;
   
   &:focus {
     outline: none;
+    background-color: #F8F8F8;
   }
   
+  &:hover {
+    background-color: #F8F8F8;
+  }
 `
 
 const Button = styled.button`
@@ -168,4 +176,4 @@ const Button = styled.button`
   }
 `*/
 
-export default NavSearch
+export default HeaderSearch
