@@ -7,7 +7,7 @@ import getPlatformLogo from "../utils/getPlatformLogo";
 import metacriticBorderStyle from "../utils/metacriticBorderStyle";
 // Styles
 import styled from "styled-components";
-import GameCardMore, {Container} from "./GameCardMore";
+import GameCardMore, { Container } from "./GameCardMore";
 
 const GameCard = ({ name, released, image, id, platforms, genres, rating, metacritic }) => {
     const dispatch = useDispatch()
@@ -64,7 +64,7 @@ export const Card = styled.div`
   text-align: left;
   border-radius: 1rem;
   position: relative;
-  background-color: #F8F8F8;
+  background-color: ${props => props.theme.colors.cardBg};
   
   img {
     width: 100%;
@@ -85,8 +85,8 @@ export const Card = styled.div`
   &:hover {
     border-radius: 1rem 1rem 0 0;
     box-shadow: none;
-    transform: scale(1.05);
-    transition: all .1s ease-in-out;
+    transform: scale(1.02);
+    transition: all .2s linear;
     z-index: 10;
   }
   
@@ -104,6 +104,7 @@ const Info = styled.div`
 
 const Metascore = styled.div`
   font-weight: bold;
+  color: ${props => props.theme.colors.font};
 
   &.green {
     border: 2px solid green;
@@ -136,7 +137,7 @@ export const Icon = styled.div`
   display: block;
   font-size: 1rem;
   margin-right: 0.5rem;
-  color: #3d3d3d;
+  color: ${props => props.theme.colors.font};
 `
 
 export default GameCard

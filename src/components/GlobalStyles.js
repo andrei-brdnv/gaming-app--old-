@@ -41,23 +41,23 @@ const GlobalStyles = createGlobalStyle`
     font-size: 2rem;
     font-family: "Raleway", cursive;
     font-weight: lighter;
-    color: #333;
+    color: ${props => props.theme.colors.font};
   }
 
   h3 {
     font-size: 1.25rem;
-    color: #333;
+    color: ${props => props.theme.colors.font};
   }
 
   p {
     font-size: 1.25rem;
     line-height: 150%;
-    color: #333;
+    color: ${props => props.theme.colors.paragraph};
   }
 
   a {
     text-decoration: none;
-    color: #333;
+    color: ${props => props.theme.colors.font};
   }
 
   img {

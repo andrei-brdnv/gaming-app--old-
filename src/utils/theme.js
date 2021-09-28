@@ -2,6 +2,14 @@ export default {
     lightTheme: {
         colors: {
             background: '#E8E8E8',
+            header: '#BEBEBE',
+            input: '#E8E8E8',
+            inputFont: '#282828',
+            font: '#282828',
+            paragraph: '#303030',
+            cardBg: '#F8F8F8',
+            loader: '',
+
             black: 'black',
             white: 'white',
             blue: '#a0e9fd',
@@ -13,7 +21,15 @@ export default {
 
     darkTheme: {
         colors: {
-            background: '#121212',
+            background: '#101010',
+            header: '#282828',
+            input: '#484848',
+            inputFont: 'rgba(224, 224, 224, 0.8)',
+            font: 'rgba(255, 224, 178, 0.8)',
+            paragraph: 'rgba(255, 224, 178, 0.65)',
+            cardBg: '#181818',
+            loader: '',
+
             black: 'white',
             white: 'black',
             blue: '#a0e9fd',

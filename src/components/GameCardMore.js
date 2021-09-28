@@ -76,14 +76,14 @@ export const Container = styled.div`
   width: 100%;
   border-radius: 0 0 1rem 1rem;
   transition: all .25s linear;
-  background-color: #F8F8F8;
+  background-color: ${props => props.theme.colors.cardBg};
   padding: 1rem;
   z-index: 10;
   
   span {
     font-size: 0.8rem;
     font-weight: 500;
-    color: #333;
+    color: ${props => props.theme.colors.font};
   }
 `
 
@@ -100,12 +100,13 @@ const UnderlinedLink = styled(Link)`
 `
 
 const ShowMoreButton = styled.div`
-  background-color: #9e9e9e;
+  background-color: ${props => props.theme.colors.header};
   border-radius: 0.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
 
   span {
     width: 100%;
@@ -123,13 +124,7 @@ const ShowMoreButton = styled.div`
   }
 
   &:hover {
-    span {
-      color: #ffe082;
-    }
-    
-    svg {
-      color: #ffe082;
-    }
+    filter: brightness(1.15);
   }
 `
 

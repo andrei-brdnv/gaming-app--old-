@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import { toggleOpen } from "../../actions";
+// Styles
+import styled from "styled-components";
 
 const HeaderNavItem = (props) => {
     const dispatch = useDispatch()
@@ -13,9 +14,9 @@ const HeaderNavItem = (props) => {
 
     return (
         <NavItem>
-            <span className="icon-button" onClick={toggleDropdown}>
+            <IconButton onClick={toggleDropdown}>
                 {props.icon}
-            </span>
+            </IconButton>
 
             {open && props.children}
         </NavItem>
@@ -27,33 +28,29 @@ const NavItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+
+export const IconButton = styled.span`
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #707070;
+  border-radius: 50%;
+  padding: 5px;
+  margin: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter .25s;
+  color: #dadce1;
+  text-decoration: none;
+  cursor: pointer;
   
-  .icon-button {
-    width: 2.5rem;
-    height: 2.5rem;
-    background-color: #707070;
-    //background-color: palevioletred;
-    border-radius: 50%;
-    padding: 5px;
-    margin: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: filter 300ms;
-
-    color: #dadce1;
-    text-decoration: none;
-    cursor: pointer;
+  &:hover {
+    filter: brightness(1.25);
   }
 
-  .icon-button:hover {
-    filter: brightness(1.2);
-  }
-
-  .icon-button svg {
-    fill: #dadce1;
-    width: 1.5rem;
-    height: 1.5rem;
+  svg {
+    font-size: 1.5rem;
   }
 `
 

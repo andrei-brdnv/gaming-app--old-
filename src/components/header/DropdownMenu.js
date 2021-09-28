@@ -1,44 +1,29 @@
-import React, {useContext, useEffect, useLayoutEffect, useRef, useState} from "react";
-import { ReactComponent as ArrowIcon } from "../../images/right-arrow.svg";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { signOut, closeItem } from "../../actions";
+import { AppThemeContext } from "../../context/AppThemeProvider";
+import { AppLangContext } from "../../context/AppLangProvider";
+// Styles
 import styled from "styled-components";
-import {CSSTransition} from "react-transition-group";
-
+import { CSSTransition } from "react-transition-group";
+import { IconButton } from "./HeaderNavItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog, faArrowLeft, faChevronRight, faSignInAlt, faUser } from "@fortawesome/free-solid-svg-icons";
-import ThemeSwitcher from "../ThemeSwitcher";
-import LangSwitcher from "../LangSwitcher";
-import {AppThemeContext} from "../../context/AppThemeProvider";
-import {AppLangContext} from "../../context/AppLangProvider";
-import {useDispatch, useSelector} from "react-redux";
-import {signOut} from "../../actions";
-import {Link, useHistory, useLocation} from "react-router-dom";
-import { closeItem } from "../../actions";
-import useClickOutside from "../../utils/clickOutsideFunc";
+import { faCog, faArrowLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 const DropdownMenu = () => {
     const [activeMenu, setActiveMenu] = useState('main');
     const [menuHeight, setMenuHeight] = useState(0);
-    const pathname = useLocation()
     const dispatch = useDispatch()
     const { auth } = useSelector(store => store.firebase)
     const dropdownRef = useRef(null);
     const { toggleTheme, themeMode } = useContext(AppThemeContext);
     const { userLang, toggleLang } = useContext(AppLangContext)
 
-    const history = useHistory()
-
-    /*useClickOutside(dropdownRef, () => {
-        dispatch(closeItem())
-    })*/
-
     useEffect(() => {
         setMenuHeight(dropdownRef.current?.firstChild.offsetHeight)
         console.log("DDREF", dropdownRef)
-    }, [auth.uid])
-
-    /*useEffect(() => {
-        dispatch(closeItem())
-    }, [pathname])*/
+    }, [])
 
     const calcHeight = (el) => {
         const height = el.offsetHeight;
@@ -69,9 +54,9 @@ const DropdownMenu = () => {
                     props.mode === "logout" && props.handleLogout();
                 }}
             >
-                {props.goToMenu ? <span className="icon-button">{props.leftIcon}</span> : null}
+                {props.goToMenu ? <StyledIconButton>{props.leftIcon}</StyledIconButton> : null}
                 {props.children}
-                <span className="icon-right">{props.rightIcon}</span>
+                <IconRight>{props.rightIcon}</IconRight>
             </MenuItem>
         );
     }
@@ -91,10 +76,10 @@ const DropdownMenu = () => {
                                 Logout
                             </DropdownItem> :
                             <>
-                                <DropdownItem leftIcon={<FontAwesomeIcon icon={faSignInAlt} />}>
+                                <DropdownItem>
                                     <Link to={"/sign-in"}>Sign in</Link>
                                 </DropdownItem>
-                                <DropdownItem leftIcon={<FontAwesomeIcon icon={faUser} />}>
+                                <DropdownItem>
                                     <Link to={"sign-up"}>Create an account</Link>
                                 </DropdownItem>
                             </>
@@ -120,10 +105,10 @@ const DropdownMenu = () => {
                         <DropdownItem goToMenu="main" leftIcon={<FontAwesomeIcon icon={faArrowLeft} />}>
                             Settings
                         </DropdownItem>
-                        <DropdownItem mode={"theme"} handleThemeChange={handleThemeChange} leftIcon={themeMode === 'lightTheme' ? `\u{1F31E}` : `\u{1F311}`}>
+                        <DropdownItem mode={"theme"} handleThemeChange={handleThemeChange}>
                             {themeMode === 'lightTheme' ? 'Light theme' : 'Dark theme'}
                         </DropdownItem>
-                        <DropdownItem mode={"lang"} handleLangChange={handleLangChange} leftIcon={userLang === 'ru' ? `ru` : `en`}>
+                        <DropdownItem mode={"lang"} handleLangChange={handleLangChange}>
                             {userLang === 'ru' ? 'Русский' : 'English'}
                         </DropdownItem>
                     </Menu>
@@ -148,6 +133,7 @@ const Container = styled.div`
   font-size: 0.85rem;
   box-sizing: content-box;
   
+  // CSSTransitionGroup
   .menu-primary-enter {
     position: absolute;
     transform: translateX(-110%);
@@ -164,7 +150,8 @@ const Container = styled.div`
     transform: translateX(-110%);
     transition: all 0.5s ease;
   }
-
+  
+  // CSSTransitionGroup
   .menu-secondary-enter {
     transform: translateX(110%);
   }
@@ -195,7 +182,6 @@ const MenuItem = styled.div`
   transition: background .5s;
   padding: 0.5rem;
   width: 100%;
-
   color: #303030;
   text-decoration: none;
   cursor: pointer;
@@ -212,30 +198,27 @@ const MenuItem = styled.div`
   &:hover {
     background-color: #BEBEBE;
   }
-  
-  .icon-right {
-    margin-left: auto;
-    flex-shrink: 0;
-    color: #707070;
-  }
-  
-  .icon-button {
-    width: 2rem;
-    height: 2rem;
-    margin: 0 0.5rem 0 0;
-    //margin-right: 0.5rem;
-    flex-shrink: 0;
-    font-size: 1.25rem;
-    background-color: #707070;
-  }
+`
 
-  .icon-button svg {
-    width: 1rem;
-    height: 1rem;
+const IconRight = styled.span`
+  margin-left: auto;
+  flex-shrink: 0;
+  color: #707070;
+`
+
+const StyledIconButton = styled(IconButton)`
+  width: 2rem;
+  height: 2rem;
+  margin: 0 0.5rem 0 0;
+  flex-shrink: 0;
+  background-color: #707070;
+
+  &:hover {
+    filter: none;
   }
   
-  .icon-button:hover {
-    filter: none;
+  svg {
+    font-size: 1.15rem;
   }
 `
 

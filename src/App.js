@@ -1,18 +1,18 @@
 import React from "react";
-import Home from "./pages/home";
-import GlobalStyles from "./components/GlobalStyles";
 import { Switch, Route } from "react-router-dom";
-import Header from "./components/header/Header";
-import AsideMenu from "./components/AsideMenu";
+// Styles
 import styled from "styled-components";
+// Components
+import Header from "./components/header/Header";
+import SideMenu from "./components/SideMenu";
+import Home from "./pages/home";
 import SignIn from "./pages/signIn";
 import SignUp from "./pages/signUp";
 
-function App() {
+const App = () => {
     return (
         <div className="App">
             <Switch>
-
                 <Route exact path={["/sign-in", "/sign-up", "/profile"]}>
                     <Container>
                         <Route path={"/sign-in"} component={SignIn} />
@@ -20,21 +20,14 @@ function App() {
                     </Container>
                 </Route>
 
-
-
                 <div>
                     <Header />
                     <ContentWrapper>
-                        <AsideMenu />
+                        <SideMenu />
                         <Route path={['/game/:id', '/']} exact component={Home} />
-
                     </ContentWrapper>
-
                 </div>
-
-
             </Switch>
-
         </div>
     );
 }
@@ -42,6 +35,8 @@ function App() {
 const ContentWrapper = styled.div`
   display: flex;
   width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
 `
 
 const Container = styled.div`
@@ -50,9 +45,6 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
   height: 100vh;
-  /*position: fixed;
-  top: 0;
-  left: 0;*/
 
   background: linear-gradient(-45deg, rgba(238, 119, 82, 0.5), rgba(231, 60, 126, 0.5), rgba(35, 166, 213, 0.5), rgba(35, 213, 171, 0.5));
   background-size: 400% 400%;

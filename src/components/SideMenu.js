@@ -5,9 +5,9 @@ import styled from "styled-components";
 // Components
 import ThemeSwitcher from "./ThemeSwitcher";
 import LangSwitcher from "./LangSwitcher";
-import AsideLinks from "./AsideLinks";
+import SideLinks from "./SideLinks";
 
-const AsideMenu = () => {
+const SideMenu = () => {
     useEffect(() => {
         window.addEventListener('scroll', navHighlighter);
         return () => window.removeEventListener('scroll', navHighlighter);
@@ -20,22 +20,22 @@ const AsideMenu = () => {
     }
 
     return (
-        <Wrapper>
-            <AsideNav>
+        <Container>
+            <SideNav>
                 <Home onClick={scrollToTop}>Home</Home>
-                <AsideLinks/>
+                <SideLinks/>
                 <ThemeSwitcher/>
                 <LangSwitcher/>
-            </AsideNav>
-        </Wrapper>
+            </SideNav>
+        </Container>
     )
 }
 
-const Wrapper = styled.div`
+const Container = styled.div`
   padding: 0 2rem;
 `
 
-const AsideNav = styled.aside`
+const SideNav = styled.nav`
   position: sticky;
   top: 0;
   width: 10rem;
@@ -46,6 +46,7 @@ const Home = styled.h2`
   font-weight: bold;
   margin-bottom: 3rem;
   cursor: pointer;
+  color: ${props => props.theme.colors.font};
 `
 
-export default AsideMenu
+export default SideMenu

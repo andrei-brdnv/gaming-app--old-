@@ -24,11 +24,11 @@ const Loader = styled.div`
   text-align: center;
   transition: all 0.15s linear;
   cursor: pointer;
-  color: #333;
+  background-color: ${props => props.theme.colors.cardBg};
+  color: ${props => props.theme.colors.font};
   
   &:hover {
-    background-color: #B8B8B8;
-    color: white;
+    background-color: #707070;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.75);
   }
 `

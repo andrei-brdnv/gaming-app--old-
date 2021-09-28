@@ -304,7 +304,7 @@ const Detail = styled.div`
   width: 80%;
   border-radius: 1rem;
   padding: 2rem 5rem;
-  background: white;
+  background-color: ${props => props.theme.colors.cardBg};
   position: absolute;
   left: 10%;
   color: black;
@@ -483,6 +483,7 @@ const Description = styled.div`
   p {
     font-size: 1rem;
     margin-bottom: 1rem;
+    color: ${props => props.theme.colors.paragraph};
   }
 `
 

@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import { animateScroll } from "react-scroll";
+import { closeItem } from "../../actions";
 import { debounce } from "../../utils/debounce";
-import { changeInput, fetchSearched, signOut } from "../../actions";
 // Styles
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisH, faDove } from "@fortawesome/free-solid-svg-icons";
-import User from "../../images/profile-user.png";
+import { faDove } from "@fortawesome/free-solid-svg-icons";
+// Components
 import HeaderSearch from "./HeaderSearch";
 import HeaderNav from "./HeaderNav";
-import { closeItem } from "../../actions";
 
 const Header = () => {
     const dispatch = useDispatch()
@@ -36,30 +33,35 @@ const Header = () => {
     }, [prevScrollPos, visible, handleScroll]);
 
     return (
-        <>
-            <Container visible={visible}>
-                <Logo><FontAwesomeIcon icon={faDove} /></Logo>
-                <HeaderSearch />
-                <HeaderNav />
+        <Wrapper visible={visible}>
+            <Container>
+                <Logo><FontAwesomeIcon icon={faDove}/></Logo>
+                <HeaderSearch/>
+                <HeaderNav/>
             </Container>
-        </>
+        </Wrapper>
     )
 }
 
+const Wrapper = styled.div`
+  position: fixed;
+  top: ${props => props.visible ? '0' : '-6rem'};
+  width: 100%;
+  background-color: ${props => props.theme.colors.header};
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.35s linear;
+  z-index: 15;
+`
+
 const Container = styled.div`
-    position: fixed;
-    top: ${props => props.visible ? '0' : '-6rem'};
-    left: 0;
-    width: 100%;
-    height: 5rem;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
-    z-index: 15;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0 2rem;
-    transition: all 0.5s;
-    background-color: #BEBEBE;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  height: 5rem;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
 `
 
 const Logo = styled.div`

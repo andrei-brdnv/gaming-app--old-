@@ -13,11 +13,11 @@ import LoaderCard from "./LoaderCard";
 const Section = ({ gameArray, totalPages, currentPage, fetching, fetch, fetchStart, name }) => {
     const dispatch = useDispatch()
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (fetching) {
             dispatch(fetch(currentPage))
         }
-    }, [fetching])
+    }, [fetching])*/
 
     return (
         <SectionContainer id={name}>

@@ -1,14 +1,14 @@
-import React, {useRef} from "react";
-import { ReactComponent as ArrowIcon } from "../../images/right-arrow.svg";
-import HeaderNavItem from "./HeaderNavItem";
-import DropdownMenu from "./DropdownMenu";
-import styled from "styled-components";
+import React, { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { closeItem } from "../../actions";
 import useClickOutside from "../../utils/clickOutsideFunc";
-
+// Styles
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import {useDispatch} from "react-redux";
-import {closeItem, toggleOpen} from "../../actions";
+// Components
+import HeaderNavItem from "./HeaderNavItem";
+import DropdownMenu from "./DropdownMenu";
 
 const HeaderNav = () => {
     const dispatch = useDispatch()
@@ -21,7 +21,7 @@ const HeaderNav = () => {
     return (
         <List ref={dropdownButtonRef}>
             <HeaderNavItem icon={<FontAwesomeIcon icon={faCaretDown}/>}>
-                <DropdownMenu/>
+                <DropdownMenu />
             </HeaderNavItem>
         </List>
     )

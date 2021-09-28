@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-const AsideLinks = () => {
+const SideLinks = () => {
     const dispatch = useDispatch()
     const { searched, searchedName } = useSelector(store => store.games)
 
@@ -29,14 +29,14 @@ const AsideLinks = () => {
         <Links className="links">
             {searched.length || searchedName ? (
                 <Searched animate={{scale: 1}} initial={{scale: 0.5}} transition={{type: 'spring'}}>
-                    <AsideLink href="#searched" onClick={handleClick}>searched</AsideLink>
+                    <SideLink href="#searched" onClick={handleClick}>searched</SideLink>
                     <FontAwesomeIcon onClick={clearSearched} icon={faTimes} title={'Delete'}/>
                 </Searched>
             ) : null}
 
-            <AsideLink href="#upcoming" onClick={handleClick}>upcoming</AsideLink>
-            <AsideLink href="#popular" onClick={handleClick}>popular</AsideLink>
-            <AsideLink href="#new" onClick={handleClick}>new games</AsideLink>
+            <SideLink href="#upcoming" onClick={handleClick}>Upcoming</SideLink>
+            <SideLink href="#popular" onClick={handleClick}>Popular</SideLink>
+            <SideLink href="#new" onClick={handleClick}>New games</SideLink>
         </Links>
     )
 }
@@ -68,16 +68,15 @@ const Searched = styled(motion.div)`
   }
 `
 
-const AsideLink = styled.a`
+const SideLink = styled.a`
   width: 100%;
   padding: 0.5rem;
   cursor: pointer;
-  color: black;
   
   &.active {
-    transition: all .05s ease;
-    background-color: #BEBEBE;
+    transition: all .15s ease;
+    background-color: ${props => props.theme.colors.header};
   }
 `
 
-export default AsideLinks
+export default SideLinks
