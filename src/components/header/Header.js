@@ -43,7 +43,7 @@ const Header = () => {
     )
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.header`
   position: fixed;
   top: ${props => props.visible ? '0' : '-6rem'};
   width: 100%;

@@ -6,6 +6,7 @@ export default {
             input: '#E8E8E8',
             inputFont: '#282828',
             font: '#282828',
+            lightFont: '',
             paragraph: '#303030',
             cardBg: '#F8F8F8',
             loader: '',

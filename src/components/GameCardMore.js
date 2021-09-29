@@ -87,6 +87,18 @@ export const Container = styled.div`
   }
 `
 
+const InfoItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+  
+  span:first-child {
+    margin-right: 1rem;
+    color: #888888;
+  }
+`
+
 const UnderlinedLink = styled(Link)`
   text-decoration-line: underline;
   text-decoration-color: #9e9e9e;
@@ -125,17 +137,6 @@ const ShowMoreButton = styled.div`
 
   &:hover {
     filter: brightness(1.15);
-  }
-`
-
-const InfoItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 1rem;
-  
-  span:first-child {
-    margin-right: 1rem;
   }
 `
 

@@ -347,6 +347,7 @@ const Info = styled.div`
   text-transform: uppercase;
   letter-spacing: 0.05rem;
   margin-bottom: 1rem;
+  color: ${props => props.theme.colors.paragraph};
   
   div {
     display: flex;
@@ -357,7 +358,7 @@ const Info = styled.div`
   }
   
   span {
-    color: #424242;
+    
     font-size: 1.15rem;
     margin-right: 0.5rem;
   }
@@ -388,17 +389,23 @@ const GameMeta = styled.div`
 const GameMetaTitle = styled.div`
   font-weight: 300;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: #888888;
 `
 
 const GameMetaText = styled.div`
   line-height: 1.5;
-  color: #333;
+  color: ${props => props.theme.colors.font};
   
   a {
-    text-decoration: underline;
+    text-decoration-line: underline;
+    text-decoration-color: #9e9e9e;
+    text-underline-offset: 2px;
     cursor: pointer;
     word-wrap: break-word;
+  }
+
+  a:hover {
+    opacity: 0.75;
   }
 
   .metacritic {
