@@ -22,6 +22,7 @@ import {
     START,
     SUCCESS, TOGGLE_OPEN
 } from "../utils/constants";
+import store from "../store";
 
 /*
 export const showLoader = () => (dispatch) => {
@@ -39,10 +40,12 @@ export const closeItem = () => ({
     type: CLOSE
 })
 
-export const changeInput = (input) => ({
-    type: CHANGE_INPUT,
-    payload: {input},
-})
+export const changeInput = (input) => {
+    return {
+        type: CHANGE_INPUT,
+        payload: {input},
+    }
+}
 
 export const fetchUpcomingStart = () => ({
     type: FETCH_UPCOMING + START

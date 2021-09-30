@@ -5,12 +5,13 @@ import { changeInput, fetchSearched } from "../../actions";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import {CLEAR_SEARCHED} from "../../utils/constants";
 
 const HeaderSearch = () => {
     const dispatch = useDispatch()
     const [input, setInput] = useState('')
     const inputRef = useRef(null)
-    const { searched, searchedCurrentPage } = useSelector(store => store.games)
+    let { searched, searchedCurrentPage } = useSelector(store => store.games)
 
     const handleInput = (e) => {
         setInput(e.target.value)
@@ -19,7 +20,7 @@ const HeaderSearch = () => {
     const submitSearch = (e) => {
         e.preventDefault()
         dispatch(changeInput(input))
-        dispatch(fetchSearched(input, searchedCurrentPage))
+        dispatch(fetchSearched(input, searchedCurrentPage = 1))
 
         setInput('')
     }
@@ -30,15 +31,15 @@ const HeaderSearch = () => {
     }
 
     useEffect(() => {
-        if (searched.length && searchedCurrentPage < 2) {
+        if (searched.length && searchedCurrentPage <= 2) {
             const element = document.querySelector("#searched").offsetTop
-            console.log(element)
+            console.log('SCROLL TO TOP SEARCH')
 
             window.scrollTo({
                 top: element - 112
             })
         }
-    }, [searched])
+    }, [searched.length])
 
     return (
         <Form onSubmit={submitSearch}>

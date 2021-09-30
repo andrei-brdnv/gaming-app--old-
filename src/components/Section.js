@@ -13,11 +13,11 @@ import LoaderCard from "./LoaderCard";
 const Section = ({ gameArray, totalPages, currentPage, fetching, fetch, fetchStart, name }) => {
     const dispatch = useDispatch()
 
-    /*useEffect(() => {
+    useEffect(() => {
         if (fetching) {
             dispatch(fetch(currentPage))
         }
-    }, [fetching])*/
+    }, [fetching])
 
     return (
         <SectionContainer id={name}>
@@ -40,8 +40,8 @@ const Section = ({ gameArray, totalPages, currentPage, fetching, fetch, fetchSta
                         metacritic={game.metacritic}
                     />
                 ))}
-                {gameArray.length < totalPages && totalPages !== currentPage &&
-                fetching ? Array.from({length: pageSize}, (_, i) => i + 1).map((n) => <Skeleton key={n}/>) :
+                {gameArray.length < totalPages && totalPages !== currentPage && fetching ?
+                    Array.from({length: pageSize}, (_, i) => i + 1).map((n) => <Skeleton key={n}/>) :
                     <LoaderCard onClick={() => dispatch(fetchStart())} name={name}/>
                 }
             </Games>

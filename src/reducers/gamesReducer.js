@@ -120,7 +120,6 @@ const gamesReducer = (state = initState, action) => {
                 fetchingSearched: false,
                 totalPagesSearched: 0,
                 searchedCurrentPage: 1,
-
             }
         case FETCH_GAMESERIES:
             return {
