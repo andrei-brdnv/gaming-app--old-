@@ -40,7 +40,7 @@ const GlobalStyles = createGlobalStyle`
   h2 {
     font-size: 2rem;
     font-family: "Raleway", cursive;
-    font-weight: lighter;
+    font-weight: 300;
     color: ${props => props.theme.colors.font};
   }
 
@@ -72,7 +72,7 @@ const GlobalStyles = createGlobalStyle`
   button {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
-    color: #333;
+    color: ${props => props.theme.colors.font};
   }
 `
 

@@ -43,9 +43,9 @@ import FavouriteGames from "../components/FavouriteGames";
 const Home = () => {
     const dispatch = useDispatch();
 
-    const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, totalPagesSearched, fetchingSearched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage, searchedCurrentPage } = useSelector(store => store.games)
-    //const { upcoming, popular, newGames } = data.games
-    //const { totalPagesUpcoming, totalPagesPopular, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector(store => store.games)
+    //const { upcoming, totalPagesUpcoming, popular, totalPagesPopular, newGames, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, totalPagesSearched, fetchingSearched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage, searchedCurrentPage } = useSelector(store => store.games)
+    const { upcoming, popular, newGames } = data.games
+    const { totalPagesUpcoming, totalPagesPopular, totalPagesNewGames, fetchingUpcoming, fetchingPopular, fetchingNewGames, searched, firstLoading, gameSeries, loaded, upcomingCurrentPage, popularCurrentPage, newGamesCurrentPage } = useSelector(store => store.games)
     const { list, fetchFavourite } = useSelector(store => store.favourites)
     const { auth } = useSelector((store => store.firebase))
     const { signIn } = useSelector((store => store.auth))
@@ -62,7 +62,7 @@ const Home = () => {
     return (
         <GameList>
             {pathId && <GameDetail/>}
-            <SearchedGames
+            {/*<SearchedGames
                 gameArray={searched}
                 totalPages={totalPagesSearched}
                 currentPage={searchedCurrentPage}
@@ -70,7 +70,7 @@ const Home = () => {
                 fetch={fetchSearched}
                 fetchStart={fetchSearchedStart}
                 name={"searched"}
-            />
+            />*/}
 
             {auth.uid ? (
                 <FavouriteGames
@@ -113,12 +113,7 @@ const Home = () => {
 }
 
 const GameList = styled.div`
-  padding: 7rem 2rem 7rem 0;
   width: 100%;
-
-  h2 {
-    padding-bottom: 3rem;
-  }
 `
 
 export default Home

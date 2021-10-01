@@ -37,6 +37,11 @@ const ContentWrapper = styled.div`
   width: 100%;
   max-width: 1920px;
   margin: 0 auto;
+  padding: 7rem 2rem;
+
+  @media screen and (max-width: 768px) {
+    padding: 7rem 1rem;
+  }
 `
 
 const Container = styled.div`

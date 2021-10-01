@@ -4,7 +4,6 @@ import { Text } from "../context/AppLangProvider";
 import { pageSize } from "../api";
 // Styles
 import styled from "styled-components";
-import { motion } from "framer-motion";
 // Components
 import GameCard from "./GameCard";
 import Skeleton from "./Skeleton";
@@ -13,11 +12,11 @@ import LoaderCard from "./LoaderCard";
 const Section = ({ gameArray, totalPages, currentPage, fetching, fetch, fetchStart, name }) => {
     const dispatch = useDispatch()
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (fetching) {
             dispatch(fetch(currentPage))
         }
-    }, [fetching])
+    }, [fetching])*/
 
     return (
         <SectionContainer id={name}>
@@ -42,17 +41,30 @@ const Section = ({ gameArray, totalPages, currentPage, fetching, fetch, fetchSta
                 ))}
                 {gameArray.length < totalPages && totalPages !== currentPage && fetching ?
                     Array.from({length: pageSize}, (_, i) => i + 1).map((n) => <Skeleton key={n}/>) :
-                    <LoaderCard onClick={() => dispatch(fetchStart())} name={name}/>
+                    null
                 }
             </Games>
+            <LoaderCard onClick={() => dispatch(fetchStart())} name={name}/>
         </SectionContainer>
     )
 }
 
-export const SectionContainer = styled(motion.section)`
+export const SectionContainer = styled.section`
   display: flex;
   flex-direction: column;
   margin-bottom: 5rem;
+
+  h2 {
+    font-weight: 700;
+    margin-bottom: 3rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    h2 {
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+  }
 `
 
 export const Games = styled.div`
@@ -61,6 +73,12 @@ export const Games = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   grid-column-gap: 2rem;
   grid-row-gap: 4rem;
+
+  @media screen and (max-width: 768px) {
+    min-height: min-content;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    grid-row-gap: 2rem;
+  }
 `
 
 export default Section

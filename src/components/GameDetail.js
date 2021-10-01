@@ -104,7 +104,7 @@ const GameDetail = () => {
                                     </GameMeta>
                                 ) : null}
 
-                                {game.platforms ? (
+                                {game.platforms.length ? (
                                     <GameMeta>
                                         <GameMetaTitle>
                                             Platforms
@@ -123,7 +123,7 @@ const GameDetail = () => {
                                     </GameMeta>
                                 ): null}
 
-                                {game.genres ? (
+                                {game.genres.length ? (
                                     <GameMeta>
                                         <GameMetaTitle>
                                             Genre
@@ -157,7 +157,7 @@ const GameDetail = () => {
                                     </GameMeta>
                                 ) : null}
 
-                                {game.developers ? (
+                                {game.developers.length ? (
                                     <GameMeta>
                                         <GameMetaTitle>
                                             Developers
@@ -178,7 +178,7 @@ const GameDetail = () => {
                                     </GameMeta>
                                 ) : null}
 
-                                {game.publishers ? (
+                                {game.publishers.length ? (
                                     <GameMeta>
                                         <GameMetaTitle>
                                             Publishers
@@ -212,7 +212,7 @@ const GameDetail = () => {
                                     </GameMeta>
                                 ) : null}
 
-                                {game.tags ? (
+                                {game.tags.length ? (
                                     <GameMeta width="100%">
                                         <GameMetaTitle>
                                             Tags
@@ -389,7 +389,8 @@ const GameMeta = styled.div`
 const GameMetaTitle = styled.div`
   font-weight: 300;
   margin-bottom: 0.5rem;
-  color: #888888;
+  color: ${props => props.theme.colors.inputFont};
+  opacity: 0.65;
 `
 
 const GameMetaText = styled.div`

@@ -32,21 +32,22 @@ const SideMenu = () => {
 }
 
 const Container = styled.div`
-  padding: 0 2rem;
+  margin-right: 2rem;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `
 
 const SideNav = styled.nav`
   position: sticky;
-  top: 0;
+  top: 7rem;
   width: 10rem;
-  padding: 7rem 0;
 `
 
 const Home = styled.h2`
-  font-weight: bold;
   margin-bottom: 3rem;
   cursor: pointer;
-  color: ${props => props.theme.colors.font};
 `
 
 export default SideMenu
