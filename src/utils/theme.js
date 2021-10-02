@@ -6,10 +6,12 @@ export default {
             input: '#E8E8E8',
             inputFont: '#282828',
             font: '#282828',
-            lightFont: '',
             paragraph: '#303030',
             cardBg: '#F8F8F8',
             loader: '',
+            // Load more button
+            border: 'transparent',
+            bcButton: '#707070',
 
             black: 'black',
             white: 'white',
@@ -30,6 +32,9 @@ export default {
             paragraph: 'rgba(255, 224, 178, 0.65)',
             cardBg: '#181818',
             loader: '',
+            // Load more button
+            border: 'rgba(255, 224, 178, 0.15)',
+            bcButton: 'rgba(255, 224, 178, 0.15)',
 
             black: 'white',
             white: 'black',

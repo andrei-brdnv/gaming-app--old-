@@ -24,7 +24,7 @@ const HeaderNavItem = (props) => {
 }
 
 const NavItem = styled.li`
-  width: 4rem;
+  //width: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,7 +41,8 @@ export const IconButton = styled.span`
   align-items: center;
   justify-content: center;
   transition: filter .25s;
-  color: #dadce1;
+  //color: #dadce1;
+  color: #E8E8E8;
   text-decoration: none;
   cursor: pointer;
   

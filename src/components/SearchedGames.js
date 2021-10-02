@@ -45,10 +45,10 @@ const SearchedGames = ({ gameArray, totalPages, currentPage, fetching, fetch, fe
 
                         {gameArray.length < totalPages && totalPages !== currentPage && fetching ?
                             Array.from({length: pageSize}, (_, i) => i + 1).map((n) =>
-                                <Skeleton key={n} />) :
-                                <LoaderCard onClick={() => dispatch(fetchStart())} name={name} />
+                                <Skeleton key={n} />) : null
                         }
                     </Games>
+                    <LoaderCard onClick={() => dispatch(fetchStart())} name={name} />
                 </SectionContainer>
             ) : null}
         </>

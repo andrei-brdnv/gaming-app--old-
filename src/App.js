@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 // Styles
 import styled from "styled-components";
 // Components
@@ -8,8 +9,11 @@ import SideMenu from "./components/SideMenu";
 import Home from "./pages/home";
 import SignIn from "./pages/signIn";
 import SignUp from "./pages/signUp";
+import MobileHeader from "./components/header/MobileHeader";
 
 const App = () => {
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
+
     return (
         <div className="App">
             <Switch>
@@ -21,7 +25,7 @@ const App = () => {
                 </Route>
 
                 <div>
-                    <Header />
+                    {isMobile ? <MobileHeader /> : <Header />}
                     <ContentWrapper>
                         <SideMenu />
                         <Route path={['/game/:id', '/']} exact component={Home} />
@@ -37,6 +41,11 @@ const ContentWrapper = styled.div`
   width: 100%;
   max-width: 1920px;
   margin: 0 auto;
+  padding: 7rem 2rem;
+
+  @media screen and (max-width: 768px) {
+    padding: 5.5rem 1rem;
+  }
 `
 
 const Container = styled.div`

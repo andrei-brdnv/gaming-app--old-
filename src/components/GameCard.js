@@ -93,6 +93,16 @@ export const Card = styled.div`
   &:hover ${Container} {
     display: flex;
   }
+
+  @media screen and (max-width: 768px) {
+    img {
+      height: 20vh;
+    }
+    
+    h3 {
+      padding: 0.5rem;
+    }
+  }
 `
 
 const Info = styled.div`
@@ -100,6 +110,10 @@ const Info = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1rem 0 1rem;
+
+  @media screen and (max-width: 768px) {
+    padding: 0.5rem 0.5rem 0 0.5rem;
+  }
 `
 
 const Metascore = styled.div`
@@ -131,6 +145,7 @@ export const Platforms = styled.div`
   align-items: center;
   justify-content: flex-start;
   overflow: hidden;
+  margin-right: 0.5rem;
 `
 
 export const Icon = styled.div`

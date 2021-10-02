@@ -9,6 +9,7 @@ import { faDove } from "@fortawesome/free-solid-svg-icons";
 // Components
 import HeaderSearch from "./HeaderSearch";
 import HeaderNav from "./HeaderNav";
+import MobileHeader from "./MobileHeader";
 
 const Header = () => {
     const dispatch = useDispatch()
@@ -23,6 +24,8 @@ const Header = () => {
         setVisible((prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 30));
         // set state to new scroll position
         setPrevScrollPos(currentScrollPos);
+
+        console.log('Desktop handleScroll')
         {open && dispatch(closeItem())}
 
     }, 150);
@@ -34,11 +37,11 @@ const Header = () => {
 
     return (
         <Wrapper visible={visible}>
-            <Container>
+            <HeaderContainer>
                 <Logo><FontAwesomeIcon icon={faDove}/></Logo>
                 <HeaderSearch/>
                 <HeaderNav/>
-            </Container>
+            </HeaderContainer>
         </Wrapper>
     )
 }
@@ -53,15 +56,20 @@ const Wrapper = styled.header`
   z-index: 15;
 `
 
-const Container = styled.div`
+export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   padding: 0 2rem;
   height: 5rem;
   width: 100%;
   max-width: 1920px;
   margin: 0 auto;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `
 
 const Logo = styled.div`

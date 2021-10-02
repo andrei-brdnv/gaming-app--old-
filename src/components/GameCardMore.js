@@ -58,10 +58,10 @@ const GameCardMore = ({ released, genres, rating, id }) => {
                 </FavouriteButton>
             }
             <Link to={`/game/${id}`} onClick={loadDetailHandler}>
-                <ShowMoreButton>
-                    <span>Show more info</span>
+                <ShowGameDetails>
+                    <span>Show game details</span>
                     <FontAwesomeIcon icon={faChevronRight} title={'Show more'} />
-                </ShowMoreButton>
+                </ShowGameDetails>
             </Link>
         </Container>
     )
@@ -79,12 +79,6 @@ export const Container = styled.div`
   background-color: ${props => props.theme.colors.cardBg};
   padding: 1rem;
   z-index: 10;
-  
-  span {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: ${props => props.theme.colors.font};
-  }
 `
 
 const InfoItem = styled.div`
@@ -94,8 +88,17 @@ const InfoItem = styled.div`
   margin-bottom: 1rem;
   
   span:first-child {
+    font-size: 0.75rem;
+    font-weight: 400;
     margin-right: 1rem;
-    color: #888888;
+    color: ${props => props.theme.colors.inputFont};
+    opacity: 0.75;
+  }
+
+  span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: ${props => props.theme.colors.font};
   }
 `
 
@@ -111,8 +114,9 @@ const UnderlinedLink = styled(Link)`
   }
 `
 
-const ShowMoreButton = styled.div`
+const ShowGameDetails = styled.div`
   background-color: ${props => props.theme.colors.header};
+  color: ${props => props.theme.colors.inputFont};
   border-radius: 0.5rem;
   display: flex;
   justify-content: space-between;
@@ -136,7 +140,7 @@ const ShowMoreButton = styled.div`
   }
 
   &:hover {
-    filter: brightness(1.15);
+    filter: brightness(1.05);
   }
 `
 

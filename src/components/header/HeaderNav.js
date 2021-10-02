@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeItem } from "../../actions";
 import useClickOutside from "../../utils/clickOutsideFunc";
 // Styles
@@ -12,6 +12,7 @@ import DropdownMenu from "./DropdownMenu";
 
 const HeaderNav = () => {
     const dispatch = useDispatch()
+    const { open } = useSelector(store => store.ui)
     const dropdownButtonRef = useRef(null)
 
     useClickOutside(dropdownButtonRef, () => {

@@ -113,12 +113,7 @@ const Home = () => {
 }
 
 const GameList = styled.div`
-  padding: 7rem 2rem 7rem 0;
   width: 100%;
-
-  h2 {
-    padding-bottom: 3rem;
-  }
 `
 
 export default Home

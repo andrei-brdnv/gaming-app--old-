@@ -10,26 +10,33 @@ const LoaderCard = ({ onClick, name }) => {
     )
 }
 
-const Loader = styled.div`
+const Loader = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 35vh;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-  border-radius: 1rem;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-  font-size: 1.5rem;
-  text-align: center;
-  transition: all 0.15s linear;
+  width: max-content;
+  margin: 4rem auto 0 auto;
+  font-size: 1.35rem;
+  padding: 1rem 2rem;
   cursor: pointer;
-  background-color: ${props => props.theme.colors.cardBg};
+  transition: all 0.15s linear;
+  font-weight: 300;
+  outline: none;
+  border: 1px solid ${props => props.theme.colors.border};
+  border-radius: 0.25rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
   color: ${props => props.theme.colors.font};
+  background-color: ${props => props.theme.colors.cardBg};
   
   &:hover {
-    background-color: #707070;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.75);
+    background-color: ${props => props.theme.colors.bcButton};
+    color: #E8E8E8;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  @media screen and (max-width: 768px) {
+    margin: 2rem auto 0 auto;
+    width: 100%;
   }
 `
 

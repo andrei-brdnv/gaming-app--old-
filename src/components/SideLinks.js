@@ -29,7 +29,7 @@ const SideLinks = () => {
         <Links className="links">
             {searched.length || searchedName ? (
                 <Searched animate={{scale: 1}} initial={{scale: 0.5}} transition={{type: 'spring'}}>
-                    <SideLink href="#searched" onClick={handleClick}>searched</SideLink>
+                    <SideLink href="#searched" onClick={handleClick}>Searched</SideLink>
                     <FontAwesomeIcon onClick={clearSearched} icon={faTimes} title={'Delete'}/>
                 </Searched>
             ) : null}
@@ -72,10 +72,14 @@ const SideLink = styled.a`
   width: 100%;
   padding: 0.5rem;
   cursor: pointer;
+  border-radius: 0.25rem;
+  color: ${props => props.theme.colors.inputFont};
   
   &.active {
     transition: all .15s ease;
-    background-color: ${props => props.theme.colors.header};
+    //background-color: ${props => props.theme.colors.header};
+    background-color: #707070;
+    color: white;
   }
 `
 

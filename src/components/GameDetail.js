@@ -1,19 +1,21 @@
-import React, {useMemo} from "react";
-import styled from "styled-components";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
-import getStarsRating from "../utils/getStarsRating";
-import { smallImage } from "../utils/mediaResize";
 import { useHistory } from "react-router-dom";
-import { SRLWrapper } from "simple-react-lightbox";
+import getStarsRating from "../utils/getStarsRating";
 import getPlatformLogo from "../utils/getPlatformLogo";
 import moment from "moment";
-import { Link } from "react-router-dom";
-// Styles
 import metacriticBorder from "../utils/metacriticBorderStyle";
 import ReactHtmlParser from "react-html-parser";
+// Styles
+import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+// Components
+import GameMetaTest from "./GameMetaTest";
+import ImagesLightbox from "./ImagesLightbox";
 
 const GameDetail = () => {
-    const { game, screenshot, fetchingDetail, movie } = useSelector((store => store.detail))
+    const { game, screenshot, fetchingDetail, movie } = useSelector(store => store.detail)
     console.log(movie)
     const history = useHistory()
 
@@ -24,36 +26,23 @@ const GameDetail = () => {
         }
     }
 
-    const showMetacriticBorder = useMemo(() => {
-        return metacriticBorder(game.metacritic)
-    }, [game.metacritic])
-
-    const options = {
-        settings: {
-            lightboxTransitionSpeed: .1,
-            slideTransitionSpeed: .1,
-        },
-
-        buttons: {
-            iconPadding: '1rem',
-            size: '4rem',
-            showThumbnailsButton: false,
-            showAutoplayButton: false,
-            showDownloadButton: false,
-        },
-
-        caption: {
-            showCaption: false,
-        },
+    const closeDetail = (e) => {
+        e.preventDefault()
+        history.push('/')
     }
+
+
 
     return (
         <>
             {!fetchingDetail && (
                 <CardShadow className='shadow' onClick={exitDetailHandler}>
-                    {console.log('render GameDetail')}
                     <Detail>
                         <ContentLeft>
+                            <CloseDetailsButton onClick={closeDetail}>
+                                <FontAwesomeIcon icon={faArrowLeft} />
+                                <span>Go back to home page</span>
+                            </CloseDetailsButton>
                             <Info>
                                 <div>
                                     {moment(game.released).format('ll')}
@@ -80,195 +69,20 @@ const GameDetail = () => {
                                 <p>{ReactHtmlParser(game.description)}</p>
                             </Description>
                             <GameMetaContainer>
-                                {game.rating ? (
-                                    <GameMeta>
-                                        <GameMetaTitle>
-                                            Rating
-                                        </GameMetaTitle>
-                                        <GameMetaText title={`Rating: ${game.rating}`}>
-                                            {getStarsRating(game.rating)}
-                                        </GameMetaText>
-                                    </GameMeta>
-                                ) : null}
-
-                                {game.metacritic ? (
-                                    <GameMeta>
-                                        <GameMetaTitle>
-                                            Metascore
-                                        </GameMetaTitle>
-                                        <GameMetaText>
-                                            <div className={`metacritic ${showMetacriticBorder}`} title={"Metascore"}>
-                                                {game.metacritic}
-                                            </div>
-                                        </GameMetaText>
-                                    </GameMeta>
-                                ) : null}
-
-                                {game.platforms ? (
-                                    <GameMeta>
-                                        <GameMetaTitle>
-                                            Platforms
-                                        </GameMetaTitle>
-                                        <GameMetaText>
-                                            {game.platforms.map((data, i) => (
-                                                <>
-                                                    <Link key={data.platform.id}>
-                                                        {data.platform.name}
-                                                    </Link>
-                                                    {i !== game.platforms.length - 1 ? ', ' : ''}
-                                                </>
-
-                                            ))}
-                                        </GameMetaText>
-                                    </GameMeta>
-                                ): null}
-
-                                {game.genres ? (
-                                    <GameMeta>
-                                        <GameMetaTitle>
-                                            Genre
-                                        </GameMetaTitle>
-                                        <GameMetaText>
-                                            <div className="genres">
-                                                {game.genres.map((genre, i) => (
-                                                    <>
-                                                        <Link key={genre.id}>
-                                                            {genre.name}
-                                                        </Link>
-                                                        {i !== game.genres.length - 1 ? ', ' : ''}
-                                                    </>
-
-                                                ))}
-                                            </div>
-                                        </GameMetaText>
-                                    </GameMeta>
-                                ) : null}
-
-                                {game.released ? (
-                                    <GameMeta>
-                                        <GameMetaTitle>
-                                            Release Date
-                                        </GameMetaTitle>
-                                        <GameMetaText>
-                                            <div>
-                                                {moment(game.released).format('ll')}
-                                            </div>
-                                        </GameMetaText>
-                                    </GameMeta>
-                                ) : null}
-
-                                {game.developers ? (
-                                    <GameMeta>
-                                        <GameMetaTitle>
-                                            Developers
-                                        </GameMetaTitle>
-                                        <GameMetaText>
-                                            <div className="developers">
-                                                {game.developers.map((developer, i) => (
-                                                    <>
-                                                        <Link key={developer.id}>
-                                                            {developer.name}
-                                                        </Link>
-                                                        {i !== game.developers.length - 1 ? ', ' : ''}
-                                                    </>
-
-                                                ))}
-                                            </div>
-                                        </GameMetaText>
-                                    </GameMeta>
-                                ) : null}
-
-                                {game.publishers ? (
-                                    <GameMeta>
-                                        <GameMetaTitle>
-                                            Publishers
-                                        </GameMetaTitle>
-                                        <GameMetaText>
-                                            <div className="publishers">
-                                                {game.publishers.map((publisher, i) => (
-                                                    <>
-                                                        <Link key={publisher.id}>
-                                                            {publisher.name}
-                                                        </Link>
-                                                        {i !== game.publishers.length - 1 ? ', ' : ''}
-                                                    </>
-
-                                                ))}
-                                            </div>
-                                        </GameMetaText>
-                                    </GameMeta>
-                                ) : null}
-
-                                {game.esrb_rating ? (
-                                    <GameMeta>
-                                        <GameMetaTitle>
-                                            Age Rating
-                                        </GameMetaTitle>
-                                        <GameMetaText>
-                                            <div className="age-rating">
-                                                {game.esrb_rating.name}
-                                            </div>
-                                        </GameMetaText>
-                                    </GameMeta>
-                                ) : null}
-
-                                {game.tags ? (
-                                    <GameMeta width="100%">
-                                        <GameMetaTitle>
-                                            Tags
-                                        </GameMetaTitle>
-                                        <GameMetaText>
-                                            <div className="tags">
-                                                {game.tags.map((tag, i) => (
-                                                    <>
-                                                        <Link key={tag.id}>
-                                                            {tag.name}
-                                                        </Link>
-                                                        {i !== game.tags.length - 1 ? ', ' : ''}
-                                                    </>
-
-                                                ))}
-                                            </div>
-                                        </GameMetaText>
-                                    </GameMeta>
-                                ) : null}
-
-                                {game.website ? (
-                                    <GameMeta width="100%">
-                                        <GameMetaTitle>
-                                            Website
-                                        </GameMetaTitle>
-                                        <GameMetaText>
-                                            <div className="website">
-                                                <a href={`${game.website}`} target={'_blank'} rel={'noreferrer noopener'}>
-                                                    {game.website}
-                                                </a>
-
-                                            </div>
-                                        </GameMetaText>
-                                    </GameMeta>
-                                ) : null}
+                                <GameMetaTest name={"Rating"} data={game.rating} getStarsRating={getStarsRating} />
+                                <GameMetaTest name={"Metascore"} data={game.metacritic} />
+                                <GameMetaTest name={"Platforms"} array={game.platforms} />
+                                <GameMetaTest name={"Genre"} array={game.genres} />
+                                <GameMetaTest name={"Release Date"} data={game.released} />
+                                <GameMetaTest name={"Developers"} array={game.developers} />
+                                <GameMetaTest name={"Publishers"} array={game.publishers} />
+                                <GameMetaTest name={"Age Rating"} data={game.esrb_rating} width={"100%"} />
+                                <GameMetaTest name={"Tags"} array={game.tags} width={"100%"} />
+                                <GameMetaTest name={"Website"} data={game.website} width={"100%"} />
                             </GameMetaContainer>
-
-
                         </ContentLeft>
                         <ContentRight>
-                            <SRLWrapper options={options}>
-                                <Gallery>
-                                    {screenshot.results.map(screen => (
-                                        <a href={screen.image}>
-                                            <div>
-                                                <img
-                                                    src={smallImage(screen.image, 1280)}
-                                                    key={screen.id}
-                                                    alt={game.name}
-                                                    id={screen.id}
-                                                />
-                                            </div>
-                                        </a>
-                                    ))}
-                                </Gallery>
-                            </SRLWrapper>
+                            <ImagesLightbox screenshots={screenshot.results} gameName={game.name} />
                         </ContentRight>
                     </Detail>
                 </CardShadow>
@@ -315,7 +129,15 @@ const Detail = styled.div`
     width: 100%;
   }
   
-  @media (max-width: 1200px) {
+  /*@media (max-width: 1200px) {
+    flex-direction: column;
+  }*/
+
+  @media (max-width: 768px) {
+    width: 100%;
+    border-radius: 0;
+    padding: 2rem 1rem;
+    left: 0;
     flex-direction: column;
   }
 `
@@ -325,14 +147,30 @@ const Stats = styled.div`
   justify-content: space-between;
 `
 
+const CloseDetailsButton = styled.div`
+  margin-bottom: 1rem;
+  cursor: pointer;
+  
+  svg {
+    margin-right: 0.5rem;
+  }
+`
+
 const ContentLeft = styled.div`
-    
+  margin-right: 3rem;
 `
 
 const ContentRight = styled.div`
   width: 30rem;
   flex: 0 0 auto;
-  margin-left: 3rem;
+
+  @media screen and (max-width: 1280px) {
+    width: max-content;
+  }
+  
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 const Name = styled.h3`
@@ -372,116 +210,6 @@ const GameMetaContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 2rem;
-`
-
-const GameMeta = styled.div`
-  width: ${props => props.width || '50%'};
-  
-  &:not(:last-child) {
-    margin-bottom: 2.5rem;
-  }
-  
-  &:nth-child(odd) {
-    padding-right: 1rem;
-  }
-`
-
-const GameMetaTitle = styled.div`
-  font-weight: 300;
-  margin-bottom: 0.5rem;
-  color: #888888;
-`
-
-const GameMetaText = styled.div`
-  line-height: 1.5;
-  color: ${props => props.theme.colors.font};
-  
-  a {
-    text-decoration-line: underline;
-    text-decoration-color: #9e9e9e;
-    text-underline-offset: 2px;
-    cursor: pointer;
-    word-wrap: break-word;
-  }
-
-  a:hover {
-    opacity: 0.75;
-  }
-
-  .metacritic {
-    display: inline;
-    font-weight: bold;
-    opacity: 0.75;
-  }
-
-  .metacritic.green {
-    border: 2px solid green;
-    padding: 0.1rem 0.2rem;
-  }
-
-  .metacritic.yellow {
-    border: 2px solid orange;
-    padding: 0.1rem 0.2rem;
-  }
-
-  .metacritic.red {
-    border: 2px solid red;
-    padding: 0.1rem 0.2rem;
-  }
-
-  .metacritic.not-active {
-    border: none;
-  }
-  
-  svg {
-    opacity: 0.75;
-  }
-  
-`
-
-/*const Platforms = styled.div`
-  span {
-    display: block;
-    margin-bottom: 0.25rem;
-  }  
-`*/
-
-const Media = styled.div`
-  margin-top: 1rem;
-
-  img {
-    width: 100%;
-  }
-`
-
-const Gallery = styled.div`
-  /*display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  justify-content: center;
-  align-content: center;
-  grid-gap: 10px;*/
-  
-  display: flex;
-  flex-wrap: wrap;
-  
-  a {
-    display: block;
-    width: 50%;
-    padding-bottom: 0.5rem;
-  }
-  
-  div {
-    width: 14.5rem;
-    height: 10rem;
-  }
-  
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 1rem;
-  }
 `
 
 const Description = styled.div`

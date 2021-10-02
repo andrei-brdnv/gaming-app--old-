@@ -14,11 +14,11 @@ import { faCog, faArrowLeft, faChevronRight } from "@fortawesome/free-solid-svg-
 const DropdownMenu = () => {
     const [activeMenu, setActiveMenu] = useState('main');
     const [menuHeight, setMenuHeight] = useState(0);
-    const dispatch = useDispatch()
-    const { auth } = useSelector(store => store.firebase)
+    const dispatch = useDispatch();
+    const { auth } = useSelector(store => store.firebase);
     const dropdownRef = useRef(null);
     const { toggleTheme, themeMode } = useContext(AppThemeContext);
-    const { userLang, toggleLang } = useContext(AppLangContext)
+    const { userLang, toggleLang } = useContext(AppLangContext);
 
     useEffect(() => {
         setMenuHeight(dropdownRef.current?.firstChild.offsetHeight)
@@ -165,6 +165,21 @@ const Container = styled.div`
   .menu-secondary-exit-active {
     transform: translateX(110%);
     transition: all 0.5s ease;
+  }
+
+  @media screen and (max-width: 768px) {
+    position: static;
+    top: 0;
+    width: auto;
+    transform: translateX(0);
+    border: none;
+    border-radius: 0;
+    padding: 1rem;
+    font-size: 1rem;
+
+    .menu-primary-enter-active {
+      padding-right: 2rem;
+    }
   }
 `
 
