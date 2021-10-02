@@ -44,7 +44,11 @@ const ContentWrapper = styled.div`
   padding: 7rem 2rem;
 
   @media screen and (max-width: 768px) {
+<<<<<<< HEAD
     padding: 5.5rem 1rem;
+=======
+    padding: 7rem 1rem;
+>>>>>>> 634b6f14a3099b480dc340bf7aa79305c915df7c
   }
 `
 

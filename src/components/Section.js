@@ -12,11 +12,11 @@ import LoaderCard from "./LoaderCard";
 const Section = ({ gameArray, totalPages, currentPage, fetching, fetch, fetchStart, name }) => {
     const dispatch = useDispatch()
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (fetching) {
             dispatch(fetch(currentPage))
         }
-    }, [fetching])
+    }, [fetching])*/
 
     return (
         <SectionContainer id={name}>
@@ -61,7 +61,10 @@ export const SectionContainer = styled.section`
 
   @media screen and (max-width: 768px) {
     h2 {
+<<<<<<< HEAD
       font-size: 1.5rem;
+=======
+>>>>>>> 634b6f14a3099b480dc340bf7aa79305c915df7c
       font-weight: 500;
       margin-bottom: 1rem;
     }
@@ -76,7 +79,11 @@ export const Games = styled.div`
   grid-row-gap: 4rem;
 
   @media screen and (max-width: 768px) {
+<<<<<<< HEAD
     //min-height: min-content;
+=======
+    min-height: min-content;
+>>>>>>> 634b6f14a3099b480dc340bf7aa79305c915df7c
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     grid-row-gap: 2rem;
   }

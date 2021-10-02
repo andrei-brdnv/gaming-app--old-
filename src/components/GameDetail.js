@@ -77,6 +77,7 @@ const GameDetail = () => {
                                 </span>
                             </Description>
                             <GameMetaContainer>
+<<<<<<< HEAD
                                 <GameMeta name={"Rating"} data={game.rating} getStarsRating={getStarsRating} />
                                 <GameMeta name={"Metascore"} data={game.metacritic} />
                                 <GameMeta name={"Platforms"} array={game.platforms} />
@@ -87,6 +88,176 @@ const GameDetail = () => {
                                 <GameMeta name={"Age Rating"} data={game.esrb_rating} width={"100%"} />
                                 <GameMeta name={"Tags"} array={game.tags} width={"100%"} />
                                 <GameMeta name={"Website"} data={game.website} width={"100%"} />
+=======
+                                {game.rating ? (
+                                    <GameMeta>
+                                        <GameMetaTitle>
+                                            Rating
+                                        </GameMetaTitle>
+                                        <GameMetaText title={`Rating: ${game.rating}`}>
+                                            {getStarsRating(game.rating)}
+                                        </GameMetaText>
+                                    </GameMeta>
+                                ) : null}
+
+                                {game.metacritic ? (
+                                    <GameMeta>
+                                        <GameMetaTitle>
+                                            Metascore
+                                        </GameMetaTitle>
+                                        <GameMetaText>
+                                            <div className={`metacritic ${showMetacriticBorder}`} title={"Metascore"}>
+                                                {game.metacritic}
+                                            </div>
+                                        </GameMetaText>
+                                    </GameMeta>
+                                ) : null}
+
+                                {game.platforms.length ? (
+                                    <GameMeta>
+                                        <GameMetaTitle>
+                                            Platforms
+                                        </GameMetaTitle>
+                                        <GameMetaText>
+                                            {game.platforms.map((data, i) => (
+                                                <>
+                                                    <Link key={data.platform.id}>
+                                                        {data.platform.name}
+                                                    </Link>
+                                                    {i !== game.platforms.length - 1 ? ', ' : ''}
+                                                </>
+
+                                            ))}
+                                        </GameMetaText>
+                                    </GameMeta>
+                                ): null}
+
+                                {game.genres.length ? (
+                                    <GameMeta>
+                                        <GameMetaTitle>
+                                            Genre
+                                        </GameMetaTitle>
+                                        <GameMetaText>
+                                            <div className="genres">
+                                                {game.genres.map((genre, i) => (
+                                                    <>
+                                                        <Link key={genre.id}>
+                                                            {genre.name}
+                                                        </Link>
+                                                        {i !== game.genres.length - 1 ? ', ' : ''}
+                                                    </>
+
+                                                ))}
+                                            </div>
+                                        </GameMetaText>
+                                    </GameMeta>
+                                ) : null}
+
+                                {game.released ? (
+                                    <GameMeta>
+                                        <GameMetaTitle>
+                                            Release Date
+                                        </GameMetaTitle>
+                                        <GameMetaText>
+                                            <div>
+                                                {moment(game.released).format('ll')}
+                                            </div>
+                                        </GameMetaText>
+                                    </GameMeta>
+                                ) : null}
+
+                                {game.developers.length ? (
+                                    <GameMeta>
+                                        <GameMetaTitle>
+                                            Developers
+                                        </GameMetaTitle>
+                                        <GameMetaText>
+                                            <div className="developers">
+                                                {game.developers.map((developer, i) => (
+                                                    <>
+                                                        <Link key={developer.id}>
+                                                            {developer.name}
+                                                        </Link>
+                                                        {i !== game.developers.length - 1 ? ', ' : ''}
+                                                    </>
+
+                                                ))}
+                                            </div>
+                                        </GameMetaText>
+                                    </GameMeta>
+                                ) : null}
+
+                                {game.publishers.length ? (
+                                    <GameMeta>
+                                        <GameMetaTitle>
+                                            Publishers
+                                        </GameMetaTitle>
+                                        <GameMetaText>
+                                            <div className="publishers">
+                                                {game.publishers.map((publisher, i) => (
+                                                    <>
+                                                        <Link key={publisher.id}>
+                                                            {publisher.name}
+                                                        </Link>
+                                                        {i !== game.publishers.length - 1 ? ', ' : ''}
+                                                    </>
+
+                                                ))}
+                                            </div>
+                                        </GameMetaText>
+                                    </GameMeta>
+                                ) : null}
+
+                                {game.esrb_rating ? (
+                                    <GameMeta>
+                                        <GameMetaTitle>
+                                            Age Rating
+                                        </GameMetaTitle>
+                                        <GameMetaText>
+                                            <div className="age-rating">
+                                                {game.esrb_rating.name}
+                                            </div>
+                                        </GameMetaText>
+                                    </GameMeta>
+                                ) : null}
+
+                                {game.tags.length ? (
+                                    <GameMeta width="100%">
+                                        <GameMetaTitle>
+                                            Tags
+                                        </GameMetaTitle>
+                                        <GameMetaText>
+                                            <div className="tags">
+                                                {game.tags.map((tag, i) => (
+                                                    <>
+                                                        <Link key={tag.id}>
+                                                            {tag.name}
+                                                        </Link>
+                                                        {i !== game.tags.length - 1 ? ', ' : ''}
+                                                    </>
+
+                                                ))}
+                                            </div>
+                                        </GameMetaText>
+                                    </GameMeta>
+                                ) : null}
+
+                                {game.website ? (
+                                    <GameMeta width="100%">
+                                        <GameMetaTitle>
+                                            Website
+                                        </GameMetaTitle>
+                                        <GameMetaText>
+                                            <div className="website">
+                                                <a href={`${game.website}`} target={'_blank'} rel={'noreferrer noopener'}>
+                                                    {game.website}
+                                                </a>
+
+                                            </div>
+                                        </GameMetaText>
+                                    </GameMeta>
+                                ) : null}
+>>>>>>> 634b6f14a3099b480dc340bf7aa79305c915df7c
                             </GameMetaContainer>
                         </ContentLeft>
                         <ContentRight>
@@ -258,6 +429,21 @@ const Description = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
   }
+<<<<<<< HEAD
+=======
+`
+
+const GameMetaTitle = styled.div`
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+  color: ${props => props.theme.colors.inputFont};
+  opacity: 0.65;
+`
+
+const GameMetaText = styled.div`
+  line-height: 1.5;
+  color: ${props => props.theme.colors.font};
+>>>>>>> 634b6f14a3099b480dc340bf7aa79305c915df7c
   
   div p:last-child {
     margin: 0;

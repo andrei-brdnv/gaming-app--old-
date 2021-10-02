@@ -107,6 +107,16 @@ export const Card = styled.div`
       padding: 0.5rem 1rem;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    img {
+      height: 15vh;
+    }
+    
+    h3 {
+      padding: 0.5rem;
+    }
+  }
 `
 
 const Info = styled.div`
@@ -116,7 +126,11 @@ const Info = styled.div`
   padding: 1rem 1rem 0 1rem;
 
   @media screen and (max-width: 768px) {
+<<<<<<< HEAD
     padding: 0.5rem 1rem 0 1rem;
+=======
+    padding: 0.5rem 0.5rem 0 0.5rem;
+>>>>>>> 634b6f14a3099b480dc340bf7aa79305c915df7c
   }
 `
 

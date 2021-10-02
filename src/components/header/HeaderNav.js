@@ -16,7 +16,7 @@ const HeaderNav = () => {
     const dropdownButtonRef = useRef(null)
 
     useClickOutside(dropdownButtonRef, () => {
-        dispatch(closeItem())
+        {open && dispatch(closeItem())}
     })
 
     return (
