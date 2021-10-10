@@ -26,6 +26,7 @@ const HeaderSearch = () => {
         dispatch(fetchSearched(input, searchedCurrentPage = 1))
 
         setInput('')
+        inputRef.current.blur()
     }
 
     const clearInput = () => {
@@ -57,7 +58,7 @@ const HeaderSearch = () => {
                 focus={focus}
             />
             {input ? <FontAwesomeIcon icon={faTimes} onClick={clearInput}/> : null}
-            {focus ? <CancelButton animate={{x: 0}} initial={{x: 75}} transition={{duration: 0.125}}>Cancel</CancelButton> : null}
+            <CancelButton focus={focus} /*animate={{x: 0}} initial={{x: 75}} transition={{duration: 0.125}}*/>Cancel</CancelButton>
         </Form>
     )
 }
@@ -75,6 +76,9 @@ const Form = styled.form`
     position: absolute;
     right: 1rem;
     cursor: pointer;
+    padding: 0.25rem;
+    font-size: 2rem;
+    color: #707070;
   }
 
   svg:hover {
@@ -98,12 +102,13 @@ const CancelButton = styled(motion.span)`
   position: absolute;
   //width: 2rem;
   right: 0;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  color: ${props => props.theme.colors.inputFont};
   //margin-left: 1rem;
 
   @media screen and (max-width: 768px) {
     display: inline;
-    //transform: ${props => props.focus ? 'translateX(0)' : 'translateX(5rem)'};
+    transform: ${props => props.focus ? 'translateX(0)' : 'translateX(4rem)'};
     transition: all 0.25s ease-in;
   }
 `
@@ -137,8 +142,6 @@ const Input = styled(motion.input)`
 
   @media screen and (max-width: 768px) {
     padding: 0.5rem 2rem 0.5rem 1rem;
-    line-height: 0.8rem;
-    font-size: 0.8rem;
     width: ${props => props.focus ? 'calc(100% - 3.5rem)' : '100%'};
     //margin-right: ${props => props.focus ? '1rem' : '0'};
     transition: width .25s ease-in;

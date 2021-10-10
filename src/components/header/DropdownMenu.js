@@ -209,9 +209,11 @@ const MenuItem = styled.div`
     color: #303030;
     text-decoration: none;
   }
-  
-  &:hover {
-    background-color: #BEBEBE;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: #BEBEBE;
+    }
   }
 `
 

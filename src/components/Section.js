@@ -76,7 +76,7 @@ export const Games = styled.div`
   grid-row-gap: 4rem;
 
   @media screen and (max-width: 768px) {
-    min-height: min-content;
+    //min-height: min-content;
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     grid-row-gap: 2rem;
   }

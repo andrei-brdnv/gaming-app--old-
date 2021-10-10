@@ -49,10 +49,10 @@ const Header = () => {
 const Wrapper = styled.header`
   position: fixed;
   top: ${props => props.visible ? '0' : '-6rem'};
-  width: 100%;
+  width: 100vw;
   background-color: ${props => props.theme.colors.header};
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
-  transition: all 0.35s linear;
+  transition: top 0.35s linear;
   z-index: 15;
 `
 

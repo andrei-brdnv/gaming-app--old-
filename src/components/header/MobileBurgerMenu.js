@@ -102,6 +102,7 @@ const BurgerMenuHidden = styled.div`
   overflow: hidden;
   width: 100%;
   height: 100%;
+  overscroll-behavior-y: none;
 `
 
 export default MobileBurgerMenu

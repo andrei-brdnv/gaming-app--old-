@@ -130,7 +130,7 @@ const ShowGameDetails = styled.div`
     display: block;
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     transition: all .15s ease;
   }
   

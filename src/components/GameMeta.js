@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import moment from "moment";
 import metacriticBorder from "../utils/metacriticBorderStyle";
 
-const GameMetaTest = ({ array, name, width, data, getStarsRating }) => {
+const GameMeta = ({ array, name, width, data, getStarsRating }) => {
     const showMetacriticBorder = useMemo(() => {
         if (name === "Metascore") {
             return metacriticBorder(data)
@@ -14,7 +14,7 @@ const GameMetaTest = ({ array, name, width, data, getStarsRating }) => {
     return (
         <>
             {array && array.length || data ? (
-                <Container>
+                <Container width={width}>
                     <GameMetaTitle>
                         {name}
                     </GameMetaTitle>
@@ -130,4 +130,4 @@ const GameMetaText = styled.div`
   
 `
 
-export default GameMetaTest
+export default GameMeta

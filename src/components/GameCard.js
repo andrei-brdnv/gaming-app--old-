@@ -15,10 +15,10 @@ const GameCard = ({ name, released, image, id, platforms, genres, rating, metacr
 
     if (history.location.pathname === '/') {
         document.body.style.overflow = 'auto'
-        document.body.style.marginRight = '0'
+        //document.body.style.marginRight = '0'
     } else {
         document.body.style.overflow = 'hidden'
-        document.body.style.marginRight = '8px'
+        //document.body.style.marginRight = '8px'
     }
 
     const showPlatformLogo = useMemo(() => {
@@ -81,26 +81,30 @@ export const Card = styled.div`
     opacity: 0.75;
     transition: all 0.15s linear;
   }
-  
-  &:hover {
-    border-radius: 1rem 1rem 0 0;
-    box-shadow: none;
-    transform: scale(1.02);
-    transition: all .2s linear;
-    z-index: 10;
-  }
-  
-  &:hover ${Container} {
-    display: flex;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-radius: 1rem 1rem 0 0;
+      box-shadow: none;
+      transform: scale(1.02);
+      transition: all .2s linear;
+      z-index: 10;
+    }
+
+    &:hover ${Container} {
+      display: flex;
+    }
   }
 
   @media screen and (max-width: 768px) {
+    min-height: 9rem;
+    
     img {
       height: 20vh;
     }
     
     h3 {
-      padding: 0.5rem;
+      padding: 0.5rem 1rem;
     }
   }
 `
@@ -112,7 +116,7 @@ const Info = styled.div`
   padding: 1rem 1rem 0 1rem;
 
   @media screen and (max-width: 768px) {
-    padding: 0.5rem 0.5rem 0 0.5rem;
+    padding: 0.5rem 1rem 0 1rem;
   }
 `
 

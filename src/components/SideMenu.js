@@ -24,8 +24,8 @@ const SideMenu = () => {
             <SideNav>
                 <Home onClick={scrollToTop}>Home</Home>
                 <SideLinks/>
-                <ThemeSwitcher/>
-                <LangSwitcher/>
+                {/*<ThemeSwitcher/>
+                <LangSwitcher/>*/}
             </SideNav>
         </Container>
     )

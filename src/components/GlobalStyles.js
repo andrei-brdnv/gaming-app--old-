@@ -20,6 +20,8 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html {
+    width: 100vw;
+    
     &::-webkit-scrollbar {
       width: 8px;
     }
@@ -29,6 +31,15 @@ const GlobalStyles = createGlobalStyle`
     }
     
     scroll-behavior: smooth;
+
+    @media screen and (max-width: 768px) {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
 
   body {

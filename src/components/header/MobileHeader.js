@@ -57,7 +57,7 @@ const MobileHeader = () => {
 
 const Wrapper = styled.header`
   position: fixed;
-  top: ${props => props.visible ? '0' : '-6rem'};
+  top: 0;
   width: 100%;
   background-color: ${props => props.theme.colors.header};
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
@@ -104,6 +104,7 @@ const SearchLogo = styled.div`
     width: 2rem;
     height: 2rem;
     fill: #707070;
+    -webkit-tap-highlight-color: transparent;
   }
 `
 

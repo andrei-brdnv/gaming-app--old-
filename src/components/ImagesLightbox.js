@@ -84,6 +84,7 @@ const Gallery = styled.div`
     
     div {
       width: 100%;
+      height: 100%;
     }
   }
 `

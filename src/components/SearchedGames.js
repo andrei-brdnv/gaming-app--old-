@@ -3,11 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Text } from "../context/AppLangProvider";
 import { pageSize } from "../api";
 // Styles
+import styled from "styled-components";
 import { SectionContainer, Games } from "./Section";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 // Components
 import GameCard from "./GameCard";
 import Skeleton from "./Skeleton";
 import LoaderCard from "./LoaderCard";
+import {CLEAR_SEARCHED} from "../utils/constants";
 
 const SearchedGames = ({ gameArray, totalPages, currentPage, fetching, fetch, fetchStart, name }) => {
     const dispatch = useDispatch()
@@ -19,11 +23,18 @@ const SearchedGames = ({ gameArray, totalPages, currentPage, fetching, fetch, fe
         }
     }, [fetching])
 
+    const clearSearched = () => {
+        dispatch({type: CLEAR_SEARCHED})
+    }
+
     return (
         <>
             {gameArray.length || searchedName ? (
                 <SectionContainer id={name}>
-                    <h2><Text tid={`${name} games`}/></h2>
+                    <Title>
+                        <Text tid={`${name} games`}/>
+                        <FontAwesomeIcon onClick={clearSearched} icon={faTimesCircle} />
+                    </Title>
                     <Games>
                         {!gameArray.length && Array.from({length: pageSize}, (_, i) => i + 1).map((n) =>
                             <Skeleton key={n}/>
@@ -54,5 +65,12 @@ const SearchedGames = ({ gameArray, totalPages, currentPage, fetching, fetch, fe
         </>
     )
 }
+
+const Title = styled.h2`
+  svg {
+    transform: translate(0.5rem, 0.15rem);
+    color: #707070;
+  }
+`
 
 export default SearchedGames
